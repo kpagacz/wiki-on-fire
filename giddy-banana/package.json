@@ -18,5 +18,6 @@
   "homepage": "https://github.com/kpagacz/wiki-on-fire#readme",
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "type": "module"
 }
