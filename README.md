@@ -11,7 +11,7 @@ WikiOnFire is a web application for keeping up to date with the hottest Wikipedi
 | Directory    | Project description |
 | ------------ | ------------------: |
 | giddy-banana | The express.js backend |
-| frontend     | The Vue.js fronten |
+| frontend     | The Vue.js frontend |
 
 ## Team members
 Kacper Fryczak @KacperFryczak
