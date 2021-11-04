@@ -8,3 +8,4 @@
 | Directory    | Project description |
 | ------------ | ------------------: |
 | giddy-banana | The express.js backend |
+| frontend | The Vue.js frontend |
