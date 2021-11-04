@@ -1,0 +1,13 @@
+services:
+  db:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: wof
+      MYSQL_PASSWORD: wof
+      MYSQL_ROOT_PASSWORD: wof
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
