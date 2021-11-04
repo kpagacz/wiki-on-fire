@@ -2,8 +2,9 @@
   "name": "giddy-banana",
   "version": "0.1.0",
   "description": "The backend service of WikiOnFire",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
+    "dev": "nodemon --exec babel-node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,7 +18,12 @@
   },
   "homepage": "https://github.com/kpagacz/wiki-on-fire#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "@babel/runtime": "^7.16.0",
+    "core-js": "^3.19.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mysql2": "^2.3.2",
+    "sequelize": "^6.9.0"
   },
   "type": "module"
 }
