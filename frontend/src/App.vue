@@ -3,12 +3,15 @@
     <div class="main-wrapper">
       <router-view msg="This is a basic frontend"></router-view>
     </div>
+    <wof-footer/>
   </main>
 </template>
 
 <script>
+import WofFooter from './components/WofFooter.vue';
 
 export default {
+  components: { WofFooter },
   name: "App",
 };
 </script>
