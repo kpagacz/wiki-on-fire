@@ -3,6 +3,7 @@ import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router';
 
 import WofHelloWorld from './components/WofHelloWorld.vue';
+import WofButton from './components/WofButton.vue';
 const router = createRouter({
     history: createWebHistory(),
     routes: [
@@ -11,5 +12,6 @@ const router = createRouter({
 });
 
 const app = createApp(App);
+app.component("WofButton", WofButton);
 app.use(router);
 app.mount('#app')
