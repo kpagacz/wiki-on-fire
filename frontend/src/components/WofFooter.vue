@@ -33,7 +33,7 @@ footer {
     .footer__authors {
         display: flex;
         flex-direction: column;
-        color: @white;
+        color: @primary-bright-text-color;
 
         h4 {
             margin: 0px;
