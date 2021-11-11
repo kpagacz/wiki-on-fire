@@ -1,6 +1,5 @@
 <template>
   <main>
-    <router-view msg="This is a basic frontend"></router-view>
     <div class="main-wrapper">
       <router-view msg="This is a basic frontend"></router-view>
     </div>
