@@ -1,7 +1,6 @@
 <template>
   <main>
     <router-view msg="This is a basic frontend"></router-view>
-    <wof-button>A button</wof-button>
     <div class="main-wrapper">
       <router-view msg="This is a basic frontend"></router-view>
     </div>
@@ -11,16 +10,18 @@
 
 <script>
 import WofFooter from './components/WofFooter.vue';
-import WofButton from './components/WofButton.vue';
 
 export default {
-  components: { WofFooter, WofButton},
+  components: { WofFooter },
   name: "App",
 };
 </script>
 
 <style lang="less">
 @import './components/common.less';
+html {
+  font-size: 16px;
+}
 body {
   margin: 0;
   box-sizing: border-box;
