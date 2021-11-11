@@ -1,7 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import WofCard from './components/WofCard.vue';
 import { createRouter, createWebHistory } from 'vue-router';
 
+import WofIcon from './components/WofIcon.vue';
 import WofHelloWorld from './components/WofHelloWorld.vue';
 import WofButton from './components/WofButton.vue';
 const router = createRouter({
@@ -14,4 +16,6 @@ const router = createRouter({
 const app = createApp(App);
 app.component("WofButton", WofButton);
 app.use(router);
+app.component('WofCard', WofCard);
+app.component('WofIcon', WofIcon);
 app.mount('#app')
