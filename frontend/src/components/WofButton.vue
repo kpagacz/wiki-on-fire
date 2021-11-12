@@ -1,6 +1,6 @@
 <template>
   <button :class="`button button--${type}`" :style="`font-size: ${this.size}rem;`" @click="onClick()">
-    <wof-icon v-if="this.icon" :icon="this.icon" :size="this.size" class="button--icon" />
+    <wof-icon v-if="this.icon" :icon="this.icon" :size="this.size" class="button__icon" />
     <slot/>
   </button>
 </template>
