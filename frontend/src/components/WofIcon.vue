@@ -1,6 +1,6 @@
 <template>
     <div>
-        <i :class="icon" :style="`font-size: ${size}px`"></i>
+        <i :class="icon" :style="`font-size: ${size}rem`"></i>
     </div>
 </template>
 
@@ -14,7 +14,7 @@ export default {
         },
         size: {
             type: Number,
-            default: 16
+            default: 1
         }
     }
 }
