@@ -1,6 +1,6 @@
 <template>
   <button :class="`button button--${type}`" :style="`font-size: ${this.size}rem;`" @click="onClick()">
-    <wof-icon v-if="this.icon" :icon="this.icon" :size="this.size" :class="`computed()`" />
+    <wof-icon v-if="this.icon" :icon="this.icon" :size="this.size" :class="this.getIconCss" />
     <slot/>
   </button>
 </template>
@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     getIconCss: function() {
-      return this.icon ? "button__icon" : "";
+      return this.$slots.default ? "button__icon" : "";
     }
   }
 }
