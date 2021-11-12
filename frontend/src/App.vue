@@ -2,6 +2,7 @@
   <main>
     <div class="main-wrapper">
       <router-view msg="This is a basic frontend"></router-view>
+      <wof-button type="warning" icon="wof-like"> </wof-button>
     </div>
     <wof-footer/>
   </main>
@@ -9,9 +10,9 @@
 
 <script>
 import WofFooter from './components/WofFooter.vue';
-
+import WofButton from "./components/WofButton.vue";
 export default {
-  components: { WofFooter },
+  components: { WofFooter, WofButton },
   name: "App",
 };
 </script>

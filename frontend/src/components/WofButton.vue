@@ -1,6 +1,6 @@
 <template>
   <button :class="`button button--${type}`" :style="`font-size: ${this.size}rem;`" @click="onClick()">
-    <wof-icon v-if="this.icon" :icon="this.icon" :size="this.size" class="button__icon" />
+    <wof-icon v-if="this.icon" :icon="this.icon" :size="this.size" :class="`computed()`" />
     <slot/>
   </button>
 </template>
@@ -30,6 +30,11 @@ export default {
   methods: {
     onClick: function(event) {
       this.$emit("click", event)
+    }
+  },
+  computed: {
+    getIconCss: function() {
+      return this.icon ? "button__icon" : "";
     }
   }
 }
