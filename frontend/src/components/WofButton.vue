@@ -12,7 +12,6 @@ export default {
   props: {
     type: {
       type: String,
-      required: true,
       default: "default",
       validator(value) {
         return ["default", "positive", "warning", "error", "disabled"].includes(value)
