@@ -1,6 +1,6 @@
 <template>
-  <button :class="`button button--${type}`" @click="onClick()">
-    <div v-if="this.$slots.icon" :class="this.$slots.default ? 'button--icon' : ''"><slot name="icon"/></div>
+  <button :class="`button button--${type}`" :style="`font-size: ${this.size}rem;`" @click="onClick()">
+    <wof-icon v-if="this.icon" :icon="this.icon" :size="this.size" class="button--icon" />
     <slot/>
   </button>
 </template>
@@ -8,14 +8,24 @@
 <script>
 export default {
   name: "WofButton",
+
   props: {
     type: {
       type: String,
       required: true,
-      default: "accent",
+      default: "default",
       validator(value) {
-        return ["accent", "positive", "warning", "error", "disabled"].includes(value)
+        return ["default", "positive", "warning", "error", "disabled"].includes(value)
       }
+    },
+    size: {
+      type: Number,
+      required: false,
+      default: 1
+    },
+    icon: {
+      type: String,
+      required: false
     }
   },
   methods: {
@@ -35,55 +45,50 @@ export default {
   text-align: center;
   align-items: center;
   display: flex;
-  border-radius: 1.25rem;
-  padding-top: 0.563rem;
-  padding-bottom: 0.563rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
   color: @primary-bright-text-color;
-}
-.button:active {
-  color: @primary-dark-text-color;
-}
+  font-weight: 600;
+  &:active {
+    color: @primary-dark-text-color;
+  }
+  &--icon {
+    margin-right: 0.7rem;
+  }
+  &--default {
+    background-color: @primary-accent-color;
+    &:hover {
+      background-color: @secondary-accent-color;
+    }
+  }
 
-.button--icon {
-  margin-right: 0.7rem;
-}
+  &--positive {
+    background-color: @primary-positive-color;
+    &:hover {
+      background-color: @secondary-positive-color;
+    }
+  }
 
-.button--accent {
-  background-color: @primary-accent-color;
-}
-.button--accent:hover {
-  background-color: @secondary-accent-color;
-}
+  &--warning {
+    background-color: @primary-warning-color;
+    &:hover {
+      background-color: @secondary-warning-color;
+    }
+  }
 
-.button--positive {
-  background-color: @primary-positive-color;
-}
-.button--positive:hover {
-  background-color: @secondary-positive-color;
-}
+  &--error {
+    background-color: @primary-error-color;
+    &:hover {
+      background-color: @secondary-error-color;
+    }
+  }
 
-.button--warning {
-  background-color: @primary-warning-color;
+  &--disabled {
+    background-color: @primary-neutral-color;
+    color: @secondary-neutral-color;
+    &:active {
+      color: @secondary-neutral-color;
+    }
+  }
 }
-.button--warning:hover {
-  background-color: @secondary-warning-color;
-}
-
-.button--error {
-  background-color: @primary-error-color;
-}
-.button--error:hover {
-  background-color: @secondary-error-color;
-}
-
-.button--disabled {
-  background-color: @primary-neutral-color;
-  color: @secondary-neutral-color;
-}
-.button--disabled:active {
-  color: @secondary-neutral-color;
-}
-
 </style>
