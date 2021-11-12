@@ -51,8 +51,8 @@ export default {
   &:active {
     color: @primary-dark-text-color;
   }
-  &--icon {
-    margin-right: 0.7rem;
+  &__icon {
+    margin-right: 0.5rem;
   }
   &--default {
     background-color: @primary-accent-color;
