@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { usersRouter } from "./users";
+import usersRouter from "./usersRoute.js";
 
 // define /api/* routers
 const mainRouter = Router();
-mainRouter.use("/users", usersRouter);
+mainRouter.use(usersRouter);
 
 // define /api router
 const apiRouter = Router();
-router.use("/api", mainRouter);
+apiRouter.use("/api", mainRouter);
 
 export default apiRouter;
