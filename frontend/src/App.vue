@@ -1,5 +1,6 @@
 <template>
   <main>
+    <wof-header/>
     <div class="main-wrapper">
       <router-view msg="This is a basic frontend"></router-view>
     </div>
@@ -9,9 +10,10 @@
 
 <script>
 import WofFooter from './components/WofFooter.vue';
+import WofHeader from './components/WofHeader.vue';
 
 export default {
-  components: { WofFooter },
+  components: { WofFooter, WofHeader },
   name: "App",
 };
 </script>
