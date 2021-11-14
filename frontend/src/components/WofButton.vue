@@ -14,7 +14,7 @@ export default {
       type: String,
       default: "default",
       validator(value) {
-        return ["default", "positive", "warning", "error", "disabled"].includes(value)
+        return ["default", "positive", "warning", "error", "disabled", "outline"].includes(value)
       }
     },
     size: {
@@ -44,7 +44,7 @@ export default {
 @import './common.less';
 
 .button {
-  border: none;
+  border: 1px solid transparent;
   height: min-content;
   text-align: center;
   align-items: center;
@@ -61,29 +61,43 @@ export default {
   }
   &--default {
     background-color: @primary-accent-color;
-    &:hover {
+    &:hover, &:focus-visible {
       background-color: @secondary-accent-color;
     }
   }
 
   &--positive {
     background-color: @primary-positive-color;
-    &:hover {
+    &:hover, &:focus-visible {
       background-color: @secondary-positive-color;
     }
   }
 
   &--warning {
     background-color: @primary-warning-color;
-    &:hover {
+    &:hover, &:focus-visible {
       background-color: @secondary-warning-color;
     }
   }
 
   &--error {
     background-color: @primary-error-color;
-    &:hover {
+    &:hover, &:focus-visible {
       background-color: @secondary-error-color;
+    }
+  }
+
+  &--outline {
+    color: black;
+    background-color: transparent;
+    border-color: @primary-dark-text-color;
+    &:hover, &:focus-visible {
+      background-color: fade(@primary-neutral-color, 30);
+      border-color: transparent;
+    }
+    &:active {
+      border-color: @primary-dark-text-color;
+      padding: 0.5rem 1rem;
     }
   }
 
