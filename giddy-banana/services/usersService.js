@@ -38,10 +38,27 @@ async function postUser(
 
 async function deleteUser(username) {
   try {
-    res.status(200).send();
+    await db.User.destroy({
+      where: { username: username },
+    });
   } catch (e) {
     throw new Error(e.message);
   }
 }
 
-export { getUser, postUser };
+async function updateUser(username, updatedFields) {
+  try {
+    const modelKeys = Object.keys(db.User.rawAttributes);
+    const subsetFields = modelKeys
+      .filter((key) => key in updatedFields)
+      .reduce((subset, key) => {
+        subset[key] = updatedFields[key];
+        return subset;
+      }, {});
+    await db.User.update(subsetFields, { where: { username: username } });
+  } catch (e) {
+    throw new Error(e.message);
+  }
+}
+
+export { getUser, postUser, deleteUser, updateUser };

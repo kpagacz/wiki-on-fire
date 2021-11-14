@@ -1,4 +1,4 @@
-import { getUser, postUser, deleteUser } from "../services/usersService.js";
+import { getUser, postUser, deleteUser, updateUser } from "../services/usersService.js";
 
 async function getUsers(req, res) {
   const username = req.params.username ? req.params.username : next();
@@ -36,4 +36,14 @@ async function deleteUsers(req, res) {
   }
 }
 
-export { getUsers, postUsers, deleteUsers };
+async function updateUsers(req, res) {
+  try {
+    const username = req.params.username;
+    await updateUser(username, req.body);
+    res.status(200).send();
+  } catch (e) {
+    res.status(400).send({ message: e.message });
+  }
+}
+
+export { getUsers, postUsers, deleteUsers, updateUsers };
