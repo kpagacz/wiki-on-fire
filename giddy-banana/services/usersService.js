@@ -1,4 +1,5 @@
 import db from "../models/index.cjs";
+import { NotFoundError } from "./serviceErrors.js";
 
 async function getUser(_username) {
   try {
@@ -48,6 +49,8 @@ async function deleteUser(username) {
 
 async function updateUser(username, updatedFields) {
   try {
+    if ((await db.User.findOne({ where: { username: username } })) === null)
+      throw new NotFoundError("Username not found");
     const modelKeys = Object.keys(db.User.rawAttributes);
     const subsetFields = modelKeys
       .filter((key) => key in updatedFields)
@@ -57,7 +60,7 @@ async function updateUser(username, updatedFields) {
       }, {});
     await db.User.update(subsetFields, { where: { username: username } });
   } catch (e) {
-    throw new Error(e.message);
+    throw e;
   }
 }
 

@@ -1,4 +1,10 @@
-import { getUser, postUser, deleteUser, updateUser } from "../services/usersService.js";
+import {
+  getUser,
+  postUser,
+  deleteUser,
+  updateUser,
+} from "../services/usersService.js";
+import { NotFoundError } from "../services/serviceErrors.js";
 
 async function getUsers(req, res) {
   const username = req.params.username ? req.params.username : next();
@@ -42,7 +48,12 @@ async function updateUsers(req, res) {
     await updateUser(username, req.body);
     res.status(200).send();
   } catch (e) {
-    res.status(400).send({ message: e.message });
+    if (e instanceof NotFoundError) {
+      res.status(404);
+    } else {
+      res.status(400);
+    }
+    res.send({ message: e.message });
   }
 }
 
