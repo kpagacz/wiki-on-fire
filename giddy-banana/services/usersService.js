@@ -38,7 +38,7 @@ async function postUser(
 
 async function deleteUser(username) {
   try(
-    await db.User;
+    res.status(200).send();
   ) catch (e) {
     throw new Error(e.message);
   }
