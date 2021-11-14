@@ -8,6 +8,7 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+	//this.belongsToMany(models.article, { through: 'Like_it' });
     }
   };
   User.init({
