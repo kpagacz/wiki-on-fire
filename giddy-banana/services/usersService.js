@@ -37,9 +37,9 @@ async function postUser(
 }
 
 async function deleteUser(username) {
-  try(
+  try {
     res.status(200).send();
-  ) catch (e) {
+  } catch (e) {
     throw new Error(e.message);
   }
 }
