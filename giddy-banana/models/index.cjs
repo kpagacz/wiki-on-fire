@@ -35,5 +35,12 @@ db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
 db.User = require("./userModel.cjs")(sequelize, Sequelize.DataTypes);
+db.Article = require("./article.cjs")(sequelize, Sequelize.DataTypes);
+
+/*const Like_it = require("./Like_it.cjs");
+Like_it(db);*/
+
+db.User.associate(db);
+db.Article.associate(db);
 
 module.exports = db;

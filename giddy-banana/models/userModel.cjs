@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.User.belongsToMany(models.Article, { through: "Like_it" });
     }
   };
   User.init({
@@ -36,5 +37,8 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
+  //User.belongsToMany(this.Article, { through: "Like_it" });
   return User;
 };
+
+//User.belongsToMany(Article, { through: "Like_it" });
