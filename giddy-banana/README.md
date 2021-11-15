@@ -27,3 +27,6 @@ We follow the MCVS pattern, where our view is covered by the Vue.js frontend. Th
 
 ### API responses
 giddy-banana accepts and responds in JSON.
+
+### Adding tables to the database
+wiki-on-fire uses `sequelize` to interact with a MySQL database. In order to add or modify a table, you need to create or modify a model file and add a respective migration file. For the quickstart guide follow [this](https://sequelize.org/master/manual/migrations.html).
