@@ -15,10 +15,16 @@ WikiOnFire is a web application for keeping up to date with the hottest Wikipedi
 | giddy-banana | The express.js backend |
 | nginx-config | The nginx configuration |
 | frontend     | The Vue.js frontend |
+| docker-compose-environments | The collection of docker-compose environments for development |
+
 
 ## Team members
 Kacper Fryczak @KacperFryczak
+
 Karol Kozłowski @karolkozlo
+
 Konrad Pagacz @kpagacz
+
 Robert Szczurkowski @robert10290
+
 Magdalena Wiechecka @mwiech99
