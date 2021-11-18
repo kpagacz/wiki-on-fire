@@ -1,6 +1,14 @@
 import db from "../models/index.cjs";
 import { NotFoundError } from "./serviceErrors.js";
 
+const account_status_mapping = {
+  "active" : 1
+}
+
+const account_type_mapping = {
+  "user" : 1
+}
+
 async function getUser(_username) {
   try {
     const found = await db.User.findOne({
@@ -16,21 +24,18 @@ async function getUser(_username) {
 }
 
 async function postUser(
-  username,
-  password,
-  email,
-  user_avatar,
-  account_type,
-  account_status
+  _username,
+  _password,
+  _email,
+  _user_avatar
 ) {
   try {
     await db.User.create({
-      username,
-      password,
-      email,
-      user_avatar,
-      account_type,
-      account_status,
+      username: _username,
+      password: _password,
+      email: _email,
+      account_type: account_type_mapping["user"],
+      account_status: account_status_mapping["active"]
     });
   } catch (e) {
     throw new Error(e.message);
