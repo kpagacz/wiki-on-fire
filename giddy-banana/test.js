@@ -16,7 +16,7 @@ result2.addArticle(result3);
 console.log(result2);*/
 
 const result = await db.User.findOne({
-  where: { username: 'first_user' },
+  where: { username: 'Liza' },
   include: db.Article
 });
 console.log(result);
