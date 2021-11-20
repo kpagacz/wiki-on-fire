@@ -23,9 +23,7 @@ async function postUsers(req, res) {
       req.body.username,
       req.body.password,
       req.body.email,
-      req.body._user_avatar,
-      req.body.account_type,
-      req.body.account_status
+      req.body.user_avatar
     );
     res.status(201).json(createdUser);
   } catch (e) {
