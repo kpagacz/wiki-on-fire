@@ -1,7 +1,7 @@
 name: Build and Publish Development Environment
 
 on:
-  workflow-dispatch
+  workflow-dispatch:
   push:
     paths:
       - 'docker-compose-environments'
