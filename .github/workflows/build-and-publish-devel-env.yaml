@@ -1,0 +1,22 @@
+name: Build and Publish Development Environment
+
+on:
+  workflow-dispatch
+  push:
+    paths:
+      - 'docker-compose-environments'
+
+jobs:
+  nginx:
+    name: Build and publish nginx container
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and publish nginx container
+        uses: VaultVulp/gp-docker-action@1.2.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          image-name: nginx-devel
+          image-tag: latest
+          dockerfile: ./devel-nginx.Dockerfile
+          build-context: ./docker-compose-environments
