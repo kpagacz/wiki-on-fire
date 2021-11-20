@@ -103,5 +103,5 @@ dist
 # TernJS port file
 .tern-port
 
-# Weird history file
-.history/
+# Visual Studio Code files
+*.vscode*

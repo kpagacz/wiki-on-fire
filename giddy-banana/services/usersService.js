@@ -1,6 +1,22 @@
 import db from "../models/index.cjs";
 import { NotFoundError } from "./serviceErrors.js";
 
+const accountStatusMapping = {
+  "active" : 1
+}
+
+const accountTypeMapping = {
+  "user" : 1
+}
+
+/**
+ * Returns information about a user.
+ *
+ * @param {string} _username the username
+ * @returns JSON with the requested user's data
+ * @throws {Error} If the user couldn't be found or the database
+ * connection was refused.
+ */
 async function getUser(_username) {
   try {
     const found = await db.User.findOne({
@@ -16,21 +32,18 @@ async function getUser(_username) {
 }
 
 async function postUser(
-  username,
-  password,
-  email,
-  user_avatar,
-  account_type,
-  account_status
+  _username,
+  _password,
+  _email,
+  _user_avatar
 ) {
   try {
     await db.User.create({
-      username,
-      password,
-      email,
-      user_avatar,
-      account_type,
-      account_status,
+      username: _username,
+      password: _password,
+      email: _email,
+      account_type: accountTypeMapping["user"],
+      account_status: accountStatusMapping["active"]
     });
   } catch (e) {
     throw new Error(e.message);
