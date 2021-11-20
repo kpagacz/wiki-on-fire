@@ -10,6 +10,8 @@ const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', component: WofHelloWorld },
+        { path: '/login', redirect: '/' },
+        { path: '/user/:userLogin', redirect: '/' },
     ]
 });
 
