@@ -1,11 +1,11 @@
 import db from "../models/index.cjs";
-import { NotFoundError } from "./serviceErrors.js";
+import { NotFoundException } from "./serviceErrors.js";
 
-const accountStatusMapping = {
+const AccountStatusMapping = {
   "active" : 1
 }
 
-const accountTypeMapping = {
+const AccountTypeMapping = {
   "user" : 1
 }
 
@@ -13,7 +13,7 @@ const accountTypeMapping = {
  * Returns information about a user.
  *
  * @param {string} _username the username
- * @returns JSON with the requested user's data
+ * @return {Object} JSON with the requested user's data
  * @throws {Error} If the user couldn't be found or the database
  * connection was refused.
  */
@@ -24,7 +24,7 @@ async function getUser(_username) {
     }).then((user) => {
       return user;
     });
-    if (!found) throw new Error("User not found");
+    if (!found) throw new NotFoundException("User not found");
     return found;
   } catch (e) {
     throw new Error(e.message);
@@ -42,8 +42,8 @@ async function postUser(
       username: _username,
       password: _password,
       email: _email,
-      account_type: accountTypeMapping["user"],
-      account_status: accountStatusMapping["active"]
+      account_type: AccountTypeMapping["user"],
+      account_status: AccountStatusMapping["active"]
     });
   } catch (e) {
     throw new Error(e.message);
@@ -63,7 +63,7 @@ async function deleteUser(username) {
 async function updateUser(username, updatedFields) {
   try {
     if ((await db.User.findOne({ where: { username: username } })) === null)
-      throw new NotFoundError("Username not found");
+      throw new NotFoundException("Username not found");
     const modelKeys = Object.keys(db.User.rawAttributes);
     const subsetFields = modelKeys
       .filter((key) => key in updatedFields)
