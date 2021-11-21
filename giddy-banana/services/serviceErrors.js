@@ -1,8 +1,22 @@
-class NotFoundError extends Error {
+class NotFoundException extends Error {
   constructor(message) {
     super(message);
-    this.name = "NotFoundError";
+    this.name = "NotFoundException";
   }
 }
 
-export { NotFoundError };
+class InvalidArgumentException extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "InvalidArgumentException";
+  }
+}
+
+class InvalidPasswordException extends Error {
+  constructor(message) {
+    super(message);
+    this.name = "InvalidPasswordException";
+  }
+}
+
+export { NotFoundException, InvalidArgumentException, InvalidPasswordException };
