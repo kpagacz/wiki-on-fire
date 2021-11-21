@@ -36,6 +36,7 @@ db.Sequelize = Sequelize;
 
 db.User = require("./userModel.cjs")(sequelize, Sequelize.DataTypes);
 db.Article = require("./article.cjs")(sequelize, Sequelize.DataTypes);
+db.Comment = require("./comment.cjs")(sequelize, Sequelize.DataTypes);
 
 /*const Like_it = require("./Like_it.cjs");
 Like_it(db);*/

@@ -20,11 +20,9 @@ module.exports = {
       },
       ArticleId: {
         type: Sequelize.INTEGER,
-        //primaryKey: true,
       },
       UserId: {
         type: Sequelize.INTEGER,
-        //primaryKey: true,
       },
       playlist_title: {
         allowNull: false,

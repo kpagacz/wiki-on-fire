@@ -14,7 +14,7 @@ module.exports = {
 
     await queryInterface.bulkInsert("Articles", [
       {
-        title: "First articel",
+        title: "First article",
         link_to_preview: "preview_link",
         link_to_contents: "content_link",
         number_of_authors: 1,

@@ -3,7 +3,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
 
-      //await queryInterface.createTable('Like_it', { USER_id: Sequelize.INTEGER,ARTICLE_id: Sequelize.INTEGER });
       await queryInterface.createTable(
       'Like_it',
       {
@@ -22,18 +21,15 @@ module.exports = {
         },
         ArticleId: {
           type: Sequelize.INTEGER,
-          //primaryKey: true,
         },
         UserId: {
           type: Sequelize.INTEGER,
-          //primaryKey: true,
         },
       }
     );
   },
 
   down: async (queryInterface, Sequelize) => {
-    //return queryInterface.dropTable('ProductTags');
       await queryInterface.dropTable('Like_it');
 
   }

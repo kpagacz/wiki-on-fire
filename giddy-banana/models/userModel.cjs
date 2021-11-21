@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       models.User.belongsToMany(models.Article, { through: "Like_it" });
       models.User.belongsToMany(models.Article, { through: "Recommend" });
       models.User.belongsToMany(models.Article, { through: "Favourite" });
-      models.User.belongsToMany(models.Article, { through: "Comment" });
+      //models.User.belongsToMany(models.Article, { through: "Comment" });
     }
   };
   User.init({
@@ -40,8 +40,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
   });
-  //User.belongsToMany(this.Article, { through: "Like_it" });
   return User;
 };
-
-//User.belongsToMany(Article, { through: "Like_it" });
