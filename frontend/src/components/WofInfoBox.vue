@@ -48,7 +48,7 @@ export default {
     background-color: @secondary-color;
     min-width: 400px;
     max-width: 600px;
-    font-size: 24px;
+    font-size: 1.5rem;
     word-wrap: break-word;
     color: white;
     top:50%;
@@ -78,7 +78,7 @@ export default {
         border-radius: 0;
     }
     #content{
-        font-size: 18px;
+        font-size: 1.125rem;
         text-align: left;
         padding: 15px;
         font-weight: normal;
