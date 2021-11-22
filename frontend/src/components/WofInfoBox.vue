@@ -28,10 +28,6 @@ export default {
             type: String,
             default: "Title",
         },
-        content: {
-            type: String,
-            default: "Content of box",
-        },
         type: {
             type: String,
             required: true,
