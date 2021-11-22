@@ -10,7 +10,7 @@
             </th>
         </tr>
         <tr>
-        <th colspan="2" id="content">{{ content }}</th>
+        <th colspan="2" id="content"><slot></slot></th>
         </tr>
     </table>
     </wof-popper>
