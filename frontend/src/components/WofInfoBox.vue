@@ -46,7 +46,8 @@ export default {
 
 .WofBox{
     background-color: @secondary-color;
-    width: 500px;
+    min-width: 400px;
+    max-width: 600px;
     font-size: 24px;
     word-wrap: break-word;
     color: white;
