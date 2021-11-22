@@ -1,5 +1,5 @@
 <template>
-    <wof-popper> <!--problem with WofPopper - doesnt work-->
+    <wof-popper>
     <table :class="`WofBox WofBox--${this.type}`">
         <tr :id="`first-row`">
             <th :id="`title`">{{ title }}</th>
@@ -17,11 +17,10 @@
 </template>
 
 <script>
-import WofButton from './WofButton.vue'
-import WofPopper from './WofPopper.vue'//problem with WofPopper - doesnt work
+import WofPopper from './WofPopper.vue'
 
 export default {
-  components: { WofButton, WofPopper },//problem with WofPopper - doesnt work
+  components: { WofPopper },
     name: "WofBox",
 
     props: {
