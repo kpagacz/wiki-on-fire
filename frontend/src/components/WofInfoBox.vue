@@ -1,5 +1,5 @@
 <template>
-    <wof-popper/> <!--problem with WofPopper - doesnt work-->
+    <wof-popper> <!--problem with WofPopper - doesnt work-->
     <table :class="`WofBox WofBox--${this.type}`">
         <tr :id="`first-row`">
             <th :id="`title`">{{ title }}</th>
@@ -13,6 +13,7 @@
         <th colspan="2" id="content">{{ content }}</th>
         </tr>
     </table>
+    </wof-popper>
 </template>
 
 <script>

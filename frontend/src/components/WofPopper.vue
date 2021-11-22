@@ -1,5 +1,5 @@
 <template>
-    <div class="popper"/>
+    <div class="popper"> <slot></slot> </div>
 </template>
 
 <script>
