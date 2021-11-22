@@ -57,9 +57,9 @@ export default {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     align-content: center;
-    height: 0;
-    border-radius: 20px;
-    padding: 0px;
+    height: 0em;
+    border-radius: 1em;
+    padding: 0em;
     z-index: 9999;
     overflow: hidden;
     border-collapse: collapse;
@@ -68,7 +68,7 @@ export default {
         font-weight: normal;
     }
     #title, #close-window{
-        padding: 10px 20px 10px;
+        padding: 0.5em 1em 0.5em;
     }
     #close-window-button{
         float: right;
@@ -80,7 +80,7 @@ export default {
     #content{
         font-size: 1.125rem;
         text-align: left;
-        padding: 15px;
+        padding: 1em;
         font-weight: normal;
     }
     &--warning{
