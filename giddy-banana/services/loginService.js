@@ -18,7 +18,7 @@ import {getUser} from "./usersService.js";
  *
  * @param {String} username the username
  * @param {String} password the password of the user
- * @return {Object} an object with fields: "token-type", "token"
+ * @return {Object} an object with fields: "token_type", "token"
  * @example
  * const jwt = await loginUser("user1", "pass1");
  */
@@ -44,7 +44,7 @@ const loginUser = async (username, password) => {
     },
   );
 
-  return { "token-type": "jwt", "token": token };
+  return { token_type: "jwt", token: token };
 };
 
 export default loginUser;
