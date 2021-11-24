@@ -7,7 +7,7 @@ import {getUser} from "./usersService.js";
 /**
  * Authenticates username and password:
  * * checks whether the provided password matches the one stored in the database
- * * returns a Json Web Token if succesul
+ * * returns a Json Web Token if succesful
  *
  * The payload encrypted in the token has the following fields:
  * * username
