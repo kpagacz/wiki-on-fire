@@ -6,11 +6,12 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 import WofHelloWorld from './components/WofHelloWorld.vue';
 import RegisterPage from './pages/RegisterPage.vue';
+import LoginPage from './pages/LoginPage.vue';
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', component: WofHelloWorld },
-        { path: '/login', redirect: '/' },
+        { path: '/login', component: LoginPage },
         { path: '/user/:userLogin', redirect: '/' },
         { path: '/register', component: RegisterPage },
     ]
