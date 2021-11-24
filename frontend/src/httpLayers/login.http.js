@@ -18,6 +18,4 @@ const loginUser = async (username, password) => {
   console.dir(token);
 }
 
-await loginUser("test_username1", "test_password");
-
 export { loginUser };
