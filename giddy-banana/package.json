@@ -19,7 +19,6 @@
   "homepage": "https://github.com/kpagacz/wiki-on-fire#readme",
   "dependencies": {
     "@babel/runtime": "^7.16.0",
-    "cookie-parser": "^1.4.6",
     "core-js": "^3.19.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",

@@ -3,8 +3,6 @@
     <wof-header/>
     <div class="main-wrapper">
       <router-view msg="This is a basic frontend"></router-view>
-      <button @click="login()">Login</button>
-      <button @click="getOneUser()">Get user</button>
     </div>
     <wof-footer/>
   </main>
@@ -13,21 +11,10 @@
 <script>
 import WofFooter from './components/WofFooter.vue';
 import WofHeader from './components/WofHeader.vue';
-import { loginUser } from "./httpLayers/login.http.js";
-import wofApi from "./httpLayers/wofApi.js";
 
 export default {
   components: { WofFooter, WofHeader },
   name: "App",
-  methods: {
-    login() {
-      loginUser("test_username1", "test_password");
-    },
-    getOneUser() {
-      const res = wofApi.get("/users/test_username1");
-      console.dir(res);
-    }
-  }
 };
 </script>
 

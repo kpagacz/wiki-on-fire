@@ -11,15 +11,12 @@ import { InvalidArgumentException, InvalidPasswordException, NotFoundException }
 export default async (req, res) => {
   if (req.body.username === undefined || req.body.password === undefined)
     res.status(400).send({ message: "username and password must be included in the body" });
+  console.dir(req.headers);
   try {
     const token = await loginUser(req.body.username, req.body.password);
     res.cookie(
-      "wofToken", token, {
-        httpOnly: true,
-        sameSite: "lax",
-        maxAge: 8 * 60 * 60 * 100,
-        domain: "localhost"
-    })
+      "wofToken", token, { httpOnly: true, sameSite: true, maxAge: 8 * 60 * 60 * 100 }
+    )
     res.status(200).send();
   } catch (error) {
     if (error instanceof InvalidArgumentException) res.status(400).send({ message: "Invalid username or password type" });

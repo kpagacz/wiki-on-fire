@@ -9,7 +9,7 @@ import { NotFoundException } from "../services/serviceErrors.js";
 async function getUsers(req, res) {
   if (req.params.username === undefined) res.status(400).send({ message: "Username must be defined" });
   try {
-    const user = await getUser(req.params.username);
+    const user = await getUser(username);
     res.status(200).json(user);
   } catch (e) {
     return res.status(400).json({ message: e.message });
