@@ -4,7 +4,10 @@
   "description": "The backend service of WikiOnFire",
   "main": "app.js",
   "scripts": {
-    "dev": "npx nodemon --exec babel-node --experimental-specifier-resolution=node app.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all",
+    "dev": "npm run migrate && npm run seed && npx nodemon --exec babel-node --experimental-specifier-resolution=node app.js",
+    "start": "npx nodemon --exec babel-node --experimental-specifier-resolution=node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
