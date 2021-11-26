@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: "WofSpinner",
+  name: "WofSpinnerFlame",
   props: {
     loading: {
       type: Boolean,

@@ -4,7 +4,7 @@
     <div class="main-wrapper">
       <router-view msg="This is a basic frontend"></router-view>
     </div>
-    <wof-spinner color = "red" loading = true size =16 />
+    <wof-spinner-flame color = "red" loading = true size =16 />
     <wof-footer/>
   </main>
 </template>
@@ -12,10 +12,10 @@
 <script>
 import WofFooter from './components/WofFooter.vue';
 import WofHeader from './components/WofHeader.vue';
-import WofSpinner from "./components/WofSpinner.vue";
+import WofSpinnerFlame from "./components/WofSpinnerFlame.vue";
 
 export default {
-  components: { WofFooter, WofHeader, WofSpinner},
+  components: { WofFooter, WofHeader, WofSpinnerFlame},
   name: "App",
 };
 </script>
