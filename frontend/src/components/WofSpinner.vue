@@ -1,10 +1,10 @@
 <template>
-<div class = "spinner" :style="spinnerSize" v-if="loading">
-  <div class = "flame red"></div>
-  <div class = "flame orange"></div>
-  <div class = "flame yellow"></div>
-  <div class = "flame white"></div>
-</div>
+  <div class="spinner" :style="spinnerSize" v-if="loading">
+    <div class="flame red"></div>
+    <div class="flame orange"></div>
+    <div class="flame yellow"></div>
+    <div class="flame white"></div>
+  </div>
 </template>
 
 <script>
@@ -13,26 +13,26 @@ export default {
   props: {
     loading: {
       type: Boolean,
-      default: true
+      default: true,
     },
     color: {
       type: String,
-      default: "primary"
+      default: "primary",
     },
     size: {
-      type: Number
-    }
+      type: Number,
+    },
   },
   computed: {
-    spinnerSize: () => {
+    spinnerSize() {
       return "width: " + this.size + "rem;";
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="less">
-@import './common.less';
+@import "./common.less";
 
 .spinner {
   display: flex;
@@ -42,6 +42,7 @@ export default {
   z-index: 1;
   transform: rotate(-45deg);
   margin-left: 10%;
+  font-size: 5rem;
 }
 
 .flame {
@@ -55,11 +56,11 @@ export default {
   background-color: hsl(1 1 1);
   width: 20%;
   margin: 0 0 9% 9%;
-  box-shadow: 0px 0px 1rem 0.5rem hsla(0 100% 100% / 0.5);
+  box-shadow: 0px 0px 1em 0.5em hsla(0 100% 100% / 0.5);
 }
 
 .yellow {
-  background-color: #FEDE17;
+  background-color: #fede17;
   width: 40%;
   margin: 0 0 6% 6%;
   box-shadow: 0px 0px 1rem 0.7rem hsla(60 100% 50% / 0.5);
@@ -77,6 +78,4 @@ export default {
   width: 80%;
   box-shadow: 0px 0px 1rem 0.3rem hsla(0 50% 50% / 1);
 }
-
-
 </style>
