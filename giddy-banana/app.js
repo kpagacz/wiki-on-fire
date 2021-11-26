@@ -1,10 +1,10 @@
 import express from "express";
 import router from "./routes/index.js";
-import cors from "cors";
+import middleware from "./middleware/index.js";
 const app = express();
 const port = 3001;
 
-app.use(cors());
+middleware(app);
 app.use("/", router);
 
 app.listen(port, () => {
