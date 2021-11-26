@@ -16,9 +16,16 @@ npm install
 ```
 
 ### Run
+#### Just the backend application
 Run in the terminal:
 ```
-node app.js
+npm run start
+```
+
+#### Setup a full development environment
+Includes migrating the `sequelize` migrations and seeding the database as well. Requires a running mySQL service on port 3306.
+```
+npm run dev
 ```
 
 ## Contribution
