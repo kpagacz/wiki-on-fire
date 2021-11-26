@@ -18,8 +18,8 @@ import wofApi from "./wofApi.js";
 async function registerUser(username, password, email) {
   return await wofApi
     .post("/users", { username: username, password: password, email: email })
-    .then(() => {
-      return true;
+    .then((user) => {
+      return user;
     })
     .catch((error) => {
       if (error.response) {
