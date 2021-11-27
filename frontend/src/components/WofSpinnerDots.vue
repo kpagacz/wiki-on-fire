@@ -61,8 +61,8 @@ export default {
 .spinner div {
   aspect-ratio: 1;
   border-radius: 50%;
-  background: linear-gradient(to bottom right, grey -50%, white);
-  box-shadow: 0.05em 0.05em 0.1em 0 hsl(0, 0%, 20%);
+  background: linear-gradient(to bottom right, @primary-accent-color -40%, white);
+  box-shadow: 0.05em 0.05em 0.1em 0 hsl(0, 0%, 50%);
   width: 33%;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -83,13 +83,13 @@ export default {
 
 @keyframes pulse {
   0% {
-    scale: 65%;
+    transform: scale(65%);
   }
   50% {
-    scale: 100%;
+    transform: scale(100%);
   }
   100% {
-    scale: 65%
+    transform: scale(65%);
   }
 }
 </style>
