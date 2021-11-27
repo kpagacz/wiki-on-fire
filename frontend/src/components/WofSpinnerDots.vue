@@ -21,7 +21,7 @@ export default {
      * If `true` then shows the spinner; otherwise doesn't show.
      */
     loading: {
-      type: String,
+      type: Boolean,
       required: true,
     },
     /**
