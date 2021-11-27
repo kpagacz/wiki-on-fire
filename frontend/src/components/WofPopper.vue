@@ -1,5 +1,9 @@
 <template>
-    <div class="popper"> <slot></slot> </div>
+    <div class="popper">
+        <div class="content">
+            <slot></slot> 
+        </div>
+    </div>
 </template>
 
 <script>
@@ -20,6 +24,15 @@ export default{
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     display: table;
+}
+
+.content{
+    top:50%;
+    left:50%;
+    position:fixed;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    align-content: center;
 }
 
 </style>
