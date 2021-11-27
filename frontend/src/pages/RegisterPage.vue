@@ -41,7 +41,7 @@
         <router-link to="/login" class="register-page__link">
           Already have an account? Sign In
         </router-link>
-        <wof-button :size="1.5" class="register-page__submit-button" @click="createAccount">
+        <wof-button class="register-page__submit-button" @click="createAccount">
           Create account
         </wof-button>
       </div>
@@ -151,7 +151,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80vw;
+  width: 50vw;
+  min-width: 500px;
+  font-size: 0.8rem;
 
   .register-page__title {
     margin: 0.2em 0px;
@@ -204,6 +206,7 @@ export default {
 
     .register-page__submit-button {
       align-self: center;
+      font-size: 1.2em;
     }
 
     .register-page__link {

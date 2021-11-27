@@ -20,7 +20,7 @@ export default {
     size: {
       type: Number,
       required: false,
-      default: 1
+      default: null
     },
     icon: {
       type: String,
