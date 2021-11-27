@@ -16,7 +16,7 @@
         <router-link to="/register" class="login-page__link">
           Don't have an account? Sign Up
         </router-link>
-        <wof-button :size="1.5" class="login-page__submit-button" @click="logIn">
+        <wof-button class="login-page__submit-button" @click="logIn">
           Login
         </wof-button>
       </div>
@@ -75,7 +75,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 80vw;
+  width: 50vw;
+  min-width: 500px;
+  font-size: 0.8rem;
 
   .login-page__title {
     margin: 0.2em 0px;
@@ -108,11 +110,12 @@ export default {
 
     .login-page__submit-button {
       align-self: center;
+      font-size: 1.2em;
     }
 
     .login-page__link {
       color: @primary-dark-text-color;
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
 }
