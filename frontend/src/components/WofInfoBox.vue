@@ -1,6 +1,6 @@
 <template>
     <wof-popper :isOpen="this.isOpen">
-    <div :class="`info-box info-box--${this.infoBoxType}`" v-if="this.isOpen">
+    <div :class="`${this.infoBoxType}`" v-if="this.isOpen">
         <div class="info_box__title-close-container">
             <div class="info_box__title">
                 {{ title }}
@@ -45,7 +45,7 @@ export default {
     },
     computed: {
     infoBoxType: function() {
-      return this.type;
+      return "info-box info-box--"+this.type;
     }
   }
 }
