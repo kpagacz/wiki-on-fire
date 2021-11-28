@@ -1,17 +1,17 @@
 <template>
-    <wof-popper>
-    <div :class="`flex-container flex-container--${this.type}`">
-        <div class="title-close-container">
-            <div class="title">
+    <wof-popper :isOpen="this.isOpen">
+    <div :class="`info-box info-box--${this.infoBoxType}`" v-if="this.isOpen">
+        <div class="info_box__title-close-container">
+            <div class="info_box__title">
                 {{ title }}
             </div>
-            <div class="close-window">
-                <wof-button :variant="this.type" :id="`close-window-button`" @click="$emit('close')">
-                    <wof-icon icon="wof-cancel" size=2  />
+            <div class="info_box__close-window-block">
+                <wof-button :variant="this.infoBoxType" :id="`info_box__close-button`" @click="$emit('close')">
+                    <wof-icon icon="wof-cancel" :size="2"  />
                 </wof-button>
             </div>
        </div>
-        <div class="content">
+        <div class="info_box__content">
             <slot></slot>
         </div>
     </div>
@@ -26,6 +26,10 @@ export default {
     name: "WofBox",
 
     props: {
+        isOpen: {
+            type: Boolean,
+            default: false
+        },
         title: {
             type: String,
             default: "Title",
@@ -38,7 +42,12 @@ export default {
                 return["error", "warning", "positive", "default"].includes(value)
             }
         }  
+    },
+    computed: {
+    infoBoxType: function() {
+      return this.type;
     }
+  }
 }
 </script>
 
@@ -46,7 +55,7 @@ export default {
 <style lang="less">
 @import './common.less';
 
-.flex-container{
+.info-box{
     display: flex;
     background-color: @secondary-color;
     min-width: 400px;
@@ -57,49 +66,52 @@ export default {
     color: @primary-bright-text-color;
     overflow: hidden;
     overflow-wrap: anywhere;
+
     &--warning{
         background-color: @secondary-warning-color;
         color: black;
-        .title-close-container{background-color: @primary-warning-color;}
+        .info_box__title-close-container{background-color: @primary-warning-color;}
     }
+
     &--default{
         background-color: @secondary-color;
-        .title-close-container{background-color: @primary-theme-color;}
-        #close-window-button{ 
+        .info_box__title-close-container{background-color: @primary-theme-color;}
+        #info_box__close-button{ 
             background-color: @primary-theme-color;
             &:hover, &:focus-visible {
                 background-color: @secondary-color;
             }
         }
     }
+
     &--error{
         background-color: @secondary-error-color;
-        .title-close-container{background-color: @primary-error-color;}
+        .info_box__title-close-container{background-color: @primary-error-color;}
     }
+
     &--positive{
         background-color: @secondary-positive-color;
-        .title-close-container{background-color: @primary-positive-color;}
+        .info_box__title-close-container{background-color: @primary-positive-color;}
     }
-}
 
-.title-close-container{
-    display: flex;
-    padding: 0.5em;
-}
+    .info_box__title-close-container{
+        display: flex;
+        padding: 0.2em;
+        justify-content: space-between;
+        .info_box__title{
+            order: 1;
+            text-align: left;
+            padding: 0.5em 0.5em 0em;
+        }
+        .info_box__close-window-block{
+            order: 2;
+        }
+    }
 
-.title{
-    order: 1;
-    flex-grow: 2;
-    text-align: left;
-    padding: 0.5em 0.5em 0em;
-}
-.close-window{
-    order: 2;
-}
-
-.content{
-    padding: 1em;
-    overflow-wrap: anywhere;
-    font-size: 1.125rem;
+    .info_box__content{
+        padding: 1em;
+        overflow-wrap: anywhere;
+        font-size: 1.125rem;
+    }
 }
 </style>

@@ -1,6 +1,6 @@
 <template>
-    <div class="popper">
-        <div class="popper-content">
+    <div class="popper" v-if="this.isOpen">
+        <div class="popper__content">
             <slot></slot> 
         </div>
     </div>
@@ -8,7 +8,14 @@
 
 <script>
 export default{
-    name: "WofPopper"
+    name: "WofPopper",
+
+    props: {
+        isOpen:{
+            type: Boolean,
+            default: false
+        }
+    }
 }
 </script>
 
@@ -23,15 +30,16 @@ export default{
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
+    .popper__content{
+        top:50%;
+        left:50%;
+        position:fixed;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        align-content: center;
+    }
 }
 
-.popper-content{
-    top:50%;
-    left:50%;
-    position:fixed;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    align-content: center;
-}
+
 
 </style>

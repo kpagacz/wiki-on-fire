@@ -11,7 +11,7 @@
       </router-view>
       
     </div>
-    <wof-info-box title="Tytuł" v-if="this.isBoxVisible" :type="this.type" @close="closeBox" >Content</wof-info-box>
+    <wof-info-box title="Tytuł" :isOpen="this.isBoxVisible" :type="this.type" @close="closeBox" >Content</wof-info-box>
     <wof-footer/>
   </main>
 </template>
