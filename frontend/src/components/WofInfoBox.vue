@@ -1,18 +1,20 @@
 <template>
     <wof-popper>
-    <table :class="`WofBox WofBox--${this.type}`">
-        <tr :id="`first-row`">
-            <th :id="`title`">{{ title }}</th>
-            <th :id="`close-window`">
+    <div :class="`flex-container flex-container--${this.type}`">
+        <div class="title-close-container">
+            <div class="title">
+                {{ title }}
+            </div>
+            <div class="close-window">
                 <wof-button :type="this.type" :id="`close-window-button`" @click="$emit('close')">
-                <wof-icon icon="wof-cancel" size=2  />
+                    <wof-icon icon="wof-cancel" size=2  />
                 </wof-button>
-            </th>
-        </tr>
-        <tr>
-        <th colspan="2" id="content"><slot></slot></th>
-        </tr>
-    </table>
+            </div>
+       </div>
+        <div class="content">
+            <slot></slot>
+        </div>
+    </div>
     </wof-popper>
 </template>
 
@@ -33,7 +35,7 @@ export default {
             required: true,
             default: "info",
             validator(value){
-                return["error", "warning", "success", "info"].includes(value)
+                return["error", "warning", "positive", "default"].includes(value)
             }
         }  
     }
@@ -44,69 +46,60 @@ export default {
 <style lang="less">
 @import './common.less';
 
-.WofBox{
+.flex-container{
+    display: flex;
     background-color: @secondary-color;
     min-width: 400px;
     max-width: 600px;
+    flex-direction: column;
     font-size: 1.5rem;
-    word-wrap: break-word;
-    color: white;
-    top:50%;
-    left:50%;
-    position:fixed;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    align-content: center;
-    height: 0em;
     border-radius: 1em;
-    padding: 0em;
-    z-index: 9999;
+    color: @primary-bright-text-color;
     overflow: hidden;
-    border-collapse: collapse;
-    #title{
-        text-align: left;
-        font-weight: normal;
-    }
-    #title, #close-window{
-        padding: 0.5em 1em 0.5em;
-    }
-    #close-window-button{
-        float: right;
-        background-color: @primary-theme-color;
-        border: 0;
-        padding: 0;
-        border-radius: 0;
-    }
-    #content{
-        font-size: 1.125rem;
-        text-align: left;
-        padding: 1em;
-        font-weight: normal;
-    }
+    overflow-wrap: anywhere;
     &--warning{
         background-color: @secondary-warning-color;
         color: black;
-        #title{background-color: @primary-warning-color;}
-        #close-window{background-color: @primary-warning-color;}
-        #close-window-button{background-color: @primary-warning-color;}
+        .title-close-container{background-color: @primary-warning-color;}
     }
-    &--info{
+    &--default{
         background-color: @secondary-color;
-        #title{background-color: @primary-theme-color;}
-        #close-window{background-color: @primary-theme-color;}
-        #close-window-button{ background-color: @primary-theme-color;}
+        .title-close-container{background-color: @primary-theme-color;}
+        #close-window-button{ 
+            background-color: @primary-theme-color;
+            &:hover, &:focus-visible {
+                background-color: @secondary-color;
+            }
+        }
     }
     &--error{
         background-color: @secondary-error-color;
-        #title{background-color: @primary-error-color;}
-        #close-window{background-color: @primary-error-color;}
-        #close-window-button{ background-color: @primary-error-color;}
+        .title-close-container{background-color: @primary-error-color;}
     }
-    &--success{
+    &--positive{
         background-color: @secondary-positive-color;
-        #title{background-color: @primary-positive-color;}
-        #close-window{background-color: @primary-positive-color;}
-        #close-window-button{ background-color: @primary-positive-color;}
+        .title-close-container{background-color: @primary-positive-color;}
     }
+}
+
+.title-close-container{
+    display: flex;
+    padding: 0.5em;
+}
+
+.title{
+    order: 1;
+    flex-grow: 2;
+    text-align: left;
+    padding: 0.5em 0.5em 0em;
+}
+.close-window{
+    order: 2;
+}
+
+.content{
+    padding: 1em;
+    overflow-wrap: anywhere;
+    font-size: 1.125rem;
 }
 </style>
