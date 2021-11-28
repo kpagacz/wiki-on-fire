@@ -148,7 +148,7 @@ export default {
         let registeredUser = null;
         this.loading = true;
         try {
-          registeredUser = await registerUser(this.username, this.password, this.email);
+          registeredUser = await registerUser(this.username.value, this.password.value, this.email.value);
         } catch(err) {
           //Should display negative InfoBox with err message
           console.error(err.message);
