@@ -1,6 +1,6 @@
 <template>
     <div class="popper">
-        <div class="content">
+        <div class="popper-content">
             <slot></slot> 
         </div>
     </div>
@@ -26,7 +26,7 @@ export default{
     display: table;
 }
 
-.content{
+.popper-content{
     top:50%;
     left:50%;
     position:fixed;

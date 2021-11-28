@@ -3,9 +3,9 @@
     <wof-header/>
     <div class="main-wrapper">
       <router-view msg="This is a basic frontend">
-        <wof-button @click="showBox('info')">Open info box</wof-button>
+        <wof-button @click="showBox('default')">Open info box</wof-button>
         <wof-button @click="showBox('warning')">Open warning box</wof-button>
-        <wof-button @click="showBox('success')">Open success box</wof-button>
+        <wof-button @click="showBox('positive')">Open success box</wof-button>
         <wof-button @click="showBox('error')">Open error box</wof-button>
         
       </router-view>
