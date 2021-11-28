@@ -1,9 +1,12 @@
 <template>
   <main>
     <wof-header/>
+    <wof-small-error size=2>Error description</wof-small-error>
     <div class="main-wrapper">
       <router-view msg="This is a basic frontend"></router-view>
+      
     </div>
+    
     <wof-footer/>
   </main>
 </template>
@@ -11,9 +14,10 @@
 <script>
 import WofFooter from './components/WofFooter.vue';
 import WofHeader from './components/WofHeader.vue';
+import WofSmallError from './components/WofSmallError.vue';
 
 export default {
-  components: { WofFooter, WofHeader },
+  components: { WofFooter, WofHeader, WofSmallError },
   name: "App",
 };
 </script>
