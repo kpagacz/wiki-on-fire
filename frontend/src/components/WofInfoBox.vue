@@ -6,7 +6,7 @@
                 {{ title }}
             </div>
             <div class="close-window">
-                <wof-button :type="this.type" :id="`close-window-button`" @click="$emit('close')">
+                <wof-button :variant="this.type" :id="`close-window-button`" @click="$emit('close')">
                     <wof-icon icon="wof-cancel" size=2  />
                 </wof-button>
             </div>
