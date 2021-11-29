@@ -16,7 +16,7 @@ jobs:
         uses: VaultVulp/gp-docker-action@1.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          image-name:
+          image-name: kpagacz/wof-nginx-devel
           image-tag: latest
           dockerfile: ./devel-nginx.Dockerfile
           build-context: ./docker-compose-environments
