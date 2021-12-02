@@ -11,14 +11,12 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-
-    await queryInterface.bulkInsert("Articles", [
+    return queryInterface.bulkInsert("Comments", [
       {
-        title: "First article",
-        link_to_preview: "preview_link",
-        link_to_contents: "content_link",
-        number_of_authors: 1,
-        date_added: new Date(),
+        ArticleId: 1,
+        UserId: 1,
+        contents: "great article!",
+        status: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       }
@@ -32,6 +30,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     return queryInterface.bulkDelete('Articles', null, {});
+     return queryInterface.bulkDelete("Comments", null, {});
   }
 };
