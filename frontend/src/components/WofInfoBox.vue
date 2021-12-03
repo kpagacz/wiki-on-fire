@@ -6,9 +6,7 @@
                 {{ title }}
             </div>
             <div class="info_box__close-window-block">
-                <wof-button :variant="this.infoBoxType" :id="`info_box__close-button`" @click="$emit('close')">
-                    <wof-icon icon="wof-cancel" :size="2"  />
-                </wof-button>
+                <wof-icon :id="`info_box__close-button`" @click="$emit('close')" icon="wof-cancel" size=2 />
             </div>
        </div>
         <div class="info_box__content">
@@ -59,7 +57,6 @@ export default {
     display: flex;
     background-color: @secondary-color;
     min-width: 400px;
-    max-width: 600px;
     flex-direction: column;
     font-size: 1.5rem;
     border-radius: 1em;
@@ -71,6 +68,12 @@ export default {
         background-color: @secondary-warning-color;
         color: black;
         .info_box__title-close-container{background-color: @primary-warning-color;}
+        #info_box__close-button{ 
+            background-color: @primary-warning-color;
+            &:hover, &:focus-visible {
+                color: @primary-bright-text-color;
+            }
+        }
     }
 
     &--default{
@@ -79,7 +82,7 @@ export default {
         #info_box__close-button{ 
             background-color: @primary-theme-color;
             &:hover, &:focus-visible {
-                background-color: @secondary-color;
+                color: @placeholder;
             }
         }
     }
@@ -87,24 +90,38 @@ export default {
     &--error{
         background-color: @secondary-error-color;
         .info_box__title-close-container{background-color: @primary-error-color;}
+        #info_box__close-button{ 
+            background-color: @primary-error-color;
+            &:hover, &:focus-visible {
+                color: @placeholder;
+            }
+        }
     }
 
     &--positive{
         background-color: @secondary-positive-color;
         .info_box__title-close-container{background-color: @primary-positive-color;}
+        #info_box__close-button{ 
+            background-color: @primary-positive-color;
+            &:hover, &:focus-visible {
+                color: @placeholder;
+            }
+        }
     }
 
     .info_box__title-close-container{
         display: flex;
         padding: 0.2em;
         justify-content: space-between;
+        align-items: center;
         .info_box__title{
             order: 1;
             text-align: left;
-            padding: 0.5em 0.5em 0em;
+            padding: 0.5em;
         }
         .info_box__close-window-block{
             order: 2;
+            padding: 0.5em;
         }
     }
 
