@@ -6,7 +6,7 @@
                 {{ title }}
             </div>
             <div class="info_box__close-window-block">
-                <wof-icon :id="`info_box__close-button`" @click="$emit('close')" icon="wof-cancel" size=2 />
+                <wof-icon :id="`info_box__close-button`" @click="$emit('close')" icon="wof-cancel" :size=2 />
             </div>
        </div>
         <div class="info_box__content">
@@ -35,7 +35,7 @@ export default {
         type: {
             type: String,
             required: true,
-            default: "info",
+            default: "default",
             validator(value){
                 return["error", "warning", "positive", "default"].includes(value)
             }

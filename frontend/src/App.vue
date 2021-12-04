@@ -27,7 +27,7 @@ export default {
   data(){
     return{
       isBoxVisible: false,
-      type: String
+      type: "default"
     }
   },
   methods:{
@@ -35,9 +35,8 @@ export default {
       this.isBoxVisible=true;
       this.type=i;
     },
-    closeBox(i){
+    closeBox(){
       this.isBoxVisible=false;
-      this.type=i;
     }
   }
 };
