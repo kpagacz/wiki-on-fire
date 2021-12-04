@@ -49,17 +49,23 @@
       <div v-if="loading" class="loading">
         <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
       </div>
+      <wof-info-box :isOpen="infoBoxOpen" :title="resultTitle" :type="resultType" @close="closePopup">{{ resultMessage }}</wof-info-box>
   </wof-card>
 </template>
 
 <script>
 import WofInput from "../components/WofInput.vue";
 import WofSpinnerDots from "../components/WofSpinnerDots.vue";
+import WofInfoBox from '../components/WofInfoBox.vue';
 import { registerUser } from '../httpLayers/registration.http';
 
 export default {
   name: "RegisterPage",
-  components: { WofInput, WofSpinnerDots },
+  components: {
+    WofInput,
+    WofSpinnerDots,
+    WofInfoBox
+  },
   data() {
     return {
       username: {
@@ -82,7 +88,10 @@ export default {
         img: "",
         errorMsg: "",
       },
-      loading: false
+      loading: false,
+      resultTitle: null,
+      resultType: null,
+      resultMessage: null
     };
   },
   computed: {
@@ -98,6 +107,12 @@ export default {
         return 'visibility: hidden;';
       }
       return 'visibility: visible;';
+    },
+    infoBoxOpen() {
+      if(this.resultTitle) {
+        return true;
+      }
+      return false
     }
   },
   methods: {
@@ -150,15 +165,22 @@ export default {
         try {
           registeredUser = await registerUser(this.username.value, this.password.value, this.email.value);
         } catch(err) {
-          //Should display negative InfoBox with err message
-          console.error(err.message);
+          this.resultTitle = 'Error';
+          this.resultType = 'error';
+          this.resultMessage = err.message;
         }
         if(registeredUser) {
-          //Should display positive InfoBox with message "User created"
-          console.log("registeredUser: ", registeredUser);
+          this.resultTitle = 'Success';
+          this.resultType = 'positive';
+          this.resultMessage = 'User Created';
         }
         this.loading = false;
       }
+    },
+    closePopup() {
+      this.resultTitle = null;
+      this.resultType = null;
+      this.resultMessage = null;
     }
   }
 };
