@@ -42,13 +42,4 @@ export default{
 
 
 
-.popper-content{
-    top:50%;
-    left:50%;
-    position:fixed;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    align-content: center;
-}
-
 </style>
