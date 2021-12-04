@@ -1,11 +1,18 @@
 <template>
   <main>
     <wof-header/>
-    <wof-small-error size=2>Error description</wof-small-error>
+    <wof-small-error size=1>Error description</wof-small-error>
     <div class="main-wrapper">
-      <router-view msg="This is a basic frontend"></router-view>
+      <router-view msg="This is a basic frontend">
+      <wof-small-error size=1>An element with position: fixed; is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled. The top, right, bottom, and left properties are used to position the element.
+
+A fixed element does not leave a gap in the page where it would normally have been located.
+
+Notice the fixed element in the lower-right corner of the page. Here is the CSS that is used:</wof-small-error></router-view>
+      
       
     </div>
+    <wof-small-error size=1>Error description</wof-small-error>
     
     <wof-footer/>
   </main>
