@@ -34,7 +34,6 @@ export default {
         },
         type: {
             type: String,
-            required: true,
             default: "default",
             validator(value){
                 return["error", "warning", "positive", "default"].includes(value)
