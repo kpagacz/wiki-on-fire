@@ -10,7 +10,11 @@ The docker-compose files needs those applications installed on the host machine 
 * docker-compose:
   * comes preinstalled with Docker Desktop
   * needs to be installed separately on Linux distributions
-* needs connection to internet to downlaod the images.
+* needs connection to internet to downlaod the images
+* login into Github Container Registry.
+
+### Signing into Github Container Registry
+Please follow this Github tutorial to authenticate to Github Container Registry. Some of the packages used in the environment are hosted on there. Unless you authenticate, you won't be able to run the launch the full environment.
 
 ### Running docker-compose
 Follow the steps:
