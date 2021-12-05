@@ -4,7 +4,10 @@
   "description": "The backend service of WikiOnFire",
   "main": "app.js",
   "scripts": {
-    "dev": "npx nodemon --exec babel-node --experimental-specifier-resolution=node app.js",
+    "migrate": "npx sequelize-cli db:migrate",
+    "seed": "npx sequelize-cli db:seed:all",
+    "dev": "npm run migrate && npm run seed && npx nodemon --exec babel-node --experimental-specifier-resolution=node app.js",
+    "start": "npx nodemon --exec babel-node --experimental-specifier-resolution=node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,9 +22,11 @@
   "homepage": "https://github.com/kpagacz/wiki-on-fire#readme",
   "dependencies": {
     "@babel/runtime": "^7.16.0",
+    "cookie-parser": "^1.4.6",
     "core-js": "^3.19.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.2",
     "sequelize": "^6.9.0"
   },
@@ -33,7 +38,12 @@
     "@babel/plugin-transform-runtime": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/register": "^7.16.0",
+    "eslint": "^8.3.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-vue": "^8.1.1",
     "esm": "^3.2.25",
+    "prettier-eslint": "^13.0.0",
     "sequelize-cli": "^6.3.0"
   }
 }

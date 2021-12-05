@@ -4,12 +4,12 @@ import {
   deleteUser,
   updateUser,
 } from "../services/usersService.js";
-import { NotFoundError } from "../services/serviceErrors.js";
+import { NotFoundException } from "../services/serviceErrors.js";
 
 async function getUsers(req, res) {
-  const username = req.params.username ? req.params.username : next();
+  if (req.params.username === undefined) res.status(400).send({ message: "Username must be defined" });
   try {
-    const user = await getUser(username);
+    const user = await getUser(req.params.username);
     res.status(200).json(user);
   } catch (e) {
     return res.status(400).json({ message: e.message });
@@ -18,7 +18,6 @@ async function getUsers(req, res) {
 
 async function postUsers(req, res) {
   try {
-    console.dir(req.body);
     const createdUser = await postUser(
       req.body.username,
       req.body.password,
@@ -46,7 +45,7 @@ async function updateUsers(req, res) {
     await updateUser(username, req.body);
     res.status(200).send();
   } catch (e) {
-    if (e instanceof NotFoundError) {
+    if (e instanceof NotFoundException) {
       res.status(404);
     } else {
       res.status(400);

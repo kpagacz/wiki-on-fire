@@ -1,5 +1,5 @@
 <template>
-  <button :class="`button button--${type}`" :style="`font-size: ${this.size}rem;`" @click="onClick()">
+  <button :class="`button button--${variant}`" :style="`font-size: ${this.size}rem;`">
     <wof-icon v-if="this.icon" :icon="this.icon" :size="this.size" :class="this.getIconCss" />
     <slot/>
   </button>
@@ -10,7 +10,7 @@ export default {
   name: "WofButton",
 
   props: {
-    type: {
+    variant: {
       type: String,
       default: "default",
       validator(value) {
@@ -20,16 +20,11 @@ export default {
     size: {
       type: Number,
       required: false,
-      default: 1
+      default: null
     },
     icon: {
       type: String,
       required: false
-    }
-  },
-  methods: {
-    onClick: function(event) {
-      this.$emit("click", event)
     }
   },
   computed: {
