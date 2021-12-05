@@ -8,7 +8,7 @@ import wofApi from "./wofApi.js";
  * @param {String} username
  * @param {String} password
  * @returns {Object} the user object with the following fields:
- *   id, username, password, email, account_type, account_status, createdAt,
+ *   id, username, email, account_type, account_status, createdAt,
  *   updatedAt
  */
 const loginUser = async (username, password) => {
