@@ -1,10 +1,21 @@
 import wofApi from "./wofApi.js";
 
+/**
+ * Authenticates the user to the backend service of
+ * WikiOnFire. The response from the server sets
+ * the authentication and authorization `httpOnly` cookie.
+ *
+ * @param {String} username
+ * @param {String} password
+ * @returns {Object} the user object with the following fields:
+ *   id, username, email, account_type, account_status, createdAt,
+ *   updatedAt
+ */
 const loginUser = async (username, password) => {
-  const token = await wofApi
+  const user = await wofApi
     .post("/login", { username: username, password: password })
-    .then(() => {
-      return true;
+    .then((response) => {
+      return response.data;
     })
     .catch((error) => {
       if (error.response) {
@@ -15,7 +26,7 @@ const loginUser = async (username, password) => {
         throw new Error("Undefined error");
       }
     });
-  console.dir(token);
+  return user;
 }
 
 export { loginUser };
