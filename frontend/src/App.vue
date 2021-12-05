@@ -2,8 +2,7 @@
   <main>
     <wof-header/>
     <div class="main-wrapper">
-      <!--<router-view msg="This is a basic frontend"></router-view>-->
-      <wof-optional-section></wof-optional-section>
+      <router-view msg="This is a basic frontend"></router-view>
     </div>
     <wof-footer/>
   </main>
@@ -12,10 +11,9 @@
 <script>
 import WofFooter from './components/WofFooter.vue';
 import WofHeader from './components/WofHeader.vue';
-import WofOptionalSection from './components/WofOptionalSection.vue';
 
 export default {
-  components: { WofFooter, WofHeader, WofOptionalSection },
+  components: { WofFooter, WofHeader },
   name: "App",
 };
 </script>
