@@ -1,6 +1,6 @@
 <template>
-  <wof-card>
-    <div class="register-page">
+  <wof-card style="position: relative;">
+    <div class="register-page" :style="formVisibility">
       <h1 class="register-page__title">Create account</h1>
       <div class="horizontal-line"></div>
       <form class="register-page__form">
@@ -46,15 +46,26 @@
         </wof-button>
       </div>
     </div>
+      <div v-if="loading" class="loading">
+        <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
+      </div>
+      <wof-info-box :isOpen="infoBoxOpen" :title="resultTitle" :type="resultType" @close="closePopup">{{ resultMessage }}</wof-info-box>
   </wof-card>
 </template>
 
 <script>
 import WofInput from "../components/WofInput.vue";
+import WofSpinnerDots from "../components/WofSpinnerDots.vue";
+import WofInfoBox from '../components/WofInfoBox.vue';
+import { registerUser } from '../httpLayers/registration.http';
 
 export default {
   name: "RegisterPage",
-  components: { WofInput },
+  components: {
+    WofInput,
+    WofSpinnerDots,
+    WofInfoBox
+  },
   data() {
     return {
       username: {
@@ -77,6 +88,10 @@ export default {
         img: "",
         errorMsg: "",
       },
+      loading: false,
+      resultTitle: null,
+      resultType: null,
+      resultMessage: null
     };
   },
   computed: {
@@ -86,6 +101,18 @@ export default {
       } else {
         return require(`../assets/placeholder.png`);
       }
+    },
+    formVisibility() {
+      if(this.loading) {
+        return 'visibility: hidden;';
+      }
+      return 'visibility: visible;';
+    },
+    infoBoxOpen() {
+      if(this.resultTitle) {
+        return true;
+      }
+      return false
     }
   },
   methods: {
@@ -131,14 +158,29 @@ export default {
       }
       return false;
     },
-    createAccount() {
+    async createAccount() {
       if(this.formValidation()) {
-        //This will be replaced with call to http
-        console.log("Username:"+this.username.value);
-        console.log("Email:"+this.email.value);
-        console.log("Password:"+this.password.value);
-        console.log("ConfirmPassword:"+this.passwordConfirm.value);
+        let registeredUser = null;
+        this.loading = true;
+        try {
+          registeredUser = await registerUser(this.username.value, this.password.value, this.email.value);
+        } catch(err) {
+          this.resultTitle = 'Error';
+          this.resultType = 'error';
+          this.resultMessage = err.message;
+        }
+        if(registeredUser) {
+          this.resultTitle = 'Success';
+          this.resultType = 'positive';
+          this.resultMessage = 'User Created';
+        }
+        this.loading = false;
       }
+    },
+    closePopup() {
+      this.resultTitle = null;
+      this.resultType = null;
+      this.resultMessage = null;
     }
   }
 };
@@ -214,6 +256,15 @@ export default {
       font-size: 1.1rem;
     }
   }
+}
+
+.loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (max-width: 767.98px) {
