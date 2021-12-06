@@ -1,24 +1,84 @@
 const axios = require("axios");
+const InvalidArgumentException = require("./exceptions.js");
 
-// Get the most viewed articles for a project (1000 of them)
-axios.get("https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia.org/all-access/2021/10/01", {
-  headers: {
-    "User-Agent": "WikiOnFireBot (+wikionfire@gmail.com)",
-    "Accept" : "application/json"
-  }
-}).then((response) => {
-  console.dir(response.data.items[0]);
-  console.dir(response.data.items[0].articles);
-});
+/**
+ * Defines the headers of the HTTP requests made by
+ * WikiOnFireBot.
+ */
+const wofBotHeaders = {
+  "User-Agent": "WikiOnFireBot (+wikionfire@gmail.com)",
+  Accept: "application/json",
+};
 
+/**
+ * Returns the first thousand of the most frequently viewed articles
+ * on `en.wikipedia.org` on a given day.
+ *
+ * @param {Number} year the year of the date
+ * @param {Number} month the month of the date
+ * @param {Number} day the day of the date
+ * @returns an array of the most viewed articles
+ */
+const getMostViewedArticles = async (year, month, day) => {
+  if (typeof year !== "number" || !(year instanceof Number))
+    throw new InvalidArgumentException("year must be a number");
+  if (typeof month !== "number" || !(month instanceof Number))
+    throw new InvalidArgumentException("month must be a number");
+  if (typeof day !== "number" || !(day instanceof Number))
+    throw new InvalidArgumentException("day must be a number");
 
-// Get top 100 edited pages by edits count
-axios.get("https://wikimedia.org/api/rest_v1/metrics/edited-pages/top-by-edits/en.wikipedia.org/all-editor-types/all-page-types/2021/10/01", {
-  headers: {
-    "User-Agent": "WikiOnFireBot (+wikionfire@gmail.com)",
-    "Accept": "application/json"
-  }
-}).then((response) => {
-  console.dir(response.data.items[0].results);
-  console.dir(response.data.items[0].results[0].top);
-});
+  const uri =
+    "https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia.org/all-access/" +
+    year +
+    "/" +
+    month +
+    "/" +
+    day;
+  const articles = axios
+    .get(uri, { headers: wofBotHeaders })
+    .then((response) => {
+      return response.data.items[0].articles;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  return articles;
+};
+
+/**
+ * Returns the first hundred of the most frequently edited articles
+ * on `en.wikipedia.org` on a given day.
+ *
+ * @param {Number} year the year of the date
+ * @param {Number} month the month of the date
+ * @param {Number} day the day of the date
+ * @returns an array of the most frequently edited articles
+ */
+const getMostEditedArticles = async (year, month, day) => {
+  if (typeof year !== "number" || !(year instanceof Number))
+    throw new InvalidArgumentException("year must be a number");
+  if (typeof month !== "number" || !(month instanceof Number))
+    throw new InvalidArgumentException("month must be a number");
+  if (typeof day !== "number" || !(day instanceof Number))
+    throw new InvalidArgumentException("day must be a number");
+  const uri =
+    "https://wikimedia.org/api/rest_v1/metrics/edited-pages/top-by-edits/en.wikipedia.org/all-editor-types/all-page-types/" +
+    year +
+    "/" +
+    month +
+    "/" +
+    day;
+  const articles = axios
+    .get(uri, {
+      headers: wofBotHeaders,
+    })
+    .then((response) => {
+      return response.data.items[0].results[0].top;
+    })
+    .catch((error) => {
+      throw error;
+    });
+  return articles;
+};
+
+export { getMostViewedArticles, getMostEditedArticles };
