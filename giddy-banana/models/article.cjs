@@ -14,7 +14,6 @@ module.exports = (sequelize, DataTypes) => {
        models.Article.belongsToMany(models.User, { through: "Like_it" });
        models.Article.belongsToMany(models.User, { through: "Recommend" });
        models.Article.belongsToMany(models.User, { through: "Favourite" });
-       //models.Article.belongsToMany(models.User, { through: "Comment" });
      }
 
   };
