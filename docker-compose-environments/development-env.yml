@@ -11,3 +11,12 @@ services:
       - '3306:3306'
     expose:
       - '3306'
+  nginx:
+    image: "ghcr.io/kpagacz/wof-nginx-devel:latest"
+    restart: always
+    ports:
+      - '80:80'
+    expose:
+      - '80'
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
