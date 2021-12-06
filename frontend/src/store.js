@@ -10,16 +10,24 @@ const store = createStore({
         }
     },
     mutations: {
-        logIn(state, payload) {
-            /*state.username = payload.username;
+        logOut(state) {
+            state.username = null;
+            state.email = null;
+            state.accountType = null;
+
+        },
+        setUser(state, payload) {
+            state.username = payload.username;
             state.email = payload.email;
-            state.accountType = payload.accountType;*/
-            const user = await wofApi
+            state.accountType = payload.accountType;
+        }
+    },
+    actions: {
+        async logIn(context, payload) {
+            await wofApi
                 .post("/login", { username: payload.username, password: payload.password })
                 .then((response) => {
-                    state.username = response.data.username;
-                    state.email = response.data.email;
-                    state.accountType = response.data.accountType;
+                    context.commit('setUser', response.data);
                     return true;
                 })
                 .catch((error) => {
@@ -32,18 +40,18 @@ const store = createStore({
                     }
                 });
             return false;
-        },
-        logOut(state) {
-            state.username = null;
-            state.email = null;
-            state.accountType = null;
-
         }
     },
-    actions: {
-        logIn(context, payload) {
-            context.commit('logIn', payload);
-        }
+    getters: {
+        username(state) {
+            return state.username;
+        },
+        email(state) {
+            return state.email;
+        },
+        accountType(state) {
+            return state.accountType;
+        },
     }
 });
 

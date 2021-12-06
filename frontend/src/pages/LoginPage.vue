@@ -21,15 +21,22 @@
         </wof-button>
       </div>
     </div>
+    <div v-if="loading" class="loading">
+        <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
+      </div>
+      <wof-info-box :isOpen="infoBoxOpen" :title="resultTitle" :type="resultType" @close="closePopup">{{ resultMessage }}</wof-info-box>
   </wof-card>
 </template>
 
 <script>
 import WofInput from "../components/WofInput.vue";
+import WofSpinnerDots from '../components/WofSpinnerDots.vue';
+import WofInfoBox from '../components/WofInfoBox.vue';
+// import { loginUser } from '../httpLayers/login.http';
 
 export default {
   name: "LoginPage",
-  components: { WofInput },
+  components: { WofInput, WofSpinnerDots, WofInfoBox},
   data() {
     return {
       username: {
@@ -40,7 +47,25 @@ export default {
         value: '',
         errorMsg: ''
       },
+      loading: false,
+      resultTitle: null,
+      resultType: null,
+      resultMessage: null
     };
+  },
+  computed: {
+    formVisibility() {
+      if(this.loading) {
+        return 'visibility: hidden;';
+      }
+      return 'visibility: visible;';
+    },
+    infoBoxOpen() {
+      if(this.resultTitle) {
+        return true;
+      }
+      return false
+    }
   },
   methods: {
     setUsername(newValue) {
@@ -57,12 +82,24 @@ export default {
       }
       return false;
     },
-    logIn() {
+    async logIn() {
+      this.loading = true;
       if(this.formValidation()) {
-        //This will be replaced with call to http
-        console.log("Username:"+this.username.value);
-        console.log("Password:"+this.password.value);
+        try {
+          await this.$store.dispatch('logIn', {username: this.username.value, password: this.password.value});
+          this.$router.push(`/user/${this.username.value}`);
+        } catch(err) {
+          this.resultTitle = 'Error';
+          this.resultType = 'error';
+          this.resultMessage = err.message;
+        }
       }
+      this.loading = false;
+    },
+    closePopup() {
+      this.resultTitle = null;
+      this.resultType = null;
+      this.resultMessage = null;
     }
   }
 };
@@ -118,6 +155,15 @@ export default {
       font-size: 1rem;
     }
   }
+}
+
+.loading {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>
