@@ -13,7 +13,7 @@ const router = createRouter({
     routes: [
         { path: '/', component: WofHelloWorld },
         { path: '/login', component: LoginPage },
-        { path: '/user/:userLogin', redirect: '/' },
+        { path: '/user/:userLogin', redirect: '/', props: true },
         { path: '/register', component: RegisterPage },
     ]
 });
