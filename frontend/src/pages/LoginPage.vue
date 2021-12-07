@@ -1,6 +1,6 @@
 <template>
-  <wof-card>
-    <div class="login-page">
+  <wof-card style="position: relative;">
+    <div class="login-page" :style="formVisibility">
       <h1 class="login-page__title">Login</h1>
       <div class="horizontal-line"></div>
       <form class="login-page__form">
