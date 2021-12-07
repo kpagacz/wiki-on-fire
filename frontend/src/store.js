@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import wofApi from "./httpLayers/wofApi";
+import { loginUser } from "./httpLayers/login.http.js";
 
 const store = createStore({
     state() {
@@ -26,23 +26,14 @@ const store = createStore({
     },
     actions: {
         async logIn(context, payload) {
-            await wofApi
-                .post("/login", { username: payload.username, password: payload.password })
-                .then((response) => {
-                    context.commit('setUser', response.data);
-                    this.state.isAuth = true;
-                    return true;
-                })
-                .catch((error) => {
-                    if (error.response) {
-                        throw new Error(`${error.response.data.message}`);
-                    } else if (error.request) {
-                        throw new Error("Service refused connection");
-                    } else {
-                        throw new Error("Undefined error");
-                    }
-                });
-            return false;
+            try {
+                let user = await loginUser(payload.username, payload.password);
+                context.commit('setUser', user);
+                this.state.isAuth = true;
+                return true;
+            } catch(error) {
+                throw new Error(error.message);
+            }
         }
     },
     getters: {
