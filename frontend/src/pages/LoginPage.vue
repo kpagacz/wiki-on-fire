@@ -24,7 +24,7 @@
     <div v-if="loading" class="loading">
         <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
       </div>
-      <wof-info-box :isOpen="infoBoxOpen" :title="resultTitle" :type="resultType" @close="closePopup">{{ resultMessage }}</wof-info-box>
+      <wof-info-box :isOpen="resultTitle ? true : false" :title="resultTitle" :type="resultType" @close="closePopup">{{ resultMessage }}</wof-info-box>
   </wof-card>
 </template>
 
@@ -32,7 +32,6 @@
 import WofInput from "../components/WofInput.vue";
 import WofSpinnerDots from '../components/WofSpinnerDots.vue';
 import WofInfoBox from '../components/WofInfoBox.vue';
-// import { loginUser } from '../httpLayers/login.http';
 
 export default {
   name: "LoginPage",
@@ -59,12 +58,6 @@ export default {
         return 'visibility: hidden;';
       }
       return 'visibility: visible;';
-    },
-    infoBoxOpen() {
-      if(this.resultTitle) {
-        return true;
-      }
-      return false
     }
   },
   methods: {
@@ -86,8 +79,10 @@ export default {
       this.loading = true;
       if(this.formValidation()) {
         try {
-          await this.$store.dispatch('logIn', {username: this.username.value, password: this.password.value});
-          this.$router.push(`/user/${this.username.value}`);
+          let result = await this.$store.dispatch('logIn', {username: this.username.value, password: this.password.value});
+          if(result) {
+            this.$router.push(`/user/${this.username.value}`);
+          }
         } catch(err) {
           this.resultTitle = 'Error';
           this.resultType = 'error';
