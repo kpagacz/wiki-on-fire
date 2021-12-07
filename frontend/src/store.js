@@ -7,6 +7,7 @@ const store = createStore({
             username: null,
             email: null,
             accountType: null,
+            isAuth: false
         }
     },
     mutations: {
@@ -14,6 +15,7 @@ const store = createStore({
             state.username = null;
             state.email = null;
             state.accountType = null;
+            state.isAuth = false;
 
         },
         setUser(state, payload) {
@@ -28,6 +30,7 @@ const store = createStore({
                 .post("/login", { username: payload.username, password: payload.password })
                 .then((response) => {
                     context.commit('setUser', response.data);
+                    this.state.isAuth = true;
                     return true;
                 })
                 .catch((error) => {
@@ -52,6 +55,9 @@ const store = createStore({
         accountType(state) {
             return state.accountType;
         },
+        isAuth(state) {
+            return state.isAuth;
+        }
     }
 });
 
