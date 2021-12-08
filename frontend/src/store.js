@@ -16,7 +16,6 @@ const store = createStore({
             state.email = null;
             state.accountType = null;
             state.isAuth = false;
-
         },
         setUser(state, payload) {
             state.username = payload.username;
@@ -26,6 +25,10 @@ const store = createStore({
     },
     actions: {
         async logIn(context, payload) {
+            /**
+             * This will call loginUser function which will return logging user's data
+             * and it will be saved in state.
+             */
             try {
                 let user = await loginUser(payload.username, payload.password);
                 context.commit('setUser', user);
