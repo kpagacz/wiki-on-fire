@@ -1,6 +1,6 @@
 <template>
   <wof-card style="position: relative;">
-    <div class="login-page" :style="formVisibility">
+    <div class="login-page" :style="formVisibility" @keydown="submitOnKey">
       <h1 class="login-page__title">Login</h1>
       <div class="horizontal-line"></div>
       <form class="login-page__form">
@@ -100,6 +100,12 @@ export default {
             this.$router.push(`/user/${this.username.value}`);
           }
         }
+      }
+    },
+    submitOnKey(event) {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        this.logIn();
       }
     },
     closePopup() {
