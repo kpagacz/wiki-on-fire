@@ -77,19 +77,30 @@ export default {
     },
     async logIn() {
       this.loading = true;
+      let start = Date.now();
+      let result = false;
       if(this.formValidation()) {
         try {
-          let result = await this.$store.dispatch('logIn', {username: this.username.value, password: this.password.value});
-          if(result) {
-            this.$router.push(`/user/${this.username.value}`);
-          }
+          result = await this.$store.dispatch('logIn', {username: this.username.value, password: this.password.value});
         } catch(err) {
+          this.loading = false;
           this.resultTitle = 'Error';
           this.resultType = 'error';
           this.resultMessage = err.message;
         }
+        if(result) {
+          let timeRemaining = Date.now() - start;
+          if(timeRemaining < 500) {
+            setTimeout(() => {
+              this.loading = false;
+              this.$router.push(`/user/${this.username.value}`);
+            }, 500 - timeRemaining);
+          } else {
+            this.loading = false;
+            this.$router.push(`/user/${this.username.value}`);
+          }
+        }
       }
-      this.loading = false;
     },
     closePopup() {
       this.resultTitle = null;
