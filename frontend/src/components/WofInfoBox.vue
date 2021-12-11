@@ -36,7 +36,7 @@ export default {
             type: String,
             default: "default",
             validator(value){
-                return["error", "warning", "positive", "default"].includes(value)
+                return["error", "warning", "positive", "default", "neutral"].includes(value)
             }
         }  
     },
@@ -71,6 +71,18 @@ export default {
             background-color: @primary-warning-color;
             &:hover, &:focus-visible {
                 color: @primary-bright-text-color;
+            }
+        }
+    }
+
+    &--neutral{
+        background: @secondary-neutral-color;
+        color: @primary-dark-text-color;
+        .info_box__title-close-container{background: @primary-neutral-color;}
+        #info_box__close-button{ 
+            background-color: @primary-theme-color;
+            &:hover, &:focus-visible {
+                color: @placeholder;
             }
         }
     }
