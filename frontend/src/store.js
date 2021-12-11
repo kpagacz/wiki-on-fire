@@ -11,6 +11,9 @@ const store = createStore({
         }
     },
     mutations: {
+        /**
+        * This will clear all user's data and unauthorize current session
+        */
         logOut(state) {
             state.username = null;
             state.email = null;
@@ -24,11 +27,11 @@ const store = createStore({
         }
     },
     actions: {
+        /**
+        * This will call loginUser function which will return logging user's data
+        * and it will be saved in state.
+        */
         async logIn(context, payload) {
-            /**
-             * This will call loginUser function which will return logging user's data
-             * and it will be saved in state.
-             */
             try {
                 let user = await loginUser(payload.username, payload.password);
                 context.commit('setUser', user);

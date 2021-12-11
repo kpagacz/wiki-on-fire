@@ -47,6 +47,9 @@ export default {
         errorMsg: ''
       },
       loading: false,
+      /**
+        * All those result{X} properiets are related to error on logging in
+      */
       resultTitle: null,
       resultType: null,
       resultMessage: null
@@ -67,10 +70,10 @@ export default {
     setPassword(newValue) {
       this.password.value = newValue;
     },
-    formValidation() {
     /**
       * Form is valid only when login AND password are correct.
     */
+    formValidation() {
      if(this.username.errorMsg == '' && this.password.errorMsg == '') {
         if(this.username.value.length > 0 && this.password.value.length > 0) {
           return true;
@@ -78,13 +81,13 @@ export default {
       }
       return false;
     },
-    async logIn() {
     /**
       * This function will call store action 'logIn' with username and password as a payload.
       * Call is possible only if form is valid.
       * While contacting http, the loading is displayed for minimum 500ms
       * If login is successful, user will be redirected to his own user page.
     */
+    async logIn() {
       this.loading = true;
       let start = Date.now();
       let result = false;
@@ -111,6 +114,9 @@ export default {
         }
       }
     },
+    /**
+      * This will call logIn method when user hit enter
+    */
     submitOnKey(event) {
       if (event.keyCode === 13) {
         event.preventDefault();
