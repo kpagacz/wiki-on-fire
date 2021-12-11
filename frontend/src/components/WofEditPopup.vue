@@ -1,15 +1,35 @@
 <!-- 
 Component changes something.
 Example:
-<wof-edit-popup title="Edit username" :visible="true" currentValueName="Username" currentValue="wofUser123"/>
+<wof-edit-popup title="Edit username" v-if="this.isOpen" :isOpen="this.isOpen" currentValueName="Username" currentValue="wofUser123" @close="changeState" @edit="consoleLog" />
+
+Simple methods to test the component:
+  data(){
+    return{
+      isOpen: true
+    }
+  },
+  methods: {
+    changeState(){
+      if(this.isOpen==true){
+                this.isOpen=false;
+            }
+            else{
+                this.isOpen=true;
+            }
+    },
+    consoleLog(newValue, newValue2){
+      console.log(newValue+": "+newValue2);
+    }
+  }
 -->
 
 
 <template>
-    <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.state" v-if="this.state"  @close="changeState">
+    <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen"  @close="changeState">
 
         <div class="wof-edit-popup__field">
-            <wof-input :name="this.currentValueName" :v-model="this.value" :initValue="this.currentValue" @change="editValue"  :error="this.errorMsg" ></wof-input>
+            <wof-input :name="this.currentValueName" :v-model="this.value" :initValue="this.currentValue" @change="editValue" :error="this.errorMsg" ></wof-input>
         </div>
 
         <div class="wof-edit-popup__buttons">
@@ -65,15 +85,16 @@ export default {
     },
     methods: {
         changeState(){
-            this.$emit("close");
+            this.$emit('close');
         },
         editValue(newValue){
             this.value=newValue;
         },
         submitForm(){
-            this.$emit("edit");
+            this.$emit("edit", this.currentValueName, this.value);
         }
-    }
+    },
+    emits: ['close', 'edit']
 }
 </script>
 
