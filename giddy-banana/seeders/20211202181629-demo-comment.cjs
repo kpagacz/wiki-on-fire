@@ -11,14 +11,12 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-
-    return queryInterface.bulkInsert("Users", [
+    return queryInterface.bulkInsert("Comments", [
       {
-        username: "test_username1",
-        password: "test_password",
-        email: "test_email@mail.com",
-        account_type: 1,
-        account_status: 1,
+        ArticleId: 1,
+        UserId: 1,
+        contents: "great article!",
+        status: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       }
@@ -32,6 +30,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkDelete("Users", null, {});
+     return queryInterface.bulkDelete("Comments", null, {});
   }
 };
