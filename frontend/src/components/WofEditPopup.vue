@@ -28,21 +28,21 @@ Simple methods to test the component:
 <template>
     <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen"  @close="changeState">
 
-        <div class="wof-edit-popup__field">
-            <wof-input :name="this.currentValueName" :v-model="this.value" :initValue="this.currentValue" @change="editValue" :error="this.errorMsg" ></wof-input>
+        <div class="wof-edit-popup__body" v-if="visibility">
+            <div class="wof-edit-popup__field">
+                <wof-input :name="this.currentValueName" :v-model="this.value" :initValue="this.currentValue" @change="editValue" :error="this.errorMsg" ></wof-input>
+            </div>
+            <div class="wof-edit-popup__buttons">
+                <wof-button variant="outline" @click="changeState">Cancel</wof-button>
+                <wof-button variant="positive" @click="submitForm">Submit</wof-button>
+            </div>
         </div>
-
-        <div class="wof-edit-popup__buttons">
-            <wof-button variant="outline" @click="changeState">Cancel</wof-button>
-            <wof-button variant="positive" @click="submitForm">Submit</wof-button>
+        <div v-if="loading" class="loading">
+            <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
         </div>
-
     </wof-info-box>
 
-    <!--Not used at this moment-->
-    <div v-if="loading" class="loading">
-        <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
-    </div>
+    
 
 
 
@@ -80,7 +80,8 @@ export default {
     data(){
         return{
             loading: false,
-            value: this.currentValue
+            value: this.currentValue,
+            visibility: true
         };
     },
     methods: {
@@ -92,6 +93,8 @@ export default {
         },
         submitForm(){
             this.$emit("edit", this.currentValueName, this.value);
+            this.loading=true;
+            this.visibility=false;
         }
     },
     emits: ['close', 'edit']
@@ -115,23 +118,33 @@ export default {
         background: @secondary-neutral-color;
         color: @primary-dark-text-color;
     }
-    .wof-edit-popup__field{
-        font-size: 0.75em;
-        .input{
-            .input__field{
-                &:focus{
-                    background-color: @secondary-neutral-color;
-                    box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.2);
-                    border: 2px solid @primary-neutral-color;
+    .wof-edit-popup__body{
+        padding: 0 3em 0;
+        .wof-edit-popup__field{
+            font-size: 0.75em;
+            .input{
+                .input__field{
+                    &:focus{
+                        background-color: @secondary-neutral-color;
+                        box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.2);
+                        border: 2px solid @primary-neutral-color;
+                    }
                 }
             }
         }
+        .wof-edit-popup__buttons{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
     }
-    .wof-edit-popup__buttons{
+    .loading{
+        width: 100%;
+        height: 100%;
         display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        margin-top: 5px;
+        justify-content: center;
+        align-items: center;
     }
 }
 </style>
