@@ -21,7 +21,7 @@ Example:
 
     </wof-info-box>
 
-    <!--Not used for now-->
+    <!--Not used at this moment-->
     <div v-if="loading" class="loading">
         <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
     </div>
@@ -70,11 +70,9 @@ export default {
         changeState(){
             if(this.state==true){
                 this.state=false;
-                //this.loading=true;
             }
             else{
                 this.state=true;
-                //this.loading=false;
             }
         },
         editValue(newValue){
@@ -84,7 +82,6 @@ export default {
             //This will be replaced with call to http
             console.log(this.currentValueName+": "+this.value);
             this.state=false;
-            //this.loading=true;
         }
     }
 }
