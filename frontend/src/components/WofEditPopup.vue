@@ -1,3 +1,10 @@
+<!-- 
+Component changes something.
+Example:
+<wof-edit-popup title="Edit username" :visible="true" currentValueName="Username" currentValue="wofUser123"/>
+-->
+
+
 <template>
     <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.state" v-if="this.state"  @close="changeState">
 
