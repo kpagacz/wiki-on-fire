@@ -9,9 +9,7 @@ Example:
     <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.state" v-if="this.state"  @close="changeState">
 
         <div class="wof-edit-popup__field">
-            <form @submit.prevent="submitForm">
-                <wof-input :name="this.currentValueName" :v-model="this.value" :initValue="this.currentValue" @change="editValue"  :error="this.errorMsg" ></wof-input>
-            </form>
+            <wof-input :name="this.currentValueName" :v-model="this.value" :initValue="this.currentValue" @change="editValue"  :error="this.errorMsg" ></wof-input>
         </div>
 
         <div class="wof-edit-popup__buttons">
@@ -42,7 +40,7 @@ export default {
             type: String,
             default: ""
         },
-        visible: {
+        isOpen: {
             type: Boolean,
             default: false
         },
@@ -53,32 +51,27 @@ export default {
         currentValue: {
             type: String,
             default: ''
-        }
+        },
+        errorMsg: {
+            type: String,
+            default: ''
+        },
     },
     data(){
         return{
-            state: this.visible,
-            errorMsg: '',
             loading: false,
             value: this.currentValue
         };
     },
     methods: {
         changeState(){
-            if(this.state==true){
-                this.state=false;
-            }
-            else{
-                this.state=true;
-            }
+            this.$emit("close");
         },
         editValue(newValue){
             this.value=newValue;
         },
         submitForm(){
-            //This will be replaced with call to http
-            console.log(this.currentValueName+": "+this.value);
-            this.state=false;
+            this.$emit("edit");
         }
     }
 }
