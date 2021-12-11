@@ -1,3 +1,10 @@
+<!-- 
+Component changes something.
+
+Example:
+<wof-edit-popup title="Edit username" :visible="true" currentValueName="Username" currentValue="wofUser123"/>
+-->
+
 <template>
     <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.state" v-if="this.state"  @close="changeState">
         
@@ -77,6 +84,7 @@ export default {
             //This will be replaced with call to http
             console.log(this.currentValueName+": "+this.value);
             this.state=false;
+            //this.loading=true;
         }
     }
 }
