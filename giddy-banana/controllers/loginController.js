@@ -22,7 +22,7 @@ export default async (req, res) => {
         domain: "localhost"
       })
     const user = userDataAndToken.user;
-    delete user.password;
+    delete user.dataValues.password;
     res.status(200).send(user);
   } catch (error) {
     if (error instanceof InvalidArgumentException) res.status(400).send({ message: "Invalid username or password type" });

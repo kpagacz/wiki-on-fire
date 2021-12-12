@@ -12,13 +12,13 @@ module.exports = {
      * }], {});
     */
 
-    return queryInterface.bulkInsert("Users", [
+    await queryInterface.bulkInsert("Articles", [
       {
-        username: "test_username1",
-        password: "test_password",
-        email: "test_email@mail.com",
-        account_type: 1,
-        account_status: 1,
+        title: "First article",
+        link_to_preview: "preview_link",
+        link_to_contents: "content_link",
+        number_of_authors: 1,
+        date_added: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
       }
@@ -32,6 +32,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkDelete("Users", null, {});
+     return queryInterface.bulkDelete('Articles', null, {});
   }
 };
