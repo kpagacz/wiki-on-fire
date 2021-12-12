@@ -5,8 +5,7 @@
     "database": "db",
     "host": "localhost",
     "dialect": "mysql",
-    "port": "3306",
-    "seederStorage": "sequelize"
+    "port": "3306"
   },
   "test": {
     "username": "root",
