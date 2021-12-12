@@ -11,8 +11,6 @@ services:
       - '3306:3306'
     expose:
       - '3306'
-<<<<<<< HEAD
-=======
   nginx:
     image: "ghcr.io/kpagacz/wof-nginx-devel:latest"
     restart: always
@@ -22,4 +20,3 @@ services:
       - '80'
     extra_hosts:
       - "host.docker.internal:host-gateway"
->>>>>>> main
