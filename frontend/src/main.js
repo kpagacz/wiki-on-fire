@@ -13,4 +13,4 @@ app.use(store);
 app.component("WofButton", WofButton);
 app.component('WofCard', WofCard);
 app.component('WofIcon', WofIcon);
-app.mount('#app')
+app.mount('#app');
