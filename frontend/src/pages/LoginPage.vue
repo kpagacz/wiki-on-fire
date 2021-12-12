@@ -56,6 +56,9 @@ export default {
     };
   },
   computed: {
+    /**
+      * It returns hidden or visible 'visibility' css property, based on loading state, in a String
+    */
     formVisibility() {
       if(this.loading) {
         return 'visibility: hidden;';
@@ -64,9 +67,15 @@ export default {
     }
   },
   methods: {
+    /**
+      * It requires String argument
+    */
     setUsername(newValue) {
       this.username.value = newValue;
     },
+    /**
+      * It requires String argument
+    */
     setPassword(newValue) {
       this.password.value = newValue;
     },

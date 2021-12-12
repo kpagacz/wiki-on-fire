@@ -20,6 +20,9 @@ const store = createStore({
             state.accountType = null;
             state.isAuth = false;
         },
+        /**
+          * It requires object argument with username, email, and accountType properties (all Strings)
+        */
         setUser(state, payload) {
             state.username = payload.username;
             state.email = payload.email;
@@ -43,15 +46,27 @@ const store = createStore({
         }
     },
     getters: {
+        /**
+          * It returns String or null
+        */
         username(state) {
             return state.username;
         },
+        /**
+          * It returns String or null
+        */
         email(state) {
             return state.email;
         },
+        /**
+          * It returns Number or null
+        */
         accountType(state) {
             return state.accountType;
         },
+        /**
+          * It returns Boolean
+        */
         isAuth(state) {
             return state.isAuth;
         }
