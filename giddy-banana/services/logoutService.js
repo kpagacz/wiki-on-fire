@@ -12,6 +12,6 @@ import config from "../config/config.example.js";
  * const wipedToken = await logoutUser();
  */
 export default async () => {
-  const token = sign("", config.secretKey, { expiresIn: "-1 day" });
+  const token = sign({ expired: "" }, config.secretKey, { expiresIn: "-8h" });
   return { token_type: "jwt", token: token };
 };
