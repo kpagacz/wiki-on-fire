@@ -1,5 +1,5 @@
 <template>
-  <wof-card style="position: relative;">
+  <wof-card class="register-page-card">
     <div class="register-page" :style="formVisibility">
       <h1 class="register-page__title">Create account</h1>
       <div class="horizontal-line"></div>
@@ -189,6 +189,11 @@ export default {
 <style lang="less" scoped>
 @import "../components/common.less";
 
+.register-page-card {
+  margin: 2em 0em;
+  position: relative;
+}
+
 .register-page {
   display: flex;
   flex-direction: column;
@@ -258,7 +263,6 @@ export default {
   }
 }
 
-<<<<<<< HEAD
 .loading {
   position: absolute;
   width: 100%;
@@ -268,8 +272,6 @@ export default {
   align-items: center;
 }
 
-=======
->>>>>>> cebf0eb889608c4f3044144dcc8df12aaaa71193
 @media (max-width: 767.98px) {
 
   .register-page__image-section {
