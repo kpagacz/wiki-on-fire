@@ -21,5 +21,6 @@
   "homepage": "https://github.com/kpagacz/wiki-on-fire#readme",
   "dependencies": {
     "axios": "^0.24.0"
-  }
+  },
+  "type": "module"
 }
