@@ -258,6 +258,7 @@ export default {
   }
 }
 
+<<<<<<< HEAD
 .loading {
   position: absolute;
   width: 100%;
@@ -267,6 +268,8 @@ export default {
   align-items: center;
 }
 
+=======
+>>>>>>> cebf0eb889608c4f3044144dcc8df12aaaa71193
 @media (max-width: 767.98px) {
 
   .register-page__image-section {
