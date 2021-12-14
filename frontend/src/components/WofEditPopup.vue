@@ -85,7 +85,7 @@ export default {
         };
     },
     methods: {
-        changeState(){
+        close(){
             this.$emit('close');
         },
         editValue(newValue){
