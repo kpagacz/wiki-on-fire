@@ -41,9 +41,6 @@ The MySQL database has the following configuration:
 * root password: `wof`
 * listens on the port: `3306`
 * runs the latest mysql image
-<<<<<<< HEAD
 
 ### nginx
 The configuration is copied from ./docker-compose-environments/dev-nginx.conf
-=======
->>>>>>> cebf0eb889608c4f3044144dcc8df12aaaa71193
