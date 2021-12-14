@@ -26,14 +26,14 @@ Simple methods to test the component:
 
 
 <template>
-    <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen"  @close="changeState">
+    <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen"  @close="close">
 
-        <div class="wof-edit-popup__body" v-if="visibility">
+        <div class="wof-edit-popup__body" :style="isVisible">
             <div class="wof-edit-popup__field">
                 <wof-input :name="this.currentValueName" :v-model="this.value" :initValue="this.currentValue" @change="editValue" :error="this.errorMsg" ></wof-input>
             </div>
             <div class="wof-edit-popup__buttons">
-                <wof-button variant="outline" @click="changeState">Cancel</wof-button>
+                <wof-button variant="outline" @click="close">Cancel</wof-button>
                 <wof-button variant="positive" @click="submitForm">Submit</wof-button>
             </div>
         </div>
@@ -97,6 +97,14 @@ export default {
         submitForm(){
             this.$emit("edit", this.currentValueName, this.value);
             this.visibility=false;
+        }
+    },
+    computed: {
+        isVisible(){
+            if(this.loading)
+                return "visibility: hidden;";
+            else
+                return "visibility: visible;";
         }
     },
     emits: ['close', 'edit']
