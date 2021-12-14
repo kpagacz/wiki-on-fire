@@ -114,20 +114,6 @@ export default {
 <style lang="less">
 @import './common.less';
 .wof-edit-popup{
-    
-    .info_box__title-close-container{
-        background: @primary-neutral-color;
-        .info_box__title{
-            color: @primary-dark-text-color;           
-        }
-        #info_box__close-button{
-            background-color: @primary-neutral-color;       
-        }
-    }
-    .info_box__content{
-        background: @secondary-neutral-color;
-        color: @primary-dark-text-color;
-    }
     .wof-edit-popup__body{
         padding: 0 3em 0;
         .wof-edit-popup__field{
