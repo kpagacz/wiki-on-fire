@@ -80,7 +80,7 @@ export default {
         color: @primary-dark-text-color;
         .info_box__title-close-container{background: @primary-neutral-color;}
         #info_box__close-button{ 
-            background-color: @primary-theme-color;
+            background-color: @primary-neutral-color;
             &:hover, &:focus-visible {
                 color: @placeholder;
             }
