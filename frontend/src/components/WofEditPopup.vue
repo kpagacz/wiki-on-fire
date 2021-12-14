@@ -26,7 +26,8 @@ Simple methods to test the component:
 
 
 <template>
-    <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen" type="neutral" @close="close">
+<div class="wof-edit-popup">
+    <wof-info-box :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen" type="neutral" @close="close">
 
         <div class="wof-edit-popup__body" :style="isVisible">
             <div class="wof-edit-popup__field">
@@ -41,11 +42,7 @@ Simple methods to test the component:
             <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
         </div>
     </wof-info-box>
-
-    
-
-
-
+</div>
 </template>
 
 <script>
