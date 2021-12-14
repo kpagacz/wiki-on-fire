@@ -1,4 +1,5 @@
 <template>
+  <wof-card class="login-page-card">
     <div class="login-page" :style="formVisibility" @keydown="submitOnKey">
       <h1 class="login-page__title">Login</h1>
       <div class="horizontal-line"></div>
