@@ -1,5 +1,4 @@
 <template>
-  <wof-card style="position: relative;">
     <div class="login-page" :style="formVisibility" @keydown="submitOnKey">
       <h1 class="login-page__title">Login</h1>
       <div class="horizontal-line"></div>
@@ -143,6 +142,11 @@ export default {
 
 <style lang="less" scoped>
 @import "../components/common.less";
+
+.login-page-card {
+  margin: 2em 0em;
+  position: relative;
+}
 
 .login-page {
   display: flex;
