@@ -48,7 +48,7 @@ export default {
       },
       loading: false,
       /**
-        * All those result{X} properiets are related to error on logging in
+        * All those result{X} properties are related to error on logging in
       */
       resultTitle: null,
       resultType: null,
