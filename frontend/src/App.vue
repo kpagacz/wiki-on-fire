@@ -36,7 +36,6 @@ body {
       justify-content: center;
       min-height: 90vh;
       background-color: @tertiary-color;
-      // padding: 2em 4em;
     }
   }
 }
