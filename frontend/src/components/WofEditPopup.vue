@@ -76,10 +76,13 @@ export default {
             type: String,
             default: ''
         },
+        loading: {
+            type: Boolean,
+            default: false
+        },
     },
     data(){
         return{
-            loading: false,
             value: this.currentValue,
             visibility: true
         };
