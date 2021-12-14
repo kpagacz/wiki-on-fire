@@ -86,7 +86,7 @@ export default {
             }
         }
     }
-
+    
     &--default{
         background-color: @secondary-color;
         .info_box__title-close-container{background-color: @primary-theme-color;}
