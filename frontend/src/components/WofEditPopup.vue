@@ -96,7 +96,6 @@ export default {
         },
         submitForm(){
             this.$emit("edit", this.currentValueName, this.value);
-            this.loading=true;
             this.visibility=false;
         }
     },
