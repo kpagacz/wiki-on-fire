@@ -1,5 +1,5 @@
 <template>
-  <wof-card>
+  <wof-card class="login-page-card">
     <div class="login-page">
       <h1 class="login-page__title">Login</h1>
       <div class="horizontal-line"></div>
@@ -70,6 +70,11 @@ export default {
 
 <style lang="less" scoped>
 @import "../components/common.less";
+
+.login-page-card {
+  margin: 2em 0em;
+  position: relative;
+}
 
 .login-page {
   display: flex;
