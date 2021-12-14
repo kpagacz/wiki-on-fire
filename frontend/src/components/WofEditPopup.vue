@@ -26,7 +26,7 @@ Simple methods to test the component:
 
 
 <template>
-    <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen"  @close="close">
+    <wof-info-box class="wof-edit-popup" :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen" type="neutral" @close="close">
 
         <div class="wof-edit-popup__body" :style="isVisible">
             <div class="wof-edit-popup__field">
