@@ -4,7 +4,7 @@
         <div class="small-error__icon">
             <wof-icon icon="wof-warning-circle-fill" :size="this.size"/>
         </div>
-        <div class="small-error__wrap-text" :style="`left: ${size*3}vh;`">
+        <div class="small-error__wrap-text" :style="`left: ${size}rem; min-width: ${size*10}rem;`">
             <div class="small-error__content" :style="`font-size: ${size*0.6}rem;`">
                 {{ text }}
             </div>
