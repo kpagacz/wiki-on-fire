@@ -1,12 +1,12 @@
 <template>
-<div class="small-error">
+<div class="small-error" v-if="haveText">
     <div class="small-error__contener">
         <div class="small-error__icon">
-            <wof-icon @mouseover="hover = true" @mouseleave="hover = false" icon="wof-warning-circle-fill" :size="this.size"/>
+            <wof-icon icon="wof-warning-circle-fill" :size="this.size"/>
         </div>
-        <div class="small-error__wrap-text">
-            <div class="small-error__content" v-if="hover">
-                <slot></slot>
+        <div class="small-error__wrap-text" :style="`left: ${size*3}vh;`">
+            <div class="small-error__content" :style="`font-size: ${size*0.6}rem;`">
+                {{ text }}
             </div>
         </div>
     </div>
@@ -18,55 +18,62 @@ export default {
   name: "WofSmallError",
 
   props: {
-      size: Number
+      size: Number,
+      text:{
+          type: String,
+          default: ''
+      }
   },
-  data() {
-    return {
-      hover: false
-    };
-  }
+  computed: {
+      haveText(){
+            if(this.text!='')
+                return true;
+            else
+                return false;  
+      }
+  },
 }
 </script>
 
 <style lang="less">
+@import './common.less';
 
 .small-error{
-    position: absolute;
-    
     .small-error__contener{
         display: flex;
-        position: absolute;
-        min-width: 0;
+        position: relative; 
+        justify-content: center; 
+        align-items: center;
 
         .small-error__icon{
-            color: #E13E3E;
-            margin-right: 0.5em;
-            order: 1;
-            margin: 0.5em;   
+            color: @primary-error-color;
+            order: 1;  
         }
+        
+        .small-error__icon:hover ~ .small-error__wrap-text .small-error__content{
+                    visibility: visible;
+                    word-wrap: break-word;
+                }
 
         .small-error__wrap-text{
             position:absolute;
             order:3;
             min-width: 10vw;
             align-content: left;
-            left: 4vh; 
     
             .small-error__content{
                 border-radius: 1em;
                 padding: 0.5em;
-                font-size: 0.6rem;
-                background-color: #E13E3E;
-                color: #FFFFFF;
+                color: @primary-bright-text-color;
+                background-color: @primary-error-color;
                 order: 2;
-                margin: auto;
-                margin-left: 0;
                 flex-basis: auto;
-                position: absolute;
-                margin-top: 0.75em;
-                align-content: center;
+                align-content: center; 
+                width: fit-content;
+                visibility: hidden;
             }
         }
     }
 }
+
 </style>
