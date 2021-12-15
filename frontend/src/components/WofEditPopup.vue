@@ -111,6 +111,7 @@ export default {
 <style lang="less">
 @import './common.less';
 .wof-edit-popup{
+    position: relative;
     .wof-edit-popup__body{
         padding: 0 3em 0;
         .wof-edit-popup__field{
