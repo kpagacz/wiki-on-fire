@@ -69,13 +69,17 @@ export default {
             type: String,
             default: ''
         },
-        errorMsg: {
+        inputErrorMsg: {
             type: String,
             default: ''
         },
         loading: {
             type: Boolean,
             default: false
+        },
+        serviceErrorMsg: {
+            type: String,
+            default: ''
         },
     },
     data(){
