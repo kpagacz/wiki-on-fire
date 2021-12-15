@@ -18,7 +18,10 @@ export default {
   name: "WofSmallError",
 
   props: {
-      size: Number,
+      size: {
+          type: Number,
+          default: 1
+      },
       text:{
           type: String,
           default: ''
@@ -52,13 +55,11 @@ export default {
         
         .small-error__icon:hover ~ .small-error__wrap-text .small-error__content{
                     visibility: visible;
-                    word-wrap: break-word;
                 }
 
         .small-error__wrap-text{
             position:absolute;
             order:3;
-            min-width: 10vw;
             align-content: left;
     
             .small-error__content{
