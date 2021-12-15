@@ -26,23 +26,27 @@ Simple methods to test the component:
 
 
 <template>
-<div class="wof-edit-popup">
-    <wof-info-box :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen" type="neutral" @close="close">
 
+<wof-info-box :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen" type="neutral" @close="close">
+    <div class="wof-edit-popup">
         <div class="wof-edit-popup__body" :style="isVisible">
             <div class="wof-edit-popup__field">
-                <wof-input :name="this.currentValueName" :v-model="this.value" :initValue="this.currentValue" @change="editValue" :error="this.errorMsg" ></wof-input>
+                <wof-input :name="this.currentValueName" :v-model="this.value" :initValue="this.currentValue" @change="editValue" :error="this.inputErrorMsg" ></wof-input>
             </div>
             <div class="wof-edit-popup__buttons">
                 <wof-button variant="outline" @click="close">Cancel</wof-button>
                 <wof-button variant="positive" @click="submitForm">Submit</wof-button>
             </div>
         </div>
-        <div v-if="loading" class="loading">
+        <div v-if="loading" class="loading" :style="`visibility: ${this.visibility};`">
             <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
         </div>
-    </wof-info-box>
-</div>
+        <div class="wof-edit-popup__error" :v-if="isErrorMsg" :style="`visibility: ${visibility};`">
+            {{ serviceErrorMsg }}
+        </div>
+    </div>
+</wof-info-box>
+
 </template>
 
 <script>
@@ -85,7 +89,7 @@ export default {
     data(){
         return{
             value: this.currentValue,
-            visibility: true
+            visibility: "hidden"
         };
     },
     methods: {
@@ -97,15 +101,33 @@ export default {
         },
         submitForm(){
             this.$emit("edit", this.currentValueName, this.value);
-            this.visibility=false;
+        },
+        changeVisibility(newValue){
+            this.visibility=newValue;
         }
     },
     computed: {
         isVisible(){
-            if(this.loading)
+            if(this.loading || this.serviceErrorMsg.length>0){
+                this.changeVisibility("visible");
                 return "visibility: hidden;";
-            else
+            }
+            else{
+                this.changeVisibility("hidden");
                 return "visibility: visible;";
+            }
+                 
+        },
+        isErrorMsg(){
+            if(this.serviceErrorMsg.length>0){
+                this.changeVisibility("visible");
+                return true;
+            }
+            else if(!this.loading) {
+                this.changeVisibility("hidden");
+                return false;
+            }
+            return false;   
         }
     },
     emits: ['close', 'edit']
@@ -137,7 +159,8 @@ export default {
             margin-top: 10px;
         }
     }
-    .loading{
+
+    .loading, .wof-edit-popup__error{
         width: 100%;
         height: 100%;
         display: flex;
