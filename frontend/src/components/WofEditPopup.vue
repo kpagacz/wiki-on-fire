@@ -138,6 +138,8 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+        top: 0;
+        position: absolute;
     }
 }
 </style>
