@@ -8,7 +8,7 @@ import logoutRouter from "./logoutRoute.js";
 const mainRouter = new Router();
 mainRouter.use(usersRouter);
 mainRouter.use(loginRouter);
-mainRouter.user(authRouter);
+mainRouter.use(authRouter);
 mainRouter.use(logoutRouter);
 
 // define /api router
