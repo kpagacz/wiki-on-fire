@@ -50,6 +50,12 @@ async function postUser(
   }
 }
 
+/**
+ * Deletes the account from the WoF database.
+ *
+ * @param {String} username the name of the account
+ * @throws {Error} if the database operation failed
+ */
 async function deleteUser(username) {
   try {
     await db.User.destroy({
@@ -60,6 +66,13 @@ async function deleteUser(username) {
   }
 }
 
+/**
+ * Updates the account details in the WoF database.
+ *
+ * @param {String} username the name of the account
+ * @param {Object} updatedFields the object containing the updated fields
+ * @throws {Error} if the database operation failed
+ */
 async function updateUser(username, updatedFields) {
   try {
     if ((await db.User.findOne({ where: { username: username } })) === null)
@@ -73,7 +86,7 @@ async function updateUser(username, updatedFields) {
       }, {});
     await db.User.update(subsetFields, { where: { username: username } });
   } catch (e) {
-    throw e;
+    throw new Error(e.message);
   }
 }
 
