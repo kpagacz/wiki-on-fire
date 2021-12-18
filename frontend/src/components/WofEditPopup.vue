@@ -1,30 +1,3 @@
-<!-- 
-Component changes something.
-Example:
-<wof-edit-popup title="Edit username" v-if="this.isOpen" :isOpen="this.isOpen" currentValueName="Username" currentValue="wofUser123" @close="changeState" @edit="consoleLog" />
-
-Simple methods to test the component:
-  data(){
-    return{
-      isOpen: true
-    }
-  },
-  methods: {
-    changeState(){
-      if(this.isOpen==true){
-                this.isOpen=false;
-            }
-            else{
-                this.isOpen=true;
-            }
-    },
-    consoleLog(newValue, newValue2){
-      console.log(newValue+": "+newValue2);
-    }
-  }
--->
-
-
 <template>
 
 <wof-info-box :title="this.title" :isOpen="this.isOpen" v-if="this.isOpen" type="neutral" @close="close">
