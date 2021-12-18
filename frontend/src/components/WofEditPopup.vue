@@ -115,15 +115,6 @@ export default {
         padding: 0 3em 0;
         .wof-edit-popup__field{
             font-size: 0.75em;
-            .input{
-                .input__field{
-                    &:focus{
-                        background-color: @secondary-neutral-color;
-                        box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.2);
-                        border: 2px solid @primary-neutral-color;
-                    }
-                }
-            }
         }
         .wof-edit-popup__buttons{
             display: flex;
