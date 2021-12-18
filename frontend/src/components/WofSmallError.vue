@@ -54,7 +54,7 @@ export default {
         }
         
         .small-error__icon:hover ~ .small-error__wrap-text .small-error__content{
-                    visibility: visible;
+                    display: flex;
                 }
 
         .small-error__wrap-text{
