@@ -3,7 +3,7 @@
     <div class="input__header">
       <h2 class="input__title">{{ name}}</h2>
       <!-- This error will be replaced with WofSmallError component -->
-      <div class="temporary-error" v-if="error.length && !isFocused">{{ error }}</div>
+      <div class="temporary-error" v-if="error.length && !isFocused"><wof-small-error :text="error" :size="1" /></div>
     </div>
     <input v-model="value"
            :type="type"
@@ -15,7 +15,10 @@
 </template>
 
 <script>
+import WofSmallError from './WofSmallError.vue'
+
 export default {
+  components: { WofSmallError },
   name: 'WofInput',
   props: {
     name: {
