@@ -24,12 +24,12 @@ export default async (req, res) => {
     });
     let response;
     response.type = "success";
-    response.data = userData;
+    response.userData = userData;
     res.status(200).send(response);
   } catch (error) {
     res.status(200).send({
       type: "invalidToken",
-      data: error.message,
+      message: error.message,
     });
   }
 };
