@@ -1,5 +1,5 @@
 import { Router } from "express";
-import refreshTokenRouter from "./refreshTokenRoute.js";
+import { refreshTokenRouter } from "./refreshTokenRoute.js";
 
 const authRouter = new Router();
 authRouter.use(refreshTokenRouter);
