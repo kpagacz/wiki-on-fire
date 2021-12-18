@@ -83,8 +83,8 @@ export default {
 
     &:focus {
       background-color: @secondary-neutral-color;
-      outline: none;
-      box-shadow: none;
+      box-shadow: inset 0px 1px 8px rgba(0, 0, 0, 0.2);
+      border: 2px solid @primary-neutral-color;
     }
 
     &.input__field--invalid {
