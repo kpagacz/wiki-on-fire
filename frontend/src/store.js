@@ -1,5 +1,6 @@
 import { createStore } from 'vuex';
 import { loginUser } from "./httpLayers/login.http.js";
+import { signOut } from "./httpLayers/signout.http.js";
 
 const store = createStore({
     state() {
@@ -12,9 +13,18 @@ const store = createStore({
     },
     mutations: {
         /**
-        * This will clear all user's data and unauthorize current session
+        * Signs user out of the application session.
+        *
+        * Wipes the stored user data and the session cookie.
+        *
+        * @throws {Error} if wiping out the session cookie was not successful
         */
         logOut(state) {
+            try {
+                await signOut();
+            } catch (error) {
+                throw new Error("Error signing user out");
+            }
             state.username = null;
             state.email = null;
             state.accountType = null;
