@@ -64,7 +64,7 @@ export default {
     
             .small-error__content{
                 border-radius: 1em;
-                padding: 0.5em;
+                padding: 0.35em;
                 color: @primary-bright-text-color;
                 background-color: @primary-error-color;
                 order: 2;
