@@ -41,7 +41,7 @@
         <router-link to="/login" class="register-page__link">
           Already have an account? Sign In
         </router-link>
-        <wof-button class="register-page__submit-button" @click="createAccount">
+        <wof-button class="register-page__submit-button" :variant="submitButtonVariant" @click="createAccount">
           Create account
         </wof-button>
       </div>
@@ -113,6 +113,13 @@ export default {
         return true;
       }
       return false
+    },
+    submitButtonVariant() {
+      if(this.username.value == '' || this.password.value == '' || this.passwordConfirm.value == '' || this.email.value == '') {
+        return 'disabled';
+      } else {
+        return 'default';
+      }
     }
   },
   methods: {
