@@ -71,7 +71,7 @@ export default {
                 flex-basis: auto;
                 align-content: center; 
                 width: fit-content;
-                visibility: hidden;
+                display: none;
             }
         }
     }
