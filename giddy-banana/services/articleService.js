@@ -1,9 +1,6 @@
 import db from "../models/index.cjs";
 import { NotFoundException } from "./serviceErrors.js";
 
-const NumberOfAuthorsMapping = {
-  "number" : 1
-}
 
 async function getArticle(_title) {
   try {
@@ -31,7 +28,7 @@ async function postArticle(
       title: _title,
       link_to_preview: _link_to_preview,
       link_to_contents: _link_to_contents,
-      number_of_authors: NumberOfAuthorsMapping["number"],
+      number_of_authors: _number_of_authors,
       date_added: _date_added
     });
   } catch (e) {
