@@ -1,9 +1,9 @@
 import express from "express";
-import postArticles from "../controllers/articleController.js";
+import { getArticles, postArticles, deleteArticles, updateArticles } from "../controllers/articleController.js";
 
 const articlesRouter = new express.Router();
-/*articlesRouter.use(express.json());
-articlesRouter.route("/articles/:title")
+articlesRouter.use(express.json());
+/*articlesRouter.route("/articles/:title")
   .get(getArticles)
   .delete(deleteArticles)
   .patch(updateArticles);*/
