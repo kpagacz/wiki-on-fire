@@ -2,6 +2,16 @@ import db from "../models/index.cjs";
 import { NotFoundException } from "./serviceErrors.js";
 
 
+
+/**
+ * Returns information about a user.
+ *
+ * @param {string} _title the article title
+ * @return {Object} JSON with the requested article's data
+ * @throws {Error} If the article couldn't be found or the database
+ * connection was refused.
+ */
+
 async function getArticle(_title) {
   try {
     const found = await db.Article.findOne({
@@ -28,27 +38,27 @@ async function postArticle(
       title: _title,
       link_to_preview: _link_to_preview,
       link_to_contents: _link_to_contents,
-      number_of_authors: _number_of_authors,
-      date_added: _date_added
+      date_added: _date_added,
+      number_of_authors: _number_of_authors
     });
   } catch (e) {
     throw new Error(e.message);
   }
 }
 
-async function deleteArticle(title) {
+async function deleteArticle(_title) {
   try {
     await db.Article.destroy({
-      where: { title: title },
+      where: { title: _title },
     });
   } catch (e) {
     throw new Error(e.message);
   }
 }
 
-async function updateArticle(title, updatedFields) {
+async function updateArticle(_title, updatedFields) {
   try {
-    if ((await db.Article.findOne({ where: { title: title } })) === null)
+    if ((await db.Article.findOne({ where: { title: _title } })) === null)
       throw new NotFoundException("Article not found");
     const modelKeys = Object.keys(db.Article.rawAttributes);
     const subsetFields = modelKeys
@@ -57,7 +67,7 @@ async function updateArticle(title, updatedFields) {
         subset[key] = updatedFields[key];
         return subset;
       }, {});
-    await db.Article.update(subsetFields, { where: { title: title } });
+    await db.Article.update(subsetFields, { where: { title: _title } });
   } catch (e) {
     throw e;
   }

@@ -22,8 +22,8 @@ async function postArticles(req, res) {
       req.body.title,
       req.body.link_to_preview,
       req.body.link_to_contents,
-      req.body.number_of_authors,
-      req.body.date_added
+      req.body.date_added,
+      req.body.number_of_authors
     );
     res.status(201).json(createdArticle);
   } catch (e) {
