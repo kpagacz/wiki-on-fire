@@ -57,7 +57,7 @@
 import WofInput from "../components/WofInput.vue";
 import WofSpinnerDots from "../components/WofSpinnerDots.vue";
 import WofInfoBox from '../components/WofInfoBox.vue';
-import { registerUser } from '../httpLayers/registration.http';
+import { registerUser } from '../httpLayers/accountActions.http.js';
 
 export default {
   name: "RegisterPage",
