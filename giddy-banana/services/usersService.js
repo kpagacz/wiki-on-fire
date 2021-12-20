@@ -2,12 +2,12 @@ import db from "../models/index.cjs";
 import { NotFoundException } from "./serviceErrors.js";
 
 const AccountStatusMapping = {
-  "active" : 1
-}
+  active: 1,
+};
 
 const AccountTypeMapping = {
-  "user" : 1
-}
+  user: 1,
+};
 
 /**
  * Returns information about a user.
@@ -31,19 +31,14 @@ async function getUser(_username) {
   }
 }
 
-async function postUser(
-  _username,
-  _password,
-  _email,
-  _user_avatar
-) {
+async function postUser(_username, _password, _email, _user_avatar) {
   try {
     await db.User.create({
       username: _username,
       password: _password,
       email: _email,
       account_type: AccountTypeMapping["user"],
-      account_status: AccountStatusMapping["active"]
+      account_status: AccountStatusMapping["active"],
     });
   } catch (e) {
     throw new Error(e.message);
