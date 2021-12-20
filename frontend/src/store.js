@@ -19,7 +19,7 @@ const store = createStore({
         *
         * @throws {Error} if wiping out the session cookie was not successful
         */
-        logOut(state) {
+        async logOut(state) {
             try {
                 await signOut();
             } catch (error) {

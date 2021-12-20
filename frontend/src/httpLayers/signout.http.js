@@ -1,4 +1,3 @@
-const { default: wofApi } = require("./wofApi");
 import wofApi from "./wofApi.js";
 
 /**
