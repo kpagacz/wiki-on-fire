@@ -1,26 +1,27 @@
 import db from "../models/index.cjs";
-import { NotFoundException } from "./serviceErrors.js";
+import { NotFoundException } from "../src/Errors.js";
+import hashPassword from "../src/hashing.js";
 
 const AccountStatusMapping = {
-  "active" : 1
-}
+  active: 1,
+};
 
 const AccountTypeMapping = {
-  "user" : 1
-}
+  user: 1,
+};
 
 /**
  * Returns information about a user.
  *
- * @param {string} _username the username
+ * @param {string} username the username
  * @return {Object} JSON with the requested user's data
  * @throws {Error} If the user couldn't be found or the database
  * connection was refused.
  */
-async function getUser(_username) {
+async function getUser(username) {
   try {
     const found = await db.User.findOne({
-      where: { username: _username },
+      where: { username: username },
     }).then((user) => {
       return user;
     });
@@ -31,25 +32,33 @@ async function getUser(_username) {
   }
 }
 
-async function postUser(
-  _username,
-  _password,
-  _email,
-  _user_avatar
-) {
+/**
+ * Creates a new user and stores it in the database.
+ *
+ * @param {String} username the unique username
+ * @param {String} password the raw password of the user
+ * @param {String} email the email address of the user
+ * @param {String} userAvatar avatar
+ */
+async function postUser(username, password, email, userAvatar) {
   try {
     await db.User.create({
-      username: _username,
-      password: _password,
-      email: _email,
+      username: username,
+      password: hashPassword(password),
+      email: email,
       account_type: AccountTypeMapping["user"],
-      account_status: AccountStatusMapping["active"]
+      account_status: AccountStatusMapping["active"],
     });
   } catch (e) {
     throw new Error(e.message);
   }
 }
 
+/**
+ * Deletes the user from the database.
+ *
+ * @param {String} username uniquely identifying the user
+ */
 async function deleteUser(username) {
   try {
     await db.User.destroy({
@@ -60,21 +69,23 @@ async function deleteUser(username) {
   }
 }
 
+/**
+ * Updates user information in the database.
+ *
+ * @param {String} username uniquely identifying the user
+ * @param {Object} updatedFields the object with the fields and new values for the given user
+ */
 async function updateUser(username, updatedFields) {
-  try {
-    if ((await db.User.findOne({ where: { username: username } })) === null)
-      throw new NotFoundException("Username not found");
-    const modelKeys = Object.keys(db.User.rawAttributes);
-    const subsetFields = modelKeys
-      .filter((key) => key in updatedFields)
-      .reduce((subset, key) => {
-        subset[key] = updatedFields[key];
-        return subset;
-      }, {});
-    await db.User.update(subsetFields, { where: { username: username } });
-  } catch (e) {
-    throw e;
-  }
+  if ((await db.User.findOne({ where: { username: username } })) === null)
+    throw new NotFoundException("Username not found");
+  const modelKeys = Object.keys(db.User.rawAttributes);
+  const subsetFields = modelKeys
+    .filter((key) => key in updatedFields)
+    .reduce((subset, key) => {
+      subset[key] = updatedFields[key];
+      return subset;
+    }, {});
+  await db.User.update(subsetFields, { where: { username: username } });
 }
 
 export { getUser, postUser, deleteUser, updateUser };
