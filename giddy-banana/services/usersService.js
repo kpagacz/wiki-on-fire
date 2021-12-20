@@ -32,9 +32,6 @@ async function getUser(username) {
   }
 }
 
-<<<<<<< HEAD
-async function postUser(_username, _password, _email, _user_avatar) {
-=======
 /**
  * Creates a new user and stores it in the database.
  *
@@ -44,7 +41,6 @@ async function postUser(_username, _password, _email, _user_avatar) {
  * @param {String} userAvatar avatar
  */
 async function postUser(username, password, email, userAvatar) {
->>>>>>> main
   try {
     await db.User.create({
       username: username,
