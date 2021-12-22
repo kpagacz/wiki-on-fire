@@ -2,7 +2,7 @@
   <div class="input">
     <div class="input__header">
       <h2 class="input__title">{{ name}}</h2>
-      <div class="temporary-error" v-if="error.length && !isFocused"><wof-small-error :text="error" :size="1" /></div>
+      <wof-small-error v-if="error.length && !isFocused" :text="error" :size="1" />
     </div>
     <input v-model="value"
            :type="type"
