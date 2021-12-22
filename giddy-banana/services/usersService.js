@@ -82,12 +82,14 @@ async function updateUser(username, updatedFields) {
     if ((await db.User.findOne({ where: { username: username } })) === null)
       throw new NotFoundException("Username not found");
     const modelKeys = Object.keys(db.User.rawAttributes);
-    const subsetFields = modelKeys
+    let subsetFields = modelKeys
       .filter((key) => key in updatedFields)
       .reduce((subset, key) => {
         subset[key] = updatedFields[key];
         return subset;
       }, {});
+    if ("password" in subsetFields)
+      subsetFields.password = hashPassword(subsetFields.password);
     await db.User.update(subsetFields, { where: { username: username } });
   } catch (e) {
     throw new Error(e.message);
