@@ -40,18 +40,22 @@ const loginUser = async (username, password) => {
     if (error instanceof NotFoundException) throw error;
     throw new Error("Error getting the user information");
   }
-
+  
   if (hashPassword(password) !== user.password)
     throw new InvalidPasswordException("Invalid password");
 
   const token = sign(
     {
       username: user.username,
+      email: user.email,
       accountType: user.account_type,
       accountStatus: user.account_status,
     },
     config.secretKey,
     {
+      algorithm: config.tokenAlgorithm,
+      expiresIn: config.tokenExpiration,
+      issuer: config.tokenIssuer,
       expiresIn: "8h",
     }
   );
