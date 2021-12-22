@@ -15,7 +15,7 @@
                     <div class="user-page__option">
                         <h3 class="user-page__option-name">Email:</h3>
                         <span class="user-page__option-value">{{ userEmail }}</span>
-                        <wof-button class="user-page__option-button" icon="wof-edit" :size="1.1">Change email address</wof-button>
+                        <wof-button class="user-page__option-button" icon="wof-edit" :size="1.1" @click="openEditPopup">Change email address</wof-button>
                     </div>
                     <h2 class="user-page__options-header">Account Options</h2>
                     <div class="horizontal-line"></div>
@@ -26,16 +26,26 @@
                 </div>
             </div>
         </wof-optional-section>
+        <wof-edit-popup title="Email"
+        :isOpen="isEditOpen"
+        :serviceErrorMsg="editServiceError"
+        :inputErrorMsg="editInputError"
+        :currentValue="userEmail"
+        :currentValueName="edittedValueName"
+        :loading="editLoading"
+        @edit="changeEmail"></wof-edit-popup>
     </div>
 </template>
 
 <script>
 import WofOptionalSection from '../components/WofOptionalSection.vue';
+import WofEditPopup from '../components/WofEditPopup.vue';
 
 export default {
     name: 'UserPage',
     components: {
         WofOptionalSection,
+        WofEditPopup
     },
     props: {
         /**
@@ -45,8 +55,36 @@ export default {
     },
     data() {
         return {
-            userEmail: this.$store.getters.email
+            userEmail: this.$store.getters.email,
+            isEditOpen: false,
+            editServiceError: '',
+            editInputError: '',
+            edittedValueName: 'Email',
+            editLoading: false
         };
+    },
+    methods: {
+        openEditPopup() {
+            this.isEditOpen = true;
+        },
+        changeEmail(_, newEmail) {
+            this.editLoading = true;
+            console.log(newEmail);
+            if(!newEmail.includes('@')) {
+                this.editInputError = "Email should contain '@' symbol";
+                this.editLoading = false;
+            } else {
+                try {
+                    //We will replace this with true call
+                    console.log('Here we send new email to endpoint. New Email: '+newEmail);
+                    this.userEmail = newEmail;
+                    this.isEditOpen = false;
+                } catch(err) {
+                    this.editServiceError = err.message;
+                }
+                this.editLoading = false;
+            }
+        }
     }
 };
 </script>
