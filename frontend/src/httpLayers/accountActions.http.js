@@ -44,7 +44,7 @@ async function registerUser(username, password, email) {
  * 3. An unexpected error.
  */
 async function deleteUser(username) {
-  if (!username instanceof String && typeof username !== "string")
+  if (!(username instanceof String) && typeof username !== "string")
     throw new Error("username must be a string");
   return await wofApi
     .delete("/users/" + username)
@@ -75,7 +75,7 @@ async function deleteUser(username) {
  * 3. An unexpected error.
   */
 async function updateUser(username, updatedDetails) {
-  if (!username instanceof String && typeof username !== "string")
+  if (!(username instanceof String) && typeof username !== "string")
     throw new Error("username must be a string");
   let sentDetails = {};
   if ("password" in updatedDetails)
@@ -109,7 +109,7 @@ async function updateUser(username, updatedDetails) {
  * 3. An unexpected error.
  */
 async function getUserDetails(username) {
-  if (!username instanceof String && typeof username !== "string")
+  if (!(username instanceof String) && typeof username !== "string")
     throw new Error("username must be a string");
   return await wofApi
     .get("/users/" + username)
