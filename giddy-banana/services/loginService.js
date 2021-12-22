@@ -5,8 +5,9 @@ import {
   InvalidArgumentException,
   InvalidPasswordException,
   NotFoundException,
-} from "./serviceErrors.js";
+} from "../src/Errors.js";
 import { getUser } from "./usersService.js";
+import hashPassword from "../src/hashing.js";
 
 /**
  * Authenticates username and password:
@@ -39,8 +40,8 @@ const loginUser = async (username, password) => {
     if (error instanceof NotFoundException) throw error;
     throw new Error("Error getting the user information");
   }
-
-  if (password !== user.password)
+  
+  if (hashPassword(password) !== user.password)
     throw new InvalidPasswordException("Invalid password");
 
   const token = sign(
@@ -55,6 +56,7 @@ const loginUser = async (username, password) => {
       algorithm: config.tokenAlgorithm,
       expiresIn: config.tokenExpiration,
       issuer: config.tokenIssuer,
+      expiresIn: "8h",
     }
   );
 
