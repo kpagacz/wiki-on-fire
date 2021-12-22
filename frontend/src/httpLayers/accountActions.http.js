@@ -1,4 +1,3 @@
-import { getUser } from "../../../giddy-banana/services/usersService.js";
 import wofApi from "./wofApi.js";
 
 /**
