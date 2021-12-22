@@ -22,7 +22,7 @@ export default async (req, res) => {
       maxAge: 8 * 60 * 60 * 100,
       domain: "localhost",
     });
-    let response;
+    let response = {};
     response.type = "success";
     response.data = userData;
     res.status(200).send(response);
