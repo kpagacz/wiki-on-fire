@@ -95,6 +95,9 @@ export default {
     };
   },
   computed: {
+    /**
+     * This will return user avatar or placeholder image
+     */
     avatarImage() {
       if (this.avatar.img.length > 0) {
         return this.avatar.img;
@@ -114,6 +117,9 @@ export default {
       }
       return false
     },
+    /**
+     * Submit button variant is disabled if at least one of fields is empty
+     */
     submitButtonVariant() {
       if(this.username.value == '' || this.password.value == '' || this.passwordConfirm.value == '' || this.email.value == '') {
         return 'disabled';
@@ -126,6 +132,9 @@ export default {
     setUsername(newValue) {
       this.username.value = newValue;
     },
+    /**
+     * This will set new email and check if it is correct.
+     */
     setEmail(newValue) {
       this.email.value = newValue;
       if(!this.email.value.includes('@') && this.email.value.length > 0) {
@@ -134,6 +143,9 @@ export default {
         this.email.errorMsg = '';
       }
     },
+    /**
+     * This will set new password and check if it is correct.
+     */
     setPassword(newValue) {
       this.password.value = newValue;
       if(this.passwordConfirm.value.length > 0 && this.passwordConfirm.value != this.password.value) {
@@ -142,6 +154,9 @@ export default {
         this.passwordConfirm.errorMsg = '';
       }
     },
+    /**
+     * This will set new password for confirmation and check if it is correct.
+     */
     setPasswordConfirm(newValue) {
       this.passwordConfirm.value = newValue;
       if(this.passwordConfirm.value != this.password.value) {
@@ -150,13 +165,22 @@ export default {
         this.passwordConfirm.errorMsg = '';
       }
     },
+    /**
+     * This will trigger a click event on input for files. It should open window to search your device for images.
+     */
     uploadAvatar() {
       this.$refs.fileInput.click();
     },
+    /**
+     * This will update user image, which will be displayed.
+     */
     changeAvatar(event) {
       const file = event.target.files[0];
       this.avatar.img = URL.createObjectURL(file);
     },
+    /**
+     * Form is valid only if all fields are not empty and all fields are valid
+     */
     formValidation() {
      if(this.username.errorMsg == '' && this.password.errorMsg == '' && this.passwordConfirm.errorMsg == '' && this.email.errorMsg == '') {
         if(this.username.value.length > 0 && this.password.value.length > 0 && this.passwordConfirm.value.length > 0 && this.email.value.length > 0) {
@@ -165,6 +189,11 @@ export default {
       }
       return false;
     },
+    /**
+     * This will check if form is valid on frontend side and will call /users endpoint to register user.
+     * It can throw an error on some service or network error.
+     * If everything is ok it will display popup with success message.
+     */
     async createAccount() {
       if(this.formValidation()) {
         let registeredUser = null;
