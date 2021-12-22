@@ -43,16 +43,16 @@ const store = createStore({
      *
      * @throws {Error} if wiping out the session cookie was not successful
      */
-    async logOut(state) {
+    async logOut() {
       try {
         await signOut();
       } catch (error) {
         throw new Error("Error signing user out");
       }
-      state.username = null;
-      state.email = null;
-      state.accountType = null;
-      state.isAuth = false;
+      this.state.username = null;
+      this.state.email = null;
+      this.state.accountType = null;
+      this.state.isAuth = false;
     },
   },
   getters: {
