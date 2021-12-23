@@ -12,10 +12,10 @@ import { NotFoundException } from "./serviceErrors.js";
  * connection was refused.
  */
 
-async function getArticle(_title) {
+async function getArticle(title) {
   try {
     const found = await db.Article.findOne({
-      where: { title: _title },
+      where: { title: title },
     }).then((article) => {
       return article;
     });
@@ -27,38 +27,38 @@ async function getArticle(_title) {
 }
 
 async function postArticle(
-  _title,
-  _link_to_preview,
-  _link_to_contents,
-  _number_of_authors,
-  _date_added
+  title,
+  link_to_preview,
+  link_to_contents,
+  number_of_authors,
+  date_added
 ) {
   try {
     await db.Article.create({
-      title: _title,
-      link_to_preview: _link_to_preview, //"link1_1",
-      link_to_contents: _link_to_contents,
-      number_of_authors: _number_of_authors,
-      date_added: _date_added
+      title: title,
+      link_to_preview: link_to_preview, //"link1_1",
+      link_to_contents: link_to_contents,
+      number_of_authors: number_of_authors,
+      date_added: date_added
     });
   } catch (e) {
     throw new Error(e.message);
   }
 }
 
-async function deleteArticle(_title) {
+async function deleteArticle(title) {
   try {
     await db.Article.destroy({
-      where: { title: _title },
+      where: { title: title },
     });
   } catch (e) {
     throw new Error(e.message);
   }
 }
 
-async function updateArticle(_title, updatedFields) {
+async function updateArticle(title, updatedFields) {
   try {
-    if ((await db.Article.findOne({ where: { title: _title } })) === null)
+    if ((await db.Article.findOne({ where: { title: title } })) === null)
       throw new NotFoundException("Article not found");
     const modelKeys = Object.keys(db.Article.rawAttributes);
     const subsetFields = modelKeys
@@ -67,7 +67,7 @@ async function updateArticle(_title, updatedFields) {
         subset[key] = updatedFields[key];
         return subset;
       }, {});
-    await db.Article.update(subsetFields, { where: { title: _title } });
+    await db.Article.update(subsetFields, { where: { title: title } });
   } catch (e) {
     throw e;
   }
