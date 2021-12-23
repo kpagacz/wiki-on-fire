@@ -38,8 +38,8 @@ async function postArticle(
       title: _title,
       link_to_preview: _link_to_preview, //"link1_1",
       link_to_contents: _link_to_contents,
-      date_added: _date_added,
-      number_of_authors: _number_of_authors
+      number_of_authors: _number_of_authors,
+      date_added: _date_added
     });
   } catch (e) {
     throw new Error(e.message);

@@ -3,10 +3,10 @@ import { getArticles, postArticles, deleteArticles, updateArticles } from "../co
 
 const articlesRouter = new express.Router();
 articlesRouter.use(express.json());
-/*articlesRouter.route("/articles/:title")
+articlesRouter.route("/articles/:title")
   .get(getArticles)
   .delete(deleteArticles)
-  .patch(updateArticles);*/
+  .patch(updateArticles);
 articlesRouter.route("/articles").post(postArticles);
 
 export default articlesRouter;
