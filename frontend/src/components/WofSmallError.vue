@@ -60,7 +60,7 @@ export default {
         .small-error__wrap-text{
             position:absolute;
             order:3;
-            align-content: left;
+            //align-content: center;
     
             .small-error__content{
                 border-radius: 1em;
