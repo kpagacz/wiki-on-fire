@@ -59,7 +59,7 @@ async function deleteArticle(title) {
 async function updateArticle(title, updatedFields) {
   try {
     if ((await db.Article.findOne({ where: { title: title } })) === null)
-      throw new NotFoundException("Article not found");
+      throw new NotFoundException("Article not found for update");
     const modelKeys = Object.keys(db.Article.rawAttributes);
     const subsetFields = modelKeys
       .filter((key) => key in updatedFields)
