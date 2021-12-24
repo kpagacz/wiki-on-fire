@@ -40,6 +40,7 @@
 <script>
 import WofOptionalSection from '../components/WofOptionalSection.vue';
 import WofEditPopup from '../components/WofEditPopup.vue';
+import { updateUser } from '../httpLayers/accountActions.http.js';
 
 export default {
     name: 'UserPage',
@@ -67,16 +68,15 @@ export default {
         openEditPopup() {
             this.isEditOpen = true;
         },
-        changeEmail(_, newEmail) {
+        async changeEmail(_, newEmail) {
             this.editLoading = true;
-            console.log(newEmail);
             if(!newEmail.includes('@')) {
                 this.editInputError = "Email should contain '@' symbol";
                 this.editLoading = false;
             } else {
                 try {
-                    //We will replace this with true call
-                    console.log('Here we send new email to endpoint. New Email: '+newEmail);
+                    const updatedUser = await updateUser(this.$store.getters.username, {email: newEmail});
+                    this.$store.commit('setUser', updatedUser);
                     this.userEmail = newEmail;
                     this.isEditOpen = false;
                 } catch(err) {
