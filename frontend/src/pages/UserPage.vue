@@ -21,7 +21,7 @@
                     <div class="horizontal-line"></div>
                     <div class="user-page__option user-page__option--row">
                         <wof-button icon="wof-edit" variant="warning" :size="1.1" @click="changePassword">Change password</wof-button>
-                        <wof-button icon="wof-user-delete" variant="error" :size="1.1">Remove account</wof-button>
+                        <wof-button icon="wof-user-delete" variant="error" :size="1.1" @click="removeAccount">Remove account</wof-button>
                     </div>
                 </div>
             </div>
@@ -34,19 +34,27 @@
         :currentValueName="edittedValueName"
         :loading="editLoading"
         @edit="changeEmail"></wof-edit-popup>
+        <wof-info-box :isOpen="errorOpen" title="Error" type="error" @close="closeErrorPopup">{{ errorMessage }}</wof-info-box>
+        <div v-if="loading" class="loading">
+            <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
+        </div>
     </div>
 </template>
 
 <script>
 import WofOptionalSection from '../components/WofOptionalSection.vue';
 import WofEditPopup from '../components/WofEditPopup.vue';
-import { updateUser } from '../httpLayers/accountActions.http.js';
+import WofInfoBox from '../components/WofInfoBox.vue';
+import WofSpinnerDots from '../components/WofSpinnerDots.vue';
+import { updateUser, deleteUser } from '../httpLayers/accountActions.http.js';
 
 export default {
     name: 'UserPage',
     components: {
         WofOptionalSection,
-        WofEditPopup
+        WofEditPopup,
+        WofInfoBox,
+        WofSpinnerDots
     },
     props: {
         /**
@@ -57,17 +65,37 @@ export default {
     data() {
         return {
             userEmail: this.$store.getters.email,
+            /**
+              * All these 'edit' properities are connected to editing email via WofEditPopup
+            */
             isEditOpen: false,
             editServiceError: '',
             editInputError: '',
             edittedValueName: 'Email',
-            editLoading: false
+            editLoading: false,
+            errorMessage: '',
+            loading: false
         };
+    },
+    computed: {
+        /**
+         * If we have some error message, we will open WofInfoBox
+         */
+        errorOpen() {
+            if(this.errorMessage.length > 0) {
+                return true;
+            }
+            return false;
+        }
     },
     methods: {
         openEditPopup() {
             this.isEditOpen = true;
         },
+        /**
+         * In this function, we will call updateUser function which will change user's email.
+         * New email comes from WofEditPopup opened by user.
+         */
         async changeEmail(_, newEmail) {
             this.editLoading = true;
             if(!newEmail.includes('@')) {
@@ -85,8 +113,33 @@ export default {
                 this.editLoading = false;
             }
         },
+        /**
+         * Change password will redirect us to PassRecoveryPage
+         */
         changePassword() {
             this.$router.push(`/password-recovery`);
+        },
+        /**
+         * We call deleteUser function and then we will log out removed user.
+         * If everything was successful, we will be redirected to main page
+         */
+        async removeAccount() {
+            let isRemoved = false;
+            this.loading = true;
+            try {
+                isRemoved = await deleteUser(this.$store.getters.username);
+                await this.$store.dispatch('logOut');
+            } catch(err) {
+                this.errorMessage = err.message;
+                this.loading = false;
+            }
+            this.loading = false;
+            if(isRemoved) {
+                this.$router.push('/');
+            }
+        },
+        closeErrorPopup() {
+            this.errorMessage = '';
         }
     }
 };
@@ -144,6 +197,15 @@ export default {
             width: 250px;
             height: 250px;
         }
+    }
+
+    .loading {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 }
 
