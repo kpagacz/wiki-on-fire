@@ -20,7 +20,7 @@
                     <h2 class="user-page__options-header">Account Options</h2>
                     <div class="horizontal-line"></div>
                     <div class="user-page__option user-page__option--row">
-                        <wof-button icon="wof-edit" variant="warning" :size="1.1">Change password</wof-button>
+                        <wof-button icon="wof-edit" variant="warning" :size="1.1" @click="changePassword">Change password</wof-button>
                         <wof-button icon="wof-user-delete" variant="error" :size="1.1">Remove account</wof-button>
                     </div>
                 </div>
@@ -84,6 +84,9 @@ export default {
                 }
                 this.editLoading = false;
             }
+        },
+        changePassword() {
+            this.$router.push(`/password-recovery`);
         }
     }
 };

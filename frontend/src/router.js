@@ -5,13 +5,15 @@ import WofHelloWorld from './components/WofHelloWorld.vue';
 import RegisterPage from './pages/RegisterPage.vue';
 import LoginPage from './pages/LoginPage.vue';
 import UserPage from './pages/UserPage.vue';
+import PassRecoveryPage from  './pages/PassRecoveryPage.vue';
 
 const router = createRouter({
     history: createWebHistory(),
     routes: [
         { path: '/', component: WofHelloWorld },
         { path: '/login', component: LoginPage, meta: {requiresUnAuth: true}},
-        { path: '/user/:userLogin', component: UserPage, props: true, meta: {requiresAuth: true}},
+        { path: '/user/:userLogin', component: UserPage, props: true, meta: {requiresAuth: true} },
+        { path: '/password-recovery', component: PassRecoveryPage, meta: {requiresAuth: true} },
         { path: '/register', component: RegisterPage, meta: {requiresUnAuth: true} },
         { path: '/:notFound(.*)', redirect: '/' }
     ]
