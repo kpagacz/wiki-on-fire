@@ -18,23 +18,23 @@
                     Number of editions (this month)
                 </th>
             </tr>
-            <tr class="wof-article-list__row">
+            <tr class="wof-article-list__row" v-for="article in articles" :key="article.id">
                 <td class="wof-article-list__cell">
-                    <a href="#" class="wof-article-list__name">Some interesting article</a>
+                    <a :href="article.linkToContents" class="wof-article-list__name">{{ article.title }}</a>
                 </td>
                 <td class="wof-article-list__cell">
-                    20.12.2021
+                    {{ article.dateAdded }}
                 </td>
                 <td class="wof-article-list__cell">
-                    21.12.2021
+                    {{ article.lastModification }}
                 </td>
                 <td class="wof-article-list__cell">
-                    3421
+                    {{ article.numberOfViews }}
                 </td>
                 <td class="wof-article-list__cell">
-                    15
+                    {{ article.numberOfEditions }}
                 </td>
-                <td class="wof-article-list__cell wof-article-list__cell--button">
+                <td class="wof-article-list__cell wof-article-list__cell--button" v-if="isButtonVisible">
                     <wof-button icon="wof-plus" variant="positive" :size="1.3"></wof-button>
                 </td>
             </tr>
@@ -44,7 +44,30 @@
 
 <script>
 export default {
-    name: 'WofArticleList'
+    name: 'WofArticleList',
+    props: {
+        articles: {
+            type: Array,
+            validator: (list) => {
+                for(let i=0; i<list.lenght; i++) {
+                    if(!list[i].title ||
+                    !list[i].linkToContents ||
+                    !list[i].dateAdded ||
+                    !list[i].lastModification ||
+                    !list[i].numberOfViews ||
+                    !list[i].numberOfEditions
+                    ) {
+                        return false;
+                    }
+                }
+                return true;
+            }
+        },
+        isButtonVisible: {
+            type: Boolean,
+            default: false
+        }
+    }
 };
 </script>
 
@@ -62,6 +85,7 @@ export default {
 
         .wof-article-list__header {
             text-align: start;
+            font-size: 1.4rem;
             margin: 0;
             padding: 0;
 
@@ -72,10 +96,17 @@ export default {
         }
 
         .wof-article-list__cell {
+            text-align: start;
 
             .wof-article-list__name {
                 text-decoration: none;
                 color: @primary-bright-text-color;
+                white-space: pre-wrap;
+
+                &:hover {
+                    text-decoration: underline;
+                    color: @primary-dark-text-color;
+                }
             }
 
             &.wof-article-list__cell--button {
