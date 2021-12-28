@@ -9,10 +9,6 @@ module.exports = {
     "google",
     "prettier"
   ],
-  "parserOptions": {
-    "ecmaVersion": 13,
-    "sourceType": "module"
-  },
   "plugins": [
     "vue"
   ],

@@ -1,8 +1,13 @@
 import jwt from "jsonwebtoken";
 const { sign } = jwt;
 import config from "../config/config.example.js";
-import {InvalidArgumentException, InvalidPasswordException, NotFoundException} from "./serviceErrors.js";
-import {getUser} from "./usersService.js";
+import {
+  InvalidArgumentException,
+  InvalidPasswordException,
+  NotFoundException,
+} from "../src/Errors.js";
+import { getUser } from "./usersService.js";
+import hashPassword from "../src/hashing.js";
 
 /**
  * Authenticates username and password:
@@ -23,8 +28,10 @@ import {getUser} from "./usersService.js";
  * const userDataAndToken = await loginUser("user1", "pass1");
  */
 const loginUser = async (username, password) => {
-  if (typeof username !== "string") throw new InvalidArgumentException("username must be a String");
-  if (typeof password !== "string") throw new InvalidArgumentException("password must be a String");
+  if (typeof username !== "string")
+    throw new InvalidArgumentException("username must be a String");
+  if (typeof password !== "string")
+    throw new InvalidArgumentException("password must be a String");
 
   let user;
   try {
@@ -33,15 +40,24 @@ const loginUser = async (username, password) => {
     if (error instanceof NotFoundException) throw error;
     throw new Error("Error getting the user information");
   }
-
-  if (password !== user.password) throw new InvalidPasswordException("Invalid password");
+  
+  if (hashPassword(password) !== user.password)
+    throw new InvalidPasswordException("Invalid password");
 
   const token = sign(
-    {username: user.username, accountType: user.account_type, accountStatus: user.account_status},
+    {
+      username: user.username,
+      email: user.email,
+      accountType: user.account_type,
+      accountStatus: user.account_status,
+    },
     config.secretKey,
     {
+      algorithm: config.tokenAlgorithm,
+      expiresIn: config.tokenExpiration,
+      issuer: config.tokenIssuer,
       expiresIn: "8h",
-    },
+    }
   );
 
   return { token_type: "jwt", token: token, user: user };

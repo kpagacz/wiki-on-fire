@@ -1,0 +1,87 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+
+  publicA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: "eu-central-1a"
+      MapPublicIpOnLaunch: true
+
+  privateA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: "eu-central-1b"
+
+  vpcIG:
+    Type: AWS::EC2::InternetGateway
+
+  attachGatewayToVPC:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: VPC
+      InternetGatewayId:
+        Ref: vpcIG
+
+  routeTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: VPC
+
+  internetGatewayRoute:
+    Type: AWS::EC2::Route
+    Properties:
+       RouteTableId:
+         Ref: routeTable
+       DestinationCidrBlock: 0.0.0.0/0
+       GatewayId:
+         Ref: vpcIG
+
+  publicSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+        GroupDescription: Allow http(s) and SSH to client host
+        VpcId:
+          Ref: VPC
+        SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  privateSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+        GroupDescription: Security Group for private WoF subnets
+        VpcId:
+          Ref: VPC
+
+  allowMySQLOnPrivateSG:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+        GroupId: !Ref privateSG
+        IpProtocol: tcp
+        FromPort: 3306
+        ToPort: 3306
+        SourceSecurityGroupId: !GetAtt publicSG.GroupId
