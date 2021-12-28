@@ -19,19 +19,19 @@
                 </th>
             </tr>
             <tr class="wof-article-list__row" v-for="article in articles" :key="article.id">
-                <td class="wof-article-list__cell">
+                <td :class="cellClass">
                     <a :href="article.linkToContents" class="wof-article-list__name">{{ article.title }}</a>
                 </td>
-                <td class="wof-article-list__cell">
+                <td :class="cellClass">
                     {{ article.dateAdded }}
                 </td>
-                <td class="wof-article-list__cell">
+                <td :class="cellClass">
                     {{ article.lastModification }}
                 </td>
-                <td class="wof-article-list__cell">
+                <td :class="cellClass">
                     {{ article.numberOfViews }}
                 </td>
-                <td class="wof-article-list__cell">
+                <td :class="cellClass">
                     {{ article.numberOfEditions }}
                 </td>
                 <td class="wof-article-list__cell wof-article-list__cell--button" v-if="isButtonVisible">
@@ -68,7 +68,15 @@ export default {
             default: false
         }
     },
-    emits: ['add']
+    emits: ['add'],
+    computed: {
+        cellClass() {
+            if(!this.isButtonVisible) {
+                return 'wof-article-list__cell wof-article-list__cell--padding';
+            }
+            return 'wof-article-list__cell';
+        }
+    }
 };
 </script>
 
@@ -114,6 +122,10 @@ export default {
                 width: 100%;
                 display: flex;
                 justify-content: flex-end;
+            }
+
+            &.wof-article-list__cell--padding {
+                padding: 0.7em 0em;
             }
         }
     }
