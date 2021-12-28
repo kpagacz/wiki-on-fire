@@ -35,7 +35,7 @@
                     {{ article.numberOfEditions }}
                 </td>
                 <td class="wof-article-list__cell wof-article-list__cell--button" v-if="isButtonVisible">
-                    <wof-button icon="wof-plus" variant="positive" :size="1.3"></wof-button>
+                    <wof-button icon="wof-plus" variant="positive" :size="1.3" @click="this.$emit('add', article.id)"></wof-button>
                 </td>
             </tr>
         </table>
@@ -67,7 +67,8 @@ export default {
             type: Boolean,
             default: false
         }
-    }
+    },
+    emits: ['add']
 };
 </script>
 

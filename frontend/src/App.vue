@@ -3,7 +3,7 @@
     <wof-header/>
     <div class="main-wrapper">
       <router-view msg="This is a basic frontend">
-          <wof-article-list :articles="articles" :isButtonVisible="true"></wof-article-list>
+          <wof-article-list :articles="articles" :isButtonVisible="true" @add="addArticle"></wof-article-list>
       </router-view>
     </div>
     <wof-footer/>
@@ -49,6 +49,11 @@ export default {
           numberOfEditions: 1
         },
       ]
+    }
+  },
+  methods: {
+    addArticle(articleID) {
+      console.log(articleID);
     }
   }
 };
