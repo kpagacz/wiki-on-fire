@@ -2,8 +2,9 @@
   <main>
     <wof-header/>
     <div class="main-wrapper">
-      <!--<router-view msg="This is a basic frontend"></router-view>-->
-      <wof-article-list></wof-article-list>
+      <router-view msg="This is a basic frontend">
+          <wof-article-list></wof-article-list>
+      </router-view>
     </div>
     <wof-footer/>
   </main>

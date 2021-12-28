@@ -11,10 +11,10 @@
                 <th class="wof-article-list__header">
                     Last Edition
                 </th>
-                <th class="wof-article-list__header">
+                <th class="wof-article-list__header wof-article-list__header--small">
                     Number of viewers (this week)
                 </th>
-                <th class="wof-article-list__header">
+                <th class="wof-article-list__header wof-article-list__header--small">
                     Number of editions (this month)
                 </th>
             </tr>
@@ -34,8 +34,8 @@
                 <td class="wof-article-list__cell">
                     15
                 </td>
-                <td class="wof-article-list__cell">
-                    <wof-button icon="wof-plus" variant="positive"></wof-button>
+                <td class="wof-article-list__cell wof-article-list__cell--button">
+                    <wof-button icon="wof-plus" variant="positive" :size="1.3"></wof-button>
                 </td>
             </tr>
         </table>
@@ -52,6 +52,38 @@ export default {
 @import './common.less';
 
 .wof-article-list {
+    width: 100%;
+    min-width: 1000px;
+    border-collapse: collapse;
     color: @primary-bright-text-color;
+
+    .wof-article-list__row {
+        border-bottom: 1px solid @primary-accent-color;
+
+        .wof-article-list__header {
+            text-align: start;
+            margin: 0;
+            padding: 0;
+
+            &.wof-article-list__header--small {
+                font-size: 0.8rem;
+                max-width: 60px;
+            }
+        }
+
+        .wof-article-list__cell {
+
+            .wof-article-list__name {
+                text-decoration: none;
+                color: @primary-bright-text-color;
+            }
+
+            &.wof-article-list__cell--button {
+                width: 100%;
+                display: flex;
+                justify-content: flex-end;
+            }
+        }
+    }
 }
 </style>
