@@ -21,7 +21,16 @@ module.exports = {
         account_status: 1,
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+      {
+        username: "test",
+        password: "pass",
+        email: "test_email@mail.com",
+        account_type: 1,
+        account_status: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ])
   },
 
