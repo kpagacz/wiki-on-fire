@@ -40,14 +40,4 @@ Object.keys(db).forEach((modelName) => {
   }
 });
 
-// db.sequelize = sequelize;
-// db.Sequelize = Sequelize;
-
-// db.User = require("./userModel.cjs")(sequelize, Sequelize.DataTypes);
-// db.Article = require("./article.cjs")(sequelize, Sequelize.DataTypes);
-// db.Comment = require("./comment.cjs")(sequelize, Sequelize.DataTypes);
-
-// db.User.associate(db);
-// db.Article.associate(db);
-
 module.exports = db;
