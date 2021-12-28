@@ -37,9 +37,11 @@ db.Sequelize = Sequelize;
 db.User = require("./userModel.cjs")(sequelize, Sequelize.DataTypes);
 db.Article = require("./article.cjs")(sequelize, Sequelize.DataTypes);
 db.Comment = require("./comment.cjs")(sequelize, Sequelize.DataTypes);
+db.TopViews = require("./topviews.cjs")(sequelize, Sequelize.DataTypes);
 
 
 db.User.associate(db);
 db.Article.associate(db);
+db.TopViews.associate(db);
 
 module.exports = db;
