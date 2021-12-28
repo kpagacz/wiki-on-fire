@@ -6,8 +6,15 @@ import {
 } from "../services/articleService.js";
 import { NotFoundException } from "../services/serviceErrors.js";
 
+/**
+ * The controller for the GET endpoint of articles.
+ *
+ * @param {Object} req
+ * @param {Object} res
+ */
 async function getArticles(req, res) {
-  if (req.params.title === undefined) res.status(400).send({ message: "Article title must be defined" });
+  if (req.params.title === undefined)
+    res.status(400).send({ message: "Article title must be defined" });
   try {
     const article = await getArticle(req.params.title);
     res.status(200).json(article);
@@ -16,6 +23,11 @@ async function getArticles(req, res) {
   }
 }
 
+/**
+ * The controller for the POST endpoint of articles.
+ * @param {Object} req
+ * @param {Object} res
+ */
 async function postArticles(req, res) {
   try {
     const createdArticle = await postArticle(
@@ -31,6 +43,12 @@ async function postArticles(req, res) {
   }
 }
 
+/**
+ * The controller for the DELETE endpoint of articles.
+ *
+ * @param {Object} req
+ * @param {Object} res
+ */
 async function deleteArticles(req, res) {
   try {
     await deleteArticle(req.params.title);
@@ -40,6 +58,11 @@ async function deleteArticles(req, res) {
   }
 }
 
+/**
+ * The controller for the PATCH endpoint of articles.
+ * @param {Object} req
+ * @param {Object} res
+ */
 async function updateArticles(req, res) {
   try {
     const title = req.params.title;
