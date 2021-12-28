@@ -3,6 +3,7 @@ import usersRouter from "./usersRoute.js";
 import loginRouter from "./loginRoute.js";
 import authRouter from "./authRouter.js";
 import logoutRouter from "./logoutRoute.js";
+import articlesRouter from "./articleRoute.js";
 import aboutController from "../controllers/aboutController.js";
 
 
@@ -12,6 +13,7 @@ mainRouter.use(usersRouter);
 mainRouter.use(loginRouter);
 mainRouter.use("/auth", authRouter);
 mainRouter.use(logoutRouter);
+mainRouter.use(articlesRouter);
 mainRouter.route("/about").get(aboutController);
 
 // define /api router

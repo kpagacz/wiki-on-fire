@@ -21,6 +21,15 @@ module.exports = {
         date_added: new Date(),
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        title: "Aerobics",
+        link_to_preview: "preview_link2",
+        link_to_contents: "content_link2",
+        number_of_authors: 100,
+        date_added: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ])
   },
