@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import { loginUser } from "./httpLayers/login.http.js";
 import { signOut } from "./httpLayers/signout.http.js";
+import { refreshToken } from "./httpLayers/autoLogin.http.js";
 
 const store = createStore({
   state() {
@@ -34,6 +35,21 @@ const store = createStore({
         return true;
       } catch (error) {
         throw new Error(error.message);
+      }
+    },
+    /**
+     * This will call refreshToken function which will return logged user's data
+     * an it will be saved in state. If user was not logged in, it will do nothing.
+     */
+    async autoLogIn(context) {
+      try {
+        let user = await refreshToken();
+        if(user.data.username) {
+          context.commit("setUser", user.data);
+          this.state.isAuth = true;
+        }
+      } catch(error) {
+        console.error(error);
       }
     },
     /**
