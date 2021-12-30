@@ -40,7 +40,7 @@ const getMostViewedArticles = async (year, month, day) => {
       return response.data.items[0].articles;
     })
     .catch((error) => {
-      throw error;
+      throw new Error("Error from the WikiMedia API: " + error.response.data.detail);
     });
   return articles;
 };
