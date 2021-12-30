@@ -38,10 +38,16 @@ db.User = require("./userModel.cjs")(sequelize, Sequelize.DataTypes);
 db.Article = require("./article.cjs")(sequelize, Sequelize.DataTypes);
 db.Comment = require("./comment.cjs")(sequelize, Sequelize.DataTypes);
 db.TopViews = require("./topviews.cjs")(sequelize, Sequelize.DataTypes);
+db.ArticleTopViews = require("./articletopviews.cjs")(sequelize, Sequelize.DataTypes);
+db.TopEditions = require("./topeditions.cjs")(sequelize, Sequelize.DataTypes);
+db.ArticleTopEditions = require("./articletopeditions.cjs")(sequelize, Sequelize.DataTypes);
 
 
 db.User.associate(db);
 db.Article.associate(db);
 db.TopViews.associate(db);
+db.ArticleTopViews.associate(db);
+db.TopEditions.associate(db);
+db.ArticleTopEditions.associate(db);
 
 module.exports = db;
