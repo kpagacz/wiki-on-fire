@@ -1,0 +1,33 @@
+name: Deploy AWS Lambda downloading the data from WikiMedia every day
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - amazon-architecture/lambdas/download-wikimedia-data/**
+
+jobs:
+  lambda:
+    name: Build and publish nginx container
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: amazon-architecture/lambdas/download-wikimedia-data
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install Node version 14 compatible with AWS runtime
+        uses: actions/setup-node@v2
+        with:
+          node-version: "14"
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY}}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_KEY }}
+          aws-region: eu-central-1
+      - run: npm install
+      - run: zip -r function.zip .
+      - run: aws lambda update-function-code --function-name wikimediaLambda --zip-file fileb://function.zip
