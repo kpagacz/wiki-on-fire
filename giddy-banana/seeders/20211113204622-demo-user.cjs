@@ -1,5 +1,7 @@
 'use strict';
 
+const hashPassword = require("../src/hashing.js");
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     /**
@@ -15,13 +17,22 @@ module.exports = {
     return queryInterface.bulkInsert("Users", [
       {
         username: "test_username1",
-        password: "test_password",
+        password: hashPassword("test_password"),
         email: "test_email@mail.com",
         account_type: 1,
         account_status: 1,
         createdAt: new Date(),
         updatedAt: new Date()
-      }
+      },
+      {
+        username: "test",
+        password: "pass",
+        email: "test_email@mail.com",
+        account_type: 1,
+        account_status: 1,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ])
   },
 

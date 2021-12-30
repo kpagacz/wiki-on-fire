@@ -28,8 +28,9 @@ export default {
   },
   methods: {
     logout() {
-      this.$store.commit('logOut');
-      this.$router.push('/');
+      this.$store.dispatch('logOut').then(() => {
+        this.$router.push('/');
+      });
     }
   }
 };

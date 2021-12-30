@@ -1,8 +1,11 @@
 import db from "../models/index.cjs";
 import { NotFoundException } from "./serviceErrors.js";
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 3c502db7fb4b3ea8732149e830ea55d0e197db5f
 /**
  * Returns information about a user.
  *
@@ -11,7 +14,10 @@ import { NotFoundException } from "./serviceErrors.js";
  * @throws {Error} If the article couldn't be found or the database
  * connection was refused.
  */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3c502db7fb4b3ea8732149e830ea55d0e197db5f
 async function getArticle(title) {
   try {
     const found = await db.Article.findOne({
@@ -26,6 +32,15 @@ async function getArticle(title) {
   }
 }
 
+/**
+ * Creates an article in the WoF database.
+ *
+ * @param {String} title the title of the article to update
+ * @param {String} link_to_preview the link to the preview of the article
+ * @param {String} link_to_contents
+ * @param {Number} number_of_authors
+ * @param {String} date_added the date the article was added to the Wikipedia project
+ */
 async function postArticle(
   title,
   link_to_preview,
@@ -39,13 +54,18 @@ async function postArticle(
       link_to_preview: link_to_preview, //"link1_1",
       link_to_contents: link_to_contents,
       number_of_authors: number_of_authors,
-      date_added: date_added
+      date_added: date_added,
     });
   } catch (e) {
     throw new Error(e.message);
   }
 }
 
+/**
+ * Deletes the article from the WoF database.
+ *
+ * @param {String} title the title of the article to delete
+ */
 async function deleteArticle(title) {
   try {
     await db.Article.destroy({
@@ -56,6 +76,12 @@ async function deleteArticle(title) {
   }
 }
 
+/**
+ * Updates the article record in the WoF database.
+ *
+ * @param {String} title the title of the article to update
+ * @param {Object} updatedFields the object containing the fields and new values of the updated article
+ */
 async function updateArticle(title, updatedFields) {
   try {
     if ((await db.Article.findOne({ where: { title: title } })) === null)
@@ -69,7 +95,7 @@ async function updateArticle(title, updatedFields) {
       }, {});
     await db.Article.update(subsetFields, { where: { title: title } });
   } catch (e) {
-    throw e;
+    throw new Error(e.message);
   }
 }
 
