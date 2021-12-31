@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  testLambda:
+      Type: AWS::Lambda::Function
+      Properties:
+        Description: Test lambda
+        Runtime: nodejs14.x
+        Handler: index.handler
+        Role: !ImportValue lambdasRole
+        Code:
+          ZipFile: |
+            exports.handler = async (event) => {
+              console.dir(event);
+              console.log(JSON.stringify(event, null, 2));
+              return JSON.stringify("Hello");
+            }
+
+  mostViewedItemsMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      EventSourceArn: !ImportValue mostViewedTableStream
+      FunctionName: !Ref testLambda
+      StartingPosition: "LATEST"
