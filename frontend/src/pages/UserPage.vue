@@ -120,22 +120,24 @@ export default {
             this.$router.push(`/password-recovery`);
         },
         /**
-         * We call deleteUser function and then we will log out removed user.
-         * If everything was successful, we will be redirected to main page
+         * We call deleteUser function and then we will log out the removed user.
+         * If everything was successful, we will be redirected to the main page
          */
         async removeAccount() {
-            let isRemoved = false;
-            this.loading = true;
-            try {
-                isRemoved = await deleteUser(this.$store.getters.username);
-                await this.$store.dispatch('logOut');
-            } catch(err) {
-                this.errorMessage = err.message;
+            if(confirm("Do you really want to remove your account?")) {
+                let isRemoved = false;
+                this.loading = true;
+                try {
+                    isRemoved = await deleteUser(this.$store.getters.username);
+                    await this.$store.dispatch('logOut');
+                } catch(err) {
+                    this.errorMessage = err.message;
+                    this.loading = false;
+                }
                 this.loading = false;
-            }
-            this.loading = false;
-            if(isRemoved) {
-                this.$router.push('/');
+                if(isRemoved) {
+                    this.$router.push('/');
+                }
             }
         },
         closeErrorPopup() {

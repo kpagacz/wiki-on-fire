@@ -71,7 +71,7 @@ export default {
      * Submit button variant is disabled if at least one of fields is empty
      */
     submitButtonVariant() {
-      if(this.password.value == '' || this.passwordConfirm.value == '') {
+      if(this.password.value === '' || this.passwordConfirm.value === '') {
         return 'disabled';
       } else {
         return 'default';
@@ -105,7 +105,7 @@ export default {
      * Form is valid only if all fields are not empty and all fields are valid
      */
     formValidation() {
-     if(this.password.errorMsg == '' && this.passwordConfirm.errorMsg == '') {
+     if(this.password.errorMsg === '' && this.passwordConfirm.errorMsg === '') {
         if(this.password.value.length > 0 && this.passwordConfirm.value.length > 0) {
           return true;
         }
