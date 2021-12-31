@@ -12,10 +12,10 @@
                     Last Edition
                 </th>
                 <th class="wof-article-list__header wof-article-list__header--small">
-                    Number of viewers (this week)
+                    Views (last week)
                 </th>
                 <th class="wof-article-list__header wof-article-list__header--small">
-                    Number of editions (this month)
+                    Edits (last month)
                 </th>
             </tr>
             <tr class="wof-article-list__row" v-for="article in articles" :key="article.id">
@@ -49,7 +49,7 @@ export default {
         articles: {
             type: Array,
             validator: (list) => {
-                for(let i=0; i<list.lenght; i++) {
+                for(let i=0; i<list.length; i++) {
                     if(!list[i].title ||
                     !list[i].linkToContents ||
                     !list[i].dateAdded ||
