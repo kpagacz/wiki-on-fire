@@ -17,5 +17,10 @@ jobs:
         with:
           node-version: '16.x'
           cache: 'npm'
-      - run: npm ci
-      - run: node seedMostViewedArticlesTable.js
+      - name: Set up the package dependencies
+        run: npm ci
+      - name: Seed the DynamoDB table
+        run: node seedMostViewedArticlesTable.js
+        env:
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
