@@ -1,8 +1,3 @@
-module.exports = (db) => {
-  db.Article.belongsToMany(db.TopViews, { through: "ArticleTopViews" });
-  db.TopViews.belongsToMany(db.Article, { through: "ArticleTopViews" });
-};
-
 'use strict';
 const {
   Model
@@ -16,11 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
+        models.Article.hasMany(models.ArticleTopViews);
+        models.ArticleTopViews.belongsTo(models.Article);
     }
   };
   ArticleTopViews.init({
-    TopViewsId: DataTypes.INTEGER,
     ArticleId: DataTypes.INTEGER,
+    date: DataTypes.DATE,
     rank_position: DataTypes.INTEGER,
     number_of_views: DataTypes.INTEGER
   }, {

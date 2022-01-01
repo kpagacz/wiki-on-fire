@@ -8,11 +8,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      TopEditionsId: {
-        type: Sequelize.INTEGER
-      },
       ArticleId: {
         type: Sequelize.INTEGER
+      },
+      date: {
+        type: Sequelize.DATE
       },
       rank_position: {
         type: Sequelize.INTEGER
