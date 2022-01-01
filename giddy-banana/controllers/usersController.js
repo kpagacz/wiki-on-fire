@@ -26,7 +26,7 @@ async function postUsers(req, res) {
     );
     res.status(201).json(createdUser);
   } catch (e) {
-    res.status(400).send({ message: e.message });
+    res.status(400).send({message: e.message, path: e.path});
   }
 }
 
