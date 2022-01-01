@@ -40,7 +40,7 @@ const loginUser = async (username, password) => {
     if (error instanceof NotFoundException) throw error;
     throw new Error("Error getting the user information");
   }
-  
+
   if (hashPassword(password) !== user.password)
     throw new InvalidPasswordException("Invalid password");
 

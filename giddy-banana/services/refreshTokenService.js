@@ -9,7 +9,7 @@ import { getUser } from "./usersService.js";
  *
  * @description Decrypts the token and if appropriate refreshes.
  *
- * @param {String} token the encrypted JsonWebToken
+ * @param {String} cookie the cookie containing the encrypted JsonWebToken
  * @return {Object} with the fields `data` and `token`
  * @example
  * const userDataAndToken = await refreshToken("token.token.token");
@@ -17,14 +17,14 @@ import { getUser } from "./usersService.js";
  * @throws {TokenExpiredError} if the token expired
  * @throws {JsonWebTokenError} if the token was not signed by WikiOnFire
  */
-const refreshToken = async (token) => {
-  if (!(token.token instanceof String) && typeof token.token !== "string")
+const refreshToken = async (cookie) => {
+  if (!(cookie.token instanceof String) && typeof cookie.token !== "string")
     throw new InvalidArgumentException(
-      "token property of the token argument must be a string."
+      "token property of the cookie argument must be a string."
     );
 
   const decodedUsername = verify(
-    token.token,
+    cookie.token,
     config.secretKey,
     {
       issuer: config.tokenIssuer,
@@ -60,7 +60,7 @@ const refreshToken = async (token) => {
       accountType: user.account_type,
       accountStatus: user.account_status,
     },
-    token: newToken,
+    token: { token_type: "jwt", token: newToken },
   };
 };
 
