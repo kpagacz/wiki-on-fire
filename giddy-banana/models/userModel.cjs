@@ -1,7 +1,5 @@
 "use strict";
-const {
-  Model
-} = require("sequelize");
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   /**
    * Represents a single user in the database.
@@ -20,29 +18,38 @@ module.exports = (sequelize, DataTypes) => {
       models.User.belongsToMany(models.Article, { through: "Recommend" });
       models.User.belongsToMany(models.Article, { through: "Favourite" });
     }
-  };
-  User.init({
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
+  }
+  User.init(
+    {
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          is: {
+            args: /^.+@.+$/,
+            msg: "Invalid e-mail",
+          },
+        },
+      },
+      account_type: DataTypes.INTEGER,
+      account_status: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    account_type: DataTypes.INTEGER,
-    account_status: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    {
+      sequelize,
+      modelName: "User",
     }
-  }, {
-    sequelize,
-    modelName: "User",
-  });
+  );
   return User;
 };
