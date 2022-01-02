@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const hashPassword = require("../src/hashing.js");
 
@@ -12,7 +12,7 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
+     */
 
     return queryInterface.bulkInsert("Users", [
       {
@@ -22,7 +22,7 @@ module.exports = {
         account_type: 1,
         account_status: 1,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       {
         username: "test",
@@ -31,9 +31,9 @@ module.exports = {
         account_type: 1,
         account_status: 1,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
-    ])
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
@@ -44,5 +44,5 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
     return queryInterface.bulkDelete("Users", null, {});
-  }
+  },
 };
