@@ -1,4 +1,5 @@
-'use strict';
+"use strict";
+
 const { createHash } = require("crypto");
 
 module.exports = {
@@ -13,7 +14,7 @@ module.exports = {
         account_type: 1,
         account_status: 1,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       {
         username: "test",
@@ -22,12 +23,12 @@ module.exports = {
         account_type: 1,
         account_status: 1,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
-    ])
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete("Users", null, {});
-  }
+  },
 };

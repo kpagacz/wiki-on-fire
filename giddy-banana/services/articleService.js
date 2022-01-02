@@ -1,9 +1,8 @@
 import db from "../models/index.cjs";
 import { NotFoundException } from "./serviceErrors.js";
 
-
 /**
- * Returns information about a article.
+ * Returns information about an article.
  *
  * @param {string} _title the article title
  * @return {Object} JSON with the requested article's data
