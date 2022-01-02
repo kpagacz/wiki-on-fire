@@ -3,7 +3,7 @@ import {
   InvalidArgumentException,
   InvalidPasswordException,
   NotFoundException,
-} from "../src/errors.js";
+} from "../services/serviceErrors.js";
 
 /**
  * Login controller.

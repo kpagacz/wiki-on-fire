@@ -4,7 +4,7 @@ import {
   deleteUser,
   updateUser,
 } from "../services/usersService.js";
-import { NotFoundException } from "../src/errors.js";
+import { NotFoundException } from "../services/serviceErrors.js";
 
 async function getUsers(req, res) {
   if (req.params.username === undefined) res.status(400).send({ message: "Username must be defined" });

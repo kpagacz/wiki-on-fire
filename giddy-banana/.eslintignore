@@ -116,6 +116,3 @@ dist
 
 # Visual Studio Code files
 *.vscode*
-
-# Prettier
-.prettierrc

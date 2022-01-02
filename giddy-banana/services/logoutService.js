@@ -1,10 +1,3 @@
-/**
- * This modules exports services associated with terminating a user session,
- * invalidating any authentication resources given to the client application by
- * this backend application.
- *
- * @module services/logoutService
- */
 import jwt from "jsonwebtoken";
 const { sign } = jwt;
 import config from "../config/config.example.js";
@@ -14,10 +7,9 @@ import config from "../config/config.example.js";
  *
  * Wipes out the session token and expires it.
  *
+ * @return {Object} an object with fields: "token_type", "token"
  * @example
- *   const wipedToken = await logoutUser();
- *
- * @returns {Object} An object with fields: "token_type", "token"
+ * const wipedToken = await logoutUser();
  */
 export default async () => {
   const token = sign({ expired: "" }, config.secretKey, { expiresIn: "-8h" });
