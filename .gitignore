@@ -105,3 +105,9 @@ dist
 
 # Visual Studio Code files
 *.vscode*
+
+# Weird macOS files
+*DS_Store*
+
+# JSDoc output
+out/

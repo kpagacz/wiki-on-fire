@@ -4,7 +4,7 @@ import {
   deleteArticle,
   updateArticle,
 } from "../services/articleService.js";
-import { NotFoundException } from "../services/serviceErrors.js";
+import { NotFoundException } from "../src/errors.js";
 
 /**
  * The controller for the GET endpoint of articles.

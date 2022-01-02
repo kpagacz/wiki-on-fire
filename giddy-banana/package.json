@@ -8,7 +8,8 @@
     "seed": "npx sequelize-cli db:seed:all",
     "dev": "npm run migrate && npm run seed && npx nodemon --exec babel-node --experimental-specifier-resolution=node app.js",
     "start": "npx nodemon --exec babel-node --experimental-specifier-resolution=node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs": "jsdoc -c jsdoc.config.json controllers/* middleware/* migrations/* models/* routes/* seeders/* services/* src/*"
   },
   "repository": {
     "type": "git",
@@ -29,6 +30,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.2",
+    "prettier-plugin-jsdoc": "^0.3.30",
     "sequelize": "^6.9.0"
   },
   "type": "module",
