@@ -1,23 +1,16 @@
 import db from "../models/index.cjs";
 import { NotFoundException } from "./serviceErrors.js";
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 3c502db7fb4b3ea8732149e830ea55d0e197db5f
 /**
- * Returns information about a user.
+ * Returns information about a article.
  *
  * @param {string} _title the article title
  * @return {Object} JSON with the requested article's data
  * @throws {Error} If the article couldn't be found or the database
  * connection was refused.
  */
-<<<<<<< HEAD
 
-=======
->>>>>>> 3c502db7fb4b3ea8732149e830ea55d0e197db5f
 async function getArticle(title) {
   try {
     const found = await db.Article.findOne({
