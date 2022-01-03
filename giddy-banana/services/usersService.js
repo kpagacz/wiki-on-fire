@@ -4,7 +4,8 @@
  * @module services/usersService
  */
 import db from "../models/index.cjs";
-import { NotFoundException } from "../src/errors.js";
+import { NotFoundException, InvalidArgumentException } from "../src/errors.js";
+import types from "sequelize";
 import hashPassword from "../src/hashing.js";
 
 /**
@@ -53,6 +54,21 @@ async function getUser(username) {
  * @param {String} userAvatar Avatar
  */
 async function postUser(username, password, email, userAvatar) {
+  if (typeof username !== "string")
+    throw new InvalidArgumentException("username must be a string");
+  if (typeof password !== "string")
+    throw new InvalidArgumentException("username must be a string");
+  if (typeof email !== "string")
+    throw new InvalidArgumentException("username must be a string");
+
+  if (password.length < 8 || password.length > 20) {
+    const err = new Error(
+      "Password must have length between 8 and 20 characters"
+    );
+    err.path = "password";
+    throw err;
+  }
+
   try {
     await db.User.create({
       username: username,
@@ -62,7 +78,16 @@ async function postUser(username, password, email, userAvatar) {
       account_status: AccountStatusMapping["active"],
     });
   } catch (e) {
-    throw new Error(e.message);
+    if (e.errors[0] instanceof types.ValidationErrorItem) {
+      const errorData = (({ message, path }) => ({ message, path }))(
+        e.errors[0]
+      );
+      const err = new Error(errorData.message);
+      err.path = errorData.path;
+      throw err;
+    } else {
+      throw new Error("Undefined error");
+    }
   }
 }
 

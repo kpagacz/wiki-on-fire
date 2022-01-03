@@ -3,6 +3,7 @@
  * @description
  * This module exports custom exceptions.
  */
+
 /**
  * Represents an exception when something is not found.
  * @extends Error

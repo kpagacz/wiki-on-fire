@@ -14,6 +14,7 @@ import { NotFoundException } from "../src/errors.js";
  * @throws {Error} If the article couldn't be found or the database connection
  *   was refused.
  */
+
 async function getArticle(title) {
   try {
     const found = await db.Article.findOne({

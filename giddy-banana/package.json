@@ -6,8 +6,8 @@
   "scripts": {
     "migrate": "npx sequelize-cli db:migrate",
     "seed": "npx sequelize-cli db:seed:all",
-    "dev": "npm run migrate && npm run seed && npx nodemon --exec babel-node --experimental-specifier-resolution=node app.js",
-    "start": "npx nodemon --exec babel-node --experimental-specifier-resolution=node app.js",
+    "dev": "npm run migrate && npm run seed && npx nodemon --exec node --experimental-specifier-resolution=node app.js",
+    "start": "npx nodemon --exec node --experimental-specifier-resolution=node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "jsdoc -c jsdoc.config.json controllers/* middleware/* migrations/* models/* routes/* seeders/* services/* src/*"
   },
@@ -22,32 +22,24 @@
   },
   "homepage": "https://github.com/kpagacz/wiki-on-fire#readme",
   "dependencies": {
-    "@babel/runtime": "^7.16.0",
     "cookie-parser": "^1.4.6",
     "core-js": "^3.19.1",
     "cors": "^2.8.5",
-    "crypto": "^1.0.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.2",
-    "prettier-plugin-jsdoc": "^0.3.30",
     "sequelize": "^6.9.0"
   },
   "type": "module",
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/eslint-parser": "^7.16.3",
-    "@babel/generator": "^7.16.0",
-    "@babel/node": "^7.16.0",
-    "@babel/plugin-transform-runtime": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
-    "@babel/register": "^7.16.0",
     "eslint": "^8.3.0",
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-vue": "^8.1.1",
     "esm": "^3.2.25",
-    "prettier-eslint": "^13.0.0",
+    "prettier": "^2.5.1",
+    "prettier-eslint": "^8.2.2",
+    "prettier-plugin-jsdoc": "^0.3.30",
     "sequelize-cli": "^6.3.0"
   }
 }

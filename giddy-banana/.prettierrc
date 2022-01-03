@@ -1,5 +1,6 @@
 {
+  "pluginSearchDirs": ["./node_modules"],
   "plugins": [
-    "prettier-plugin-jsdoc"
+    "./node_modules/prettier-plugin-jsdoc/"
   ]
 }

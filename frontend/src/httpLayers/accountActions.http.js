@@ -11,6 +11,9 @@ import wofApi from "./wofApi.js";
  * 1. The user couldn't have been created.
  * 2. The connection to the backend service was refused.
  * 3. An unexpected error.
+ * If the user could not have been created, the error
+ * contains the property `path` specifying what field
+ * of the form was invalid. Possible values: `username`, `password`, `email`.
  *
  * @example
  * await registerUser("firstuser", "theirpassword", "theirmail@mail.com");
@@ -23,7 +26,9 @@ async function registerUser(username, password, email) {
     })
     .catch((error) => {
       if (error.response) {
-        throw new Error(`${error.response.data.message}`);
+        const err = new Error(`${error.response.data.message}`);
+        err.path = error.response.data.path;
+        throw err;
       } else if (error.request) {
         throw new Error("Service refused connection");
       } else {
@@ -73,7 +78,7 @@ async function deleteUser(username) {
  * 1. The account information could not have been udpated.
  * 2. The connection to the backend service was refused.
  * 3. An unexpected error.
-  */
+ */
 async function updateUser(username, updatedDetails) {
   if (!(username instanceof String) && typeof username !== "string")
     throw new Error("username must be a string");
