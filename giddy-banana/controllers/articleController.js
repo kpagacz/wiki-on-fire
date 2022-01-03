@@ -1,3 +1,10 @@
+/**
+ * This module exports the controllers for the `/users` endpoint. The
+ * controllers in this module are available under `/api/articles` URL.
+ *
+ * @module controllers/articleController
+ */
+
 import {
   getArticle,
   postArticle,
@@ -9,8 +16,8 @@ import { NotFoundException } from "../src/errors.js";
 /**
  * The controller for the GET endpoint of articles.
  *
- * @param {Object} req
- * @param {Object} res
+ * @param {Object} req The Axios HTML request object
+ * @param {Object} res The Axios HTML response object
  */
 async function getArticles(req, res) {
   if (req.params.title === undefined)
@@ -25,8 +32,9 @@ async function getArticles(req, res) {
 
 /**
  * The controller for the POST endpoint of articles.
- * @param {Object} req
- * @param {Object} res
+ *
+ * @param {Object} req The Axios HTML request object
+ * @param {Object} res The Axios HTML response object
  */
 async function postArticles(req, res) {
   try {
@@ -46,8 +54,8 @@ async function postArticles(req, res) {
 /**
  * The controller for the DELETE endpoint of articles.
  *
- * @param {Object} req
- * @param {Object} res
+ * @param {Object} req The Axios HTML request object
+ * @param {Object} res The Axios HTML response object
  */
 async function deleteArticles(req, res) {
   try {
@@ -60,8 +68,9 @@ async function deleteArticles(req, res) {
 
 /**
  * The controller for the PATCH endpoint of articles.
- * @param {Object} req
- * @param {Object} res
+ *
+ * @param {Object} req The Axios HTML request object
+ * @param {Object} res The Axios HTML response object
  */
 async function updateArticles(req, res) {
   try {

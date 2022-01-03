@@ -1,3 +1,8 @@
+/**
+ * This the main entry point of the backend application.
+ *
+ * @module app
+ */
 import express from "express";
 import router from "./routes/index.js";
 import middleware from "./middleware/index.js";

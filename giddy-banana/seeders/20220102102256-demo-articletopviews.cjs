@@ -1,15 +1,24 @@
+/**
+ * This module seeds the `ArticleTopViews` table.
+ *
+ * @module seeders/demoArticleTopViews
+ */
 "use strict";
 
 module.exports = {
+  /**
+   * Seeds `ArticleTopViews`.
+   *
+   * @param {Sequelize} queryInterface The Sequelize query interface
+   * @param {Sequelize} Sequelize The Sequelize database model
+   * @returns {void}
+   */
   up: async (queryInterface, Sequelize) => {
     /**
      * Add seed commands here.
      *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
+     * Example: await queryInterface.bulkInsert('People', [{ name: 'John Doe',
+     * isBetaMember: false }], {});
      */
 
     var arttopviews = [];
@@ -30,12 +39,18 @@ module.exports = {
     await queryInterface.bulkInsert("ArticleTopViews", arttopviews);
   },
 
+  /**
+   * Undoes seeding `ArticleTopViews`.
+   *
+   * @param {Sequelize} queryInterface The Sequelize query interface
+   * @param {Sequelize} Sequelize The Sequelize database model
+   * @returns {void}
+   */
   down: async (queryInterface, Sequelize) => {
     /**
      * Add commands to revert seed here.
      *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
+     * Example: await queryInterface.bulkDelete('People', null, {});
      */
     return queryInterface.bulkDelete("ArticleTopViews", null, {});
   },

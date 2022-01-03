@@ -17,7 +17,9 @@ import config from "../config/config.example.js";
  * @example
  *   const wipedToken = await logoutUser();
  *
+ * @function
  * @returns {Object} An object with fields: "token_type", "token"
+ * @name logoutService
  */
 export default async () => {
   const token = sign({ expired: "" }, config.secretKey, { expiresIn: "-8h" });

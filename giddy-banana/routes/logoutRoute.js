@@ -1,3 +1,8 @@
+/**
+ * This module exports the `/logout` route.
+ *
+ * @module routes/logoutRoute
+ */
 import { Router } from "express";
 import logoutController from "../controllers/logoutController.js";
 

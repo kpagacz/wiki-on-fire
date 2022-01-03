@@ -1,3 +1,8 @@
+/**
+ * This module exports the `/login` route.
+ *
+ * @module routes/loginRoute
+ */
 import { Router } from "express";
 import loginController from "../controllers/loginController.js";
 

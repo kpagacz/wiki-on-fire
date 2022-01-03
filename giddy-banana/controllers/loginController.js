@@ -1,3 +1,8 @@
+/**
+ * This module exports the `/api/login` endopint controller.
+ *
+ * @module controllers/loginController
+ */
 import loginUser from "../services/loginService.js";
 import {
   InvalidArgumentException,
@@ -8,9 +13,11 @@ import {
 /**
  * Login controller.
  *
- * @param {Object} req the request object
- * @param {Object} res the response object
- * @return {void}
+ * @function
+ * @param {Object} req The Axios HTML request object
+ * @param {Object} res The Axios HTML response object
+ * @returns {void}
+ * @name loginController
  */
 export default async (req, res) => {
   if (req.body.username === undefined || req.body.password === undefined)

@@ -1,3 +1,8 @@
+/**
+ * This modules exports the `/users` route.
+ *
+ * @module routes/usersRoute
+ */
 import express from "express";
 import {
   getUsers,

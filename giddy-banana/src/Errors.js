@@ -1,11 +1,12 @@
 /**
- * @module src/errors
- * @description
  * This module exports custom exceptions.
+ *
+ * @module src/errors
  */
 
 /**
  * Represents an exception when something is not found.
+ *
  * @extends Error
  */
 class NotFoundException extends Error {
@@ -16,7 +17,8 @@ class NotFoundException extends Error {
 }
 
 /**
- * Represents an exception thrown an invalid argument is passed to a function.
+ * Represents an exception thrown when an invalid argument is passed to a function.
+ *
  * @extends Error
  */
 class InvalidArgumentException extends Error {
@@ -27,7 +29,8 @@ class InvalidArgumentException extends Error {
 }
 
 /**
- * Represents an exception thrown an invalid password is passed to a function.
+ * Represents an exception thrown when an invalid password is passed to a function.
+ *
  * @extends Error
  */
 class InvalidPasswordException extends Error {

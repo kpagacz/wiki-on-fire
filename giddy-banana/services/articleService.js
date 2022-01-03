@@ -9,12 +9,11 @@ import { NotFoundException } from "../src/errors.js";
 /**
  * Returns information about an article.
  *
- * @param {string} _title The article title
+ * @param {string} title The article title
  * @returns {Object} JSON with the requested article's data
  * @throws {Error} If the article couldn't be found or the database connection
  *   was refused.
  */
-
 async function getArticle(title) {
   try {
     const found = await db.Article.findOne({
