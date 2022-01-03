@@ -1,19 +1,16 @@
 "use strict";
+
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  /**
-   * Represents a single user in the database.
-   */
+  /** Represents a single user in the database. */
   class User extends Model {
     /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
+     * Helper method for defining associations. This method is not a part of
+     * Sequelize lifecycle. The `models/index` file will call this method automatically.
      *
-     * @param {Sequelize} models the database object from `Sequelize`
+     * @param {Sequelize} models The database object from `Sequelize`
      */
     static associate(models) {
-      // define association here
       models.User.belongsToMany(models.Article, { through: "Like_it" });
       models.User.belongsToMany(models.Article, { through: "Recommend" });
       models.User.belongsToMany(models.Article, { through: "Favourite" });
@@ -33,6 +30,12 @@ module.exports = (sequelize, DataTypes) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          is: {
+            args: /^.+@.+$/,
+            msg: "Invalid e-mail",
+          },
+        },
       },
       account_type: DataTypes.INTEGER,
       account_status: {
