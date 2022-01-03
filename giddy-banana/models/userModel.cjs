@@ -1,5 +1,12 @@
 "use strict";
+<<<<<<< HEAD
+
+const {
+  Model
+} = require("sequelize");
+=======
 const { Model } = require("sequelize");
+>>>>>>> 6006dc7b5ce3e534b954b09a116c65a3dfc127e6
 module.exports = (sequelize, DataTypes) => {
   /**
    * Represents a single user in the database.
