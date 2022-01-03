@@ -1,4 +1,5 @@
 "use strict";
+
 const {
   Model
 } = require("sequelize");
@@ -15,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
      * @param {Sequelize} models the database object from `Sequelize`
      */
     static associate(models) {
-      // define association here
       models.User.belongsToMany(models.Article, { through: "Like_it" });
       models.User.belongsToMany(models.Article, { through: "Recommend" });
       models.User.belongsToMany(models.Article, { through: "Favourite" });

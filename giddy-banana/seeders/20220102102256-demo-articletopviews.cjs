@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
@@ -10,27 +10,21 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
+     */
 
     var arttopviews = [];
-    var s2 = '.12.2021';
-
-    function generateRandomInteger(min, max) {
-      return Math.floor(min + Math.random()*(max + 1 - min))
-    }
-
-
     for (let i = 0; i < 100; i++) {
-      var num = generateRandomInteger(17,31);
-      var s1 = num.toString();
+      const today = new Date();
+      const date = new Date();
+      date.setDate(today.getDate() - ~~(i / 10));
       arttopviews.push({
-                ArticleId: i + 1,
-                date: s1.concat(s2),
-                rank_position: 11,
-                number_of_views: 1120,
-                createdAt: new Date(),
-                updatedAt: new Date()
-          });
+        ArticleId: (i % 10) + 1,
+        date: date,
+        rank_position: (i % 10) + 1,
+        number_of_views: Math.trunc(1000 * Math.random()),
+        createdAt: today,
+        updatedAt: today,
+      });
     }
 
     await queryInterface.bulkInsert("ArticleTopViews", arttopviews);
@@ -43,6 +37,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-     return queryInterface.bulkDelete('ArticleTopViews', null, {});
-  }
+    return queryInterface.bulkDelete("ArticleTopViews", null, {});
+  },
 };
