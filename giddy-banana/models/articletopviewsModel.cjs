@@ -2,26 +2,29 @@
 
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Comment extends Model {
+  class ArticleTopViews extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      * @param {Sequelize} models the database object from `Sequelize`
      */
-    static associate(models) {}
+    static associate(models) {
+      models.Article.hasMany(models.ArticleTopViews);
+      models.ArticleTopViews.belongsTo(models.Article);
+    }
   }
-  Comment.init(
+  ArticleTopViews.init(
     {
       ArticleId: DataTypes.INTEGER,
-      UserId: DataTypes.INTEGER,
-      contents: DataTypes.STRING,
-      status: DataTypes.INTEGER,
+      date: DataTypes.DATE,
+      rank_position: DataTypes.INTEGER,
+      number_of_views: DataTypes.INTEGER,
     },
     {
       sequelize,
-      modelName: "Comment",
+      modelName: "ArticleTopViews",
     }
   );
-  return Comment;
+  return ArticleTopViews;
 };
