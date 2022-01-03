@@ -130,6 +130,7 @@ export default {
   },
   methods: {
     setUsername(newValue) {
+      this.username.errorMsg = '';
       this.username.value = newValue;
     },
     /**
@@ -148,6 +149,7 @@ export default {
      */
     setPassword(newValue) {
       this.password.value = newValue;
+      this.password.errorMsg = '';
       if(this.passwordConfirm.value.length > 0 && this.passwordConfirm.value != this.password.value) {
         this.passwordConfirm.errorMsg = 'Passwords do not match'
       } else {
@@ -201,9 +203,22 @@ export default {
         try {
           registeredUser = await registerUser(this.username.value, this.password.value, this.email.value);
         } catch(err) {
-          this.resultTitle = 'Error';
-          this.resultType = 'error';
-          this.resultMessage = err.message;
+            switch(err.path) {
+              case 'password':
+                this.password.errorMsg = err.message;
+              break;
+              case 'email':
+                this.email.errorMsg = err.message;
+              break;
+              case 'username':
+                this.username.errorMsg = err.message;
+              break;
+              default:
+                this.resultTitle = 'Error';
+                this.resultType = 'error';
+                this.resultMessage = err.message;
+              break;
+            }
         }
         if(registeredUser) {
           this.resultTitle = 'Success';
