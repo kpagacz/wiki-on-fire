@@ -9,8 +9,8 @@
     "dev": "npm run migrate && npm run seed && npx nodemon --exec node --experimental-specifier-resolution=node app.js",
     "start": "npx nodemon --exec node --experimental-specifier-resolution=node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docs": "jsdoc -c jsdoc.config.json controllers/* middleware/* migrations/* models/* routes/* seeders/* services/* src/* ./app.js",
-    "deploy-docs": "aws s3 cp ./out s3://jsdocs-backend-wof/ --recursive"
+    "docs": "jsdoc -c jsdoc.config.json -p package.json -r README.md controllers/* middleware/* migrations/* models/* routes/* seeders/* services/* src/* ./app.js",
+    "deploy-docs": "aws s3 rm s3://jsdocs-backend-wof/ --recursive && aws s3 cp ./out/giddy-banana/0.1.0/ s3://jsdocs-backend-wof/ --recursive"
   },
   "repository": {
     "type": "git",
