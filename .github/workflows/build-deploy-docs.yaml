@@ -2,10 +2,9 @@ name: Build and deploy giddy-banana docs
 
 on:
   push:
-    branches:
-      main
-      paths:
-        - "giddy-banana/**"
+    branches: main
+    paths:
+      - "giddy-banana/**"
   workflow_dispatch:
 
 jobs:
