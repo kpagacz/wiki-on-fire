@@ -42,15 +42,11 @@ const store = createStore({
      * an it will be saved in state. If user was not logged in, it will do nothing.
      */
     async autoLogIn(context) {
-      try {
         let user = await refreshToken();
-        if(user.data.username) {
+        if(user && user.data.username) {
           context.commit("setUser", user.data);
           this.state.isAuth = true;
         }
-      } catch(error) {
-        console.error(error);
-      }
     },
     /**
      * Signs user out of the application session.
