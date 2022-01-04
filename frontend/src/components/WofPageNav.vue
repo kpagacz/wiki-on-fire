@@ -3,17 +3,20 @@
         <wof-button icon="wof-left"
                     :size="1.4"
                     :variant="prevButtonState"
-                    @click="this.$emit('prev', this.currentPage-1)">
+                    @click="this.$emit('go', this.currentPage-1)">
         </wof-button>
         <div class="wof-page-nav__pages">
-            <input class="wof-page-nav__input" type="number" :min="1" :max="totalPages" v-model="value">
+            <input class="wof-page-nav__input" type="number" :min="1" :max="totalPages" v-model="pageNumber" @keydown="submitOnKey">
             <span>of</span>
             <span class="wof-page-nav__total-pages">{{ totalPages }}</span>
         </div>
         <wof-button icon="wof-right"
                     :size="1.4"
                     :variant="nextButtonState"
-                    @click="this.$emit('next', this.currentPage+1)">
+                    @click="this.$emit('go', this.currentPage+1)">
+        </wof-button>
+        <wof-button :size="1.1" @click="submitPageNumber" class="wof-page-nav__go-button">
+            Go
         </wof-button>
     </div>
 </template>
@@ -31,10 +34,10 @@ export default {
             required: true
         }
     },
-    emits: ['prev', 'next'],
+    emits: ['go'],
     data() {
         return {
-            value: this.currentPage
+            pageNumber: this.currentPage
         };
     },
     computed: {
@@ -49,6 +52,23 @@ export default {
                 return 'disabled';
             }
             return 'default';
+        }
+    },
+    methods: {
+        submitPageNumber() {
+            if(this.pageNumber < 1) {
+                this.$emit('go', 1);
+            } else if(this.pageNumber > this.totalPages) {
+                this.$emit('go', this.totalPages);
+            } else {
+                this.$emit('go', this.pageNumber);
+            }
+        },
+        submitOnKey(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                this.submitPageNumber();
+            }
         }
     }
 };
@@ -101,6 +121,10 @@ export default {
         span {
             margin: 0px 5px;
         }
+    }
+
+    .wof-page-nav__go-button {
+        margin-left: 0.3em;
     }
 }
 
