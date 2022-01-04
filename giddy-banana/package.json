@@ -10,7 +10,6 @@
     "start": "npx nodemon --exec node --experimental-specifier-resolution=node app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docs": "jsdoc -c jsdoc.config.json controllers/* middleware/* migrations/* models/* routes/* seeders/* services/* src/* ./app.js",
-    "show-docs": "npm run docs && open ./out/index.html",
     "deploy-docs": "aws s3 cp ./out s3://jsdocs-backend-wof/ --recursive"
   },
   "repository": {
