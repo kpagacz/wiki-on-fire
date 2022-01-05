@@ -15,6 +15,9 @@ import WofHeader from './components/WofHeader.vue';
 export default {
   components: { WofFooter, WofHeader },
   name: "App",
+  async mounted() {
+    await this.$store.dispatch('autoLogIn');
+  }
 };
 </script>
 

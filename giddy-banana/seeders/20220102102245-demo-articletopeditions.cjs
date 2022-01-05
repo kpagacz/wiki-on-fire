@@ -11,13 +11,15 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
      */
-    return queryInterface.bulkInsert("Favourite", [
+
+    await queryInterface.bulkInsert("ArticleTopEditions", [
       {
+        ArticleId: 1,
+        date: new Date(),
+        rank_position: 11,
+        number_of_editions: 1120,
         createdAt: new Date(),
         updatedAt: new Date(),
-        ArticleId: 1,
-        UserId: 1,
-        playlist_title: "my test playlist",
       },
     ]);
   },
@@ -29,6 +31,6 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    return queryInterface.bulkDelete("Favourite", null, {});
+    return queryInterface.bulkDelete("ArticleTopEditions", null, {});
   },
 };

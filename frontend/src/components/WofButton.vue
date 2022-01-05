@@ -45,7 +45,7 @@ export default {
   align-items: center;
   display: flex;
   border-radius: 1rem;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 0.7rem;
   color: @primary-bright-text-color;
   font-weight: 600;
   &:active {

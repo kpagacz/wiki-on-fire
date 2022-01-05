@@ -1,48 +1,34 @@
-'use strict';
+"use strict";
 
-const hashPassword = require("../src/hashing.js");
+const { createHash } = require("crypto");
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
-
+    const hash = createHash("sha256");
+    const hash2 = createHash("sha256");
     return queryInterface.bulkInsert("Users", [
       {
         username: "test_username1",
-        password: hashPassword("test_password"),
+        password: hash.update("test_password").digest("hex"),
         email: "test_email@mail.com",
         account_type: 1,
         account_status: 1,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       {
         username: "test",
-        password: "pass",
+        password: hash2.update("pass").digest("hex"),
         email: "test_email@mail.com",
         account_type: 1,
         account_status: 1,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
-    ])
+    ]);
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
     return queryInterface.bulkDelete("Users", null, {});
-  }
+  },
 };
