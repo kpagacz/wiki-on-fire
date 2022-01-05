@@ -10,12 +10,12 @@ import PassRecoveryPage from  './pages/PassRecoveryPage.vue';
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', component: MainPage },
+        { path: '/:currentPage', component: MainPage, props: true },
         { path: '/login', component: LoginPage, meta: {requiresUnAuth: true}},
         { path: '/user/:userLogin', component: UserPage, props: true, meta: {requiresAuth: true} },
         { path: '/password-recovery', component: PassRecoveryPage, meta: {requiresAuth: true} },
         { path: '/register', component: RegisterPage, meta: {requiresUnAuth: true} },
-        { path: '/:notFound(.*)', redirect: '/' }
+        { path: '/:notFound(.*)', redirect: `/${1}` }
     ]
 });
 
