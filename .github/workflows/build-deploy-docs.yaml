@@ -1,0 +1,38 @@
+name: Build and deploy giddy-banana docs
+
+on:
+  push:
+    branches: main
+    paths:
+      - "giddy-banana/**"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: giddy-banana
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 16.x
+
+      - name: Install dependencies and build the JSDocs documentation
+        run: |
+          npm install
+          npm run docs
+
+      - name: "Configure AWS Credentials"
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_KEY}}
+          aws-region: eu-central-1
+
+      - name: "Deploy the documentation"
+        run: npm run deploy-docs

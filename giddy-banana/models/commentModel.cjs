@@ -1,3 +1,8 @@
+/**
+ * This module exports the `Comment` model.
+ *
+ * @module models/commentModel
+ */
 "use strict";
 
 const { Model } = require("sequelize");
