@@ -37,7 +37,7 @@ jobs:
       - name: Zip the directory contents and update the lambda
         run: |
           zip -r function.zip .
-          aws lambda update-function-code --function-name process-dynamo-views --zip-file fileb:://function.zip
+          aws lambda update-function-code --function-name process-dynamo-views --zip-file fileb://function.zip
 
       - name: Update the Lambda environment variables
         run: |

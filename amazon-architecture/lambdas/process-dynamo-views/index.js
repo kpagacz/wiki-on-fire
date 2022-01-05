@@ -1,22 +1,9 @@
 import { createConnection } from "mysql";
 
-process.env["DB_HOST"] =
-  "database-wikionfire-1.ct2880iw3xvo.eu-central-1.rds.amazonaws.com";
-process.env["DB_USER"] = "admin";
-process.env["DB_PASS"] = "whoatemycookie";
-process.env["DB_SCHEMA"] = "db";
-
-const conn = createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASS,
-  database: process.env.DB_SCHEMA,
-});
-
-const insertArticle = async (article) => {
-  var sql =
+const insertArticle = (article, conn) => {
+  const sql =
     "INSERT INTO Articles (title, link_to_contents, createdAt, updatedAt) VALUES ?";
-  var values = [
+  const values = [
     [
       article,
       "https://en.wikipedia.org/wiki/" + article,
@@ -32,34 +19,68 @@ const insertArticle = async (article) => {
         .replace("-", "/"),
     ],
   ];
-
-  return conn.query(sql, [values], function (err, result) {
-    if (err) console.log(err);
-    console.log(result);
-    console.log(result.insertId);
-    return result.insertId;
+  return new Promise(function (resolve, reject) {
+    conn.query(sql, [values], function (err, result) {
+      if (err) reject(err);
+      else resolve(result);
+    });
   });
 };
 
-const insertTopViews = async (articleId, date, rank, views) => {};
+const insertTopViews = (articleId, date, rank, views, conn) => {
+  const sql =
+    "INSERT INTO ArticleTopViews (ArticleId, date, rank_position, number_of_views, createdAt, updatedAt) VALUES ?";
+  const values = [
+    [
+      articleId,
+      date,
+      rank,
+      views,
+      new Date()
+        .toISOString()
+        .replace("-", "/")
+        .split("T")[0]
+        .replace("-", "/"),
+      new Date()
+        .toISOString()
+        .replace("-", "/")
+        .split("T")[0]
+        .replace("-", "/"),
+    ],
+  ];
 
-const processRecord = async (record) => {
-  console.dir(record);
-  const date = record.Keys.date.S;
-  const rank = record.Keys.rank.N;
-  const article = record.Keys.article.S;
-  const views = record.Keys.article.N;
-
-  const articleId = await insertArticle(article);
-  // await insertTopViews(articleId, date, rank, views);
+  conn.query(sql, [values], function (err, result) {
+    if (err) err;
+  });
 };
 
-const processRecords = async (records) => {
-  records.foreach((record) => processRecord(record.dynamodb));
+const processRecord = (record, conn) => {
+  const date = record.NewImage.date.S;
+  const rank = record.NewImage.rank.N;
+  const article = record.NewImage.article.S;
+  const views = record.NewImage.views.N;
+
+  try {
+    const result = insertArticle(article, conn);
+    insertTopViews(result.insertId, date, rank, views, conn);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
-export const handler = async (event) => {
-  console.dir(event);
-  processRecords(event.Records);
-  return JSON.stringify("Hello");
+const processRecords = (records, conn) => {
+  records.forEach((record) => {
+    processRecord(record.dynamodb, conn);
+  });
+};
+
+export const handler = (event) => {
+  const conn = createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_SCHEMA,
+  });
+  processRecords(event.Records, conn);
+  return JSON.stringify("Lambda succeded");
 };
