@@ -3,7 +3,7 @@ Resources:
   testLambda:
       Type: AWS::Lambda::Function
       Properties:
-        FunctionName: process-dynamo-views
+        FunctionName: processDynamoViewsLambda
         Description: The AWS Lambda function to process new items in the MostViewedArticles DynamoDB table.
         Runtime: nodejs14.x
         Handler: index.handler
