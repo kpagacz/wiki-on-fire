@@ -12,8 +12,31 @@ const conn = createConnection({
   database: process.env.DB_SCHEMA
 });
 
-export async function handler(event) {
+const insertArticle = async (article) => {
+
+}
+
+const insertTopViews = async (articleId, date, rank, views) => {
+
+}
+
+const processRecord = async (record) => {
+  console.dir(record);
+  const date = record.Keys.date.S;
+  const rank = record.Keys.rank.N;
+  const article = record.Keys.article.S;
+  const views = record.Keys.article.N;
+
+  const articleId = await insertArticle(article);
+  await insertTopViews(articleId, date, rank, views);
+};
+
+const processRecords = async (records) => {
+  records.foreach((record) => processRecord(record.dynamodb));
+};
+
+export const handler = async (event) => {
   console.dir(event);
-  console.log(JSON.stringify(event, null, 2));
+  processRecords(event.Records);
   return JSON.stringify("Hello");
 };
