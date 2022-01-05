@@ -1,10 +1,8 @@
-'use strict';
+"use strict";
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable(
-    'Recommend',
-    {
+    await queryInterface.createTable("Recommend", {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -25,11 +23,10 @@ module.exports = {
       UserId: {
         type: Sequelize.INTEGER,
       },
-    }
-  );
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
-      await queryInterface.dropTable('Recommend');
-  }
+    await queryInterface.dropTable("Recommend");
+  },
 };

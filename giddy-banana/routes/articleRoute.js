@@ -1,3 +1,8 @@
+/**
+ * This module exports the `/articles` route.
+ *
+ * @module routes/articleRoute
+ */
 import express from "express";
 import {
   getArticles,

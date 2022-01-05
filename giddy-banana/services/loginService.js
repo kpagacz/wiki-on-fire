@@ -1,3 +1,8 @@
+/**
+ * This module exports services associated with the /login endpoint.
+ *
+ * @module services/loginService
+ */
 import jwt from "jsonwebtoken";
 const { sign } = jwt;
 import config from "../config/config.example.js";
@@ -5,27 +10,30 @@ import {
   InvalidArgumentException,
   InvalidPasswordException,
   NotFoundException,
-} from "../src/Errors.js";
+} from "../src/errors.js";
 import { getUser } from "./usersService.js";
 import hashPassword from "../src/hashing.js";
 
 /**
  * Authenticates username and password:
- * * checks whether the provided password matches the one stored in the database
- * * returns a Json Web Token if succesful
+ *
+ * - Checks whether the provided password matches the one stored in the database
+ * - Returns a Json Web Token if succesful
  *
  * The payload encrypted in the token has the following fields:
- * * username
- * * accountType
- * * accountStatus
+ *
+ * - `username`
+ * - `accountType`
+ * - `accountStatus`
  *
  * The values match the User model definition.
  *
- * @param {String} username the username
- * @param {String} password the password of the user
- * @return {Object} an object with fields: "token_type", "token" and "user"
  * @example
- * const userDataAndToken = await loginUser("user1", "pass1");
+ *   const userDataAndToken = await loginUser("user1", "pass1");
+ *
+ * @param {String} username The username
+ * @param {String} password The password of the user
+ * @returns {Object} An object with fields: "token_type", "token" and "user"
  */
 const loginUser = async (username, password) => {
   if (typeof username !== "string")
@@ -40,7 +48,7 @@ const loginUser = async (username, password) => {
     if (error instanceof NotFoundException) throw error;
     throw new Error("Error getting the user information");
   }
-  
+
   if (hashPassword(password) !== user.password)
     throw new InvalidPasswordException("Invalid password");
 

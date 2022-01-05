@@ -60,13 +60,15 @@ export default {
     font-size: 1.5rem;
     border-radius: 1em;
     color: @primary-bright-text-color;
-    overflow: hidden;
     overflow-wrap: anywhere;
 
     &--warning{
         background-color: @secondary-warning-color;
         color: black;
-        .info_box__title-close-container{background-color: @primary-warning-color;}
+        .info_box__title-close-container{
+            background-color: @primary-warning-color;
+            border-radius: 1em 1em 0 0; 
+        }
         #info_box__close-button{ 
             background-color: @primary-warning-color;
             &:hover, &:focus-visible {
@@ -78,7 +80,11 @@ export default {
     &--neutral{
         background: @secondary-neutral-color;
         color: @primary-dark-text-color;
-        .info_box__title-close-container{background: @primary-neutral-color;}
+        
+        .info_box__title-close-container{
+            background: @primary-neutral-color;
+            border-radius: 1em 1em 0 0; 
+        }
         #info_box__close-button{ 
             background-color: @primary-neutral-color;
             &:hover, &:focus-visible {
@@ -89,7 +95,10 @@ export default {
     
     &--default{
         background-color: @secondary-color;
-        .info_box__title-close-container{background-color: @primary-theme-color;}
+        .info_box__title-close-container{
+            background-color: @primary-theme-color;
+            border-radius: 1em 1em 0 0; 
+        }
         #info_box__close-button{ 
             background-color: @primary-theme-color;
             &:hover, &:focus-visible {
@@ -100,7 +109,10 @@ export default {
 
     &--error{
         background-color: @secondary-error-color;
-        .info_box__title-close-container{background-color: @primary-error-color;}
+        .info_box__title-close-container{
+            background-color: @primary-error-color;
+            border-radius: 1em 1em 0 0;
+        }
         #info_box__close-button{ 
             background-color: @primary-error-color;
             &:hover, &:focus-visible {
@@ -111,7 +123,10 @@ export default {
 
     &--positive{
         background-color: @secondary-positive-color;
-        .info_box__title-close-container{background-color: @primary-positive-color;}
+        .info_box__title-close-container{
+            background-color: @primary-positive-color;
+            border-radius: 1em 1em 0 0;
+        }
         #info_box__close-button{ 
             background-color: @primary-positive-color;
             &:hover, &:focus-visible {

@@ -1,30 +1,37 @@
+/**
+ * This module exports services associated with refreshing a user session token
+ * usually stored in a browser cookie in the client application.
+ *
+ * @module services/refreshTokenServie
+ */
 import jwt from "jsonwebtoken";
 const { verify, sign } = jwt;
 import config from "../config/config.example.js";
-import { InvalidArgumentException } from "./serviceErrors.js";
+import { InvalidArgumentException } from "../src/errors.js";
 import { getUser } from "./usersService.js";
 
 /**
- * Refreshes the JsonWebToken.
+ * Refreshes the session token.
  *
- * @description Decrypts the token and if appropriate refreshes.
+ * Decrypts the JsonWebToken token and if appropriate refreshes.
  *
- * @param {String} token the encrypted JsonWebToken
- * @return {Object} with the fields `data` and `token`
  * @example
- * const userDataAndToken = await refreshToken("token.token.token");
+ *   const userDataAndToken = await refreshToken("token.token.token");
  *
- * @throws {TokenExpiredError} if the token expired
- * @throws {JsonWebTokenError} if the token was not signed by WikiOnFire
+ * @param {String} cookie The cookie containing the encrypted JsonWebToken
+ * @returns {Object} The token object with the fields `data` and `token`
+ * @throws {TokenExpiredError} If the token expired
+ * @throws {JsonWebTokenError} If the token was not signed by the login nor
+ *   refresh token services
  */
-const refreshToken = async (token) => {
-  if (!(token.token instanceof String) && typeof token.token !== "string")
+const refreshToken = async (cookie) => {
+  if (!(cookie.token instanceof String) && typeof cookie.token !== "string")
     throw new InvalidArgumentException(
-      "token property of the token argument must be a string."
+      "token property of the cookie argument must be a string."
     );
 
   const decodedUsername = verify(
-    token.token,
+    cookie.token,
     config.secretKey,
     {
       issuer: config.tokenIssuer,
@@ -60,7 +67,7 @@ const refreshToken = async (token) => {
       accountType: user.account_type,
       accountStatus: user.account_status,
     },
-    token: newToken,
+    token: { token_type: "jwt", token: newToken },
   };
 };
 

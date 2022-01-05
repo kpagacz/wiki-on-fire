@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  mostViewedTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        -
+          AttributeName: "date"
+          AttributeType: "S"
+        -
+          AttributeName: "rank"
+          AttributeType: "N"
+      KeySchema:
+        -
+          AttributeName: "date"
+          KeyType: "HASH"
+        -
+          AttributeName: "rank"
+          KeyType: "RANGE"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: MostViewedArticles
+      StreamSpecification:
+        StreamViewType: "NEW_IMAGE"
+
+Outputs:
+  dynamoID:
+    Description: The reference to the dynamoDB MostViewedArticles table
+    Value: !GetAtt mostViewedTable.Arn
+    Export:
+      Name: "mostViewedTable"
+  dynamoStreamID:
+    Description: The ARN of the MostViewedArticles table data stream
+    Value: !GetAtt mostViewedTable.StreamArn
+    Export:
+      Name: "mostViewedTableStream"

@@ -1,16 +1,25 @@
-'use strict';
+/**
+ * This module seeds the `Articles` table.
+ *
+ * @module seeders/demoArticle
+ */
+"use strict";
 
 module.exports = {
+  /**
+   * Seeds `Articles`.
+   *
+   * @param {Sequelize} queryInterface The Sequelize query interface
+   * @param {Sequelize} Sequelize The Sequelize database model
+   * @returns {void}
+   */
   up: async (queryInterface, Sequelize) => {
     /**
      * Add seed commands here.
      *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+     * Example: await queryInterface.bulkInsert('People', [{ name: 'John Doe',
+     * isBetaMember: false }], {});
+     */
 
     await queryInterface.bulkInsert("Articles", [
       {
@@ -20,7 +29,7 @@ module.exports = {
         number_of_authors: 1,
         date_added: new Date(),
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       {
         title: "Aerobics",
@@ -29,18 +38,24 @@ module.exports = {
         number_of_authors: 100,
         date_added: new Date(),
         createdAt: new Date(),
-        updatedAt: new Date()
-      }
-    ])
+        updatedAt: new Date(),
+      },
+    ]);
   },
 
+  /**
+   * Undoes seeding `Articles`.
+   *
+   * @param {Sequelize} queryInterface The Sequelize query interface
+   * @param {Sequelize} Sequelize The Sequelize database model
+   * @returns {void}
+   */
   down: async (queryInterface, Sequelize) => {
     /**
      * Add commands to revert seed here.
      *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
+     * Example: await queryInterface.bulkDelete('People', null, {});
      */
-     return queryInterface.bulkDelete('Articles', null, {});
-  }
+    return queryInterface.bulkDelete("Articles", null, {});
+  },
 };
