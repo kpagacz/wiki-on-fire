@@ -15,7 +15,10 @@ Resources:
         ManagedPolicyArns:
           - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
           - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+<<<<<<< HEAD
           - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+=======
+>>>>>>> main
 
 Outputs:
   lambdasRoleARN:
