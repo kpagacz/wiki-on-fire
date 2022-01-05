@@ -1,5 +1,5 @@
 <template>
-  <button :class="`button button--${variant}`" :style="`font-size: ${this.size}rem;`">
+  <button :class="`button button--${variant}`" :style="`font-size: ${this.size}rem;`" :disabled="disabled">
     <wof-icon v-if="this.icon" :icon="this.icon" :size="this.size" :class="this.getIconCss" />
     <slot/>
   </button>
@@ -30,6 +30,12 @@ export default {
   computed: {
     getIconCss: function() {
       return this.$slots.default ? "button__icon" : "";
+    },
+    disabled() {
+      if(this.variant === 'disabled') {
+        return true;
+      }
+      return false;
     }
   }
 }
