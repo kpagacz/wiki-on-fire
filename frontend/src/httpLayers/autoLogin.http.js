@@ -10,8 +10,7 @@ const refreshToken = async () => {
   const user = await wofApi.get('/auth/refreshToken')
   .then((response) => {
     return response.data;
-  }).catch((error) => {
-    throw new Error(error.response.data.message);
+  }).catch(() => {
   });
   return user;
 }
