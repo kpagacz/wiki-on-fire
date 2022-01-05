@@ -106,5 +106,8 @@ dist
 # Visual Studio Code files
 *.vscode*
 
-# Weird MacOS files
-*.DS_Store*
+# Weird macOS files
+*DS_Store*
+
+# JSDoc output
+giddy-banana/out/

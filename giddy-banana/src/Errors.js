@@ -1,3 +1,14 @@
+/**
+ * This module exports custom exceptions.
+ *
+ * @module src/errors
+ */
+
+/**
+ * Represents an exception when something is not found.
+ *
+ * @extends Error
+ */
 class NotFoundException extends Error {
   constructor(message) {
     super(message);
@@ -5,6 +16,11 @@ class NotFoundException extends Error {
   }
 }
 
+/**
+ * Represents an exception thrown when an invalid argument is passed to a function.
+ *
+ * @extends Error
+ */
 class InvalidArgumentException extends Error {
   constructor(message) {
     super(message);
@@ -12,6 +28,11 @@ class InvalidArgumentException extends Error {
   }
 }
 
+/**
+ * Represents an exception thrown when an invalid password is passed to a function.
+ *
+ * @extends Error
+ */
 class InvalidPasswordException extends Error {
   constructor(message) {
     super(message);
@@ -19,4 +40,8 @@ class InvalidPasswordException extends Error {
   }
 }
 
-export { NotFoundException, InvalidArgumentException, InvalidPasswordException };
+export {
+  NotFoundException,
+  InvalidArgumentException,
+  InvalidPasswordException,
+};

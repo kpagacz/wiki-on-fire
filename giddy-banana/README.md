@@ -4,13 +4,18 @@ The backend service of wiki-on-fire. Written in Javascript using Express.js.
 
 ### Documentation
 Spotlight OpenAPI documentation: https://wikionfire.stoplight.io/docs/wikionfire-backend
+
+The JSDocs3 documentation of files, classes and functions: http://jsdocs-backend-wof.s3-website.eu-central-1.amazonaws.com/index.html
 ## Installation
 ### Requirements
 * Javascript
-* Express.js
+* Node version: v16.13.1
+* Node Package Manager version: 8.1.2
 
-### Install
-Navigate to the giddy-banana directory and run in the terminal:
+We highly recommend using the excellent Node Version Manager to install Node and Node Package Manager. `nvm` has an excellent documentation and is available at: https://github.com/nvm-sh/nvm.
+
+### Installing dependencies
+Navigate to the `giddy-banana` directory and run in the terminal:
 ```
 npm install
 ```
@@ -23,7 +28,7 @@ npm run start
 ```
 
 #### Setup a full development environment
-Includes migrating the `sequelize` migrations and seeding the database as well. Requires a running mySQL service on port 3306.
+Includes migrating the `sequelize` migration files and seeding the database as well. Requires a running mySQL service under the URI: localhost:3306. You can change the default `sequelize` SQL configuration in `./config/config.json`.
 ```
 npm run dev
 ```

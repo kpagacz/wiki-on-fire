@@ -1,5 +1,11 @@
 "use strict";
 
+/**
+ * This modules exports a `Sequelize` object which is an Object-Relational
+ * Mapping representation of the mySQL database.
+ *
+ * @module models/index
+ */
 const fs = require("fs");
 const path = require("path");
 const Sequelize = require("sequelize");

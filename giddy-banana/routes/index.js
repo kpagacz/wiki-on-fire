@@ -1,3 +1,8 @@
+/**
+ * This modules exports the main `/api` router.
+ *
+ * @module routes/index
+ */
 import { Router } from "express";
 import usersRouter from "./usersRoute.js";
 import loginRouter from "./loginRoute.js";
@@ -5,7 +10,6 @@ import authRouter from "./authRouter.js";
 import logoutRouter from "./logoutRoute.js";
 import articlesRouter from "./articleRoute.js";
 import aboutController from "../controllers/aboutController.js";
-
 
 // define /api/* routers
 const mainRouter = new Router();

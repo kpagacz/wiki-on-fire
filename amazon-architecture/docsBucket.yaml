@@ -1,0 +1,43 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  docsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: "PublicRead"
+      BucketName: "jsdocs-backend-wof"
+      WebsiteConfiguration:
+        IndexDocument: index.html
+    DeletionPolicy: Retain
+
+  docsBucketPolicy:
+    Type: 'AWS::S3::BucketPolicy'
+    Properties:
+      PolicyDocument:
+        Id: MyPolicy
+        Version: 2012-10-17
+        Statement:
+          - Sid: PublicReadForGetBucketObjects
+            Effect: Allow
+            Principal: '*'
+            Action: 's3:GetObject'
+            Resource: !Join
+              - ''
+              - - 'arn:aws:s3:::'
+                - !Ref docsBucket
+                - /*
+      Bucket: !Ref docsBucket
+
+Outputs:
+  WebsiteURL:
+    Value: !GetAtt
+      - docsBucket
+      - WebsiteURL
+    Description: URL for the docs hosted on S3
+  S3BucketSecureURL:
+    Value: !Join
+      - ""
+      - - "https://"
+        - !GetAtt
+          - docsBucket
+          - DomainName
+    Description: Name of the S3 bucket to hold website content

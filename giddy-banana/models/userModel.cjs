@@ -1,3 +1,8 @@
+/**
+ * This module exports the `User` model.
+ *
+ * @module models/userModel
+ */
 "use strict";
 
 const { Model } = require("sequelize");

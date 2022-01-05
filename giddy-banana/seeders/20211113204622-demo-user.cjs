@@ -1,8 +1,20 @@
+/**
+ * This module seeds the `Users` table of the database.
+ *
+ * @module seeders/demoUsers
+ */
 "use strict";
 
 const { createHash } = require("crypto");
 
 module.exports = {
+  /**
+   * Seeds `Users`.
+   *
+   * @param {Sequelize} queryInterface The Sequelize query interface
+   * @param {Sequelize} Sequelize The Sequelize database model
+   * @returns {void}
+   */
   up: async (queryInterface, Sequelize) => {
     const hash = createHash("sha256");
     const hash2 = createHash("sha256");
@@ -28,6 +40,13 @@ module.exports = {
     ]);
   },
 
+  /**
+   * Undoes seeding `Users`.
+   *
+   * @param {Sequelize} queryInterface The Sequelize query interface
+   * @param {Sequelize} Sequelize The Sequelize database model
+   * @returns {void}
+   */
   down: async (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete("Users", null, {});
   },

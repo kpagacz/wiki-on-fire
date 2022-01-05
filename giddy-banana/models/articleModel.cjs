@@ -1,6 +1,12 @@
+/**
+ * This module exports the `Article` model.
+ *
+ * @module models/articleModel
+ */
 "use strict";
 
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Article extends Model {
     /**
