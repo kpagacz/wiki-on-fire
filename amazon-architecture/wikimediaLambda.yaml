@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Resources:
-  helloLambdaRole:
+  wikimediaLambdaRole:
     Type: "AWS::IAM::Role"
     Properties:
       AssumeRolePolicyDocument:
@@ -14,13 +14,16 @@ Resources:
               - "sts:AssumeRole"
       ManagedPolicyArns:
         - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
 
-  helloLambda:
+  wikimediaDownloadLambda:
     Type: AWS::Lambda::Function
     Properties:
+      FunctionName: "wikimediaLambda"
       Runtime: nodejs14.x
       Handler: index.handler
-      Role: !GetAtt helloLambdaRole.Arn
+      Role: !GetAtt wikimediaLambdaRole.Arn
+      Timeout: 30
       Code:
         ZipFile: |
           exports.handler = async (event) => {
@@ -30,20 +33,20 @@ Resources:
             };
             return response;
           };
-      Description: Returns hello world
+      Description: The foundation for the Lambda downloading data from WikiMediaAPI
       TracingConfig:
         Mode: Active
 
-  helloLambdaEventRule:
+  wikimediaDownloadRule:
     Type: "AWS::Events::Rule"
     Properties:
-      Description: Triggers a hello world lambda every day
-      Name: helloWorldLambdaEventRule
+      Description: Triggers the wikimediaLambda every day
+      Name: wikimediaDownloadRule
       ScheduleExpression: "rate(1 day)"
       State: "ENABLED"
       Targets:
-        - Arn: !GetAtt helloLambda.Arn
-          Id: helloWorldLambdaTarget
+        - Arn: !GetAtt wikimediaDownloadLambda.Arn
+          Id: wikimediaLambdaTarget
           RetryPolicy:
             MaximumRetryAttempts: 4
             MaximumEventAgeInSeconds: 400
@@ -52,6 +55,6 @@ Resources:
     Type: AWS::Lambda::Permission
     Properties:
       Action: "lambda:InvokeFunction"
-      FunctionName: !Ref helloLambda
+      FunctionName: !Ref wikimediaDownloadLambda
       Principal: "events.amazonaws.com"
-      SourceArn: !GetAtt helloLambdaEventRule.Arn
+      SourceArn: !GetAtt wikimediaDownloadRule.Arn

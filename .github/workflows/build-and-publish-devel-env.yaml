@@ -3,8 +3,10 @@ name: Build and Publish Development Environment
 on:
   workflow_dispatch:
   push:
+    branches:
+      - main
     paths:
-      - 'docker-compose-environments/**'
+      - docker-compose-environments/**
 
 jobs:
   nginx:
