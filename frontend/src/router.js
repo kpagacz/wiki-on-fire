@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import store from './store.js';
 
-import WofHelloWorld from './components/WofHelloWorld.vue';
+import MainPage from './pages/MainPage.vue';
 import RegisterPage from './pages/RegisterPage.vue';
 import LoginPage from './pages/LoginPage.vue';
 import UserPage from './pages/UserPage.vue';
@@ -10,7 +10,7 @@ import PassRecoveryPage from  './pages/PassRecoveryPage.vue';
 const router = createRouter({
     history: createWebHistory(),
     routes: [
-        { path: '/', component: WofHelloWorld },
+        { path: '/', component: MainPage },
         { path: '/login', component: LoginPage, meta: {requiresUnAuth: true}},
         { path: '/user/:userLogin', component: UserPage, props: true, meta: {requiresAuth: true} },
         { path: '/password-recovery', component: PassRecoveryPage, meta: {requiresAuth: true} },
