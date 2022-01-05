@@ -1,0 +1,26 @@
+name: Seed DynamoDB tables
+
+on:
+  workflow_dispatch:
+
+jobs:
+  viewsTable:
+    name: Seed the most viewed articles table.
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: wikimedia-requests
+    steps:
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+          cache: 'npm'
+      - name: Set up the package dependencies
+        run: npm ci
+      - name: Seed the DynamoDB table
+        run: node seedMostViewedArticlesTable.js
+        env:
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}
