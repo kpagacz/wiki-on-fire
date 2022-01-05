@@ -37,3 +37,8 @@ giddy-banana accepts and responds in JSON.
 
 ### Adding tables to the database
 wiki-on-fire uses `sequelize` to interact with a MySQL database. In order to add or modify a table, you need to create or modify a model file and add a respective migration file. For the quickstart guide follow [this](https://sequelize.org/master/manual/migrations.html).
+
+## Runtime environmental variables
+This application uses a number of environmental variables to modify the runtime behaviour.
+* `NODE_ENV` - to detail the running environment. Default: "development". Possible values: "development", "production".
+* `DB_USER`, `DB_PASS`, `DB_SCHEMA`, `DB_HOST` to define the `mySQL` database configuration: the username, password, schema and the URL of the host recpectively.

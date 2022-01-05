@@ -1,4 +1,4 @@
-{
+module.exports = {
   "development": {
     "username": "wof",
     "password": "wof",
@@ -16,10 +16,12 @@
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": process.env.DB_USER,
+    "password": process.env.DB_PASS,
+    "database": process.env.DB_SCHEMA,
+    "host": process.env.DB_HOST,
+    "dialect": "mysql",
+    "port": "3306",
+    "seederStorage": "sequelize"
   }
 }
