@@ -17,6 +17,9 @@
 </template>
 
 <script>
+/**
+ * A component that contains information to show. 
+ */
 import WofPopper from './WofPopper.vue'
 
 export default {
@@ -24,14 +27,24 @@ export default {
     name: "WofBox",
 
     props: {
+        /**
+         * Determines whether the window will be displayed.
+         */
         isOpen: {
             type: Boolean,
             default: false
         },
+        /**
+         * Title of info box.
+         */
         title: {
             type: String,
             default: "Title",
         },
+        /**
+        * Type of info box. Determines style of box like color, etc.
+        * @values error, warning, positive, default, neutral
+        */
         type: {
             type: String,
             default: "default",
