@@ -24,6 +24,14 @@ Resources:
       CidrBlock: 10.0.1.0/24
       AvailabilityZone: "eu-central-1b"
 
+  privateB:
+     Type: AWS::EC2::Subnet
+     Properties:
+       VpcId:
+         Ref: VPC
+       CidrBlock: 10.0.2.0/24
+       AvailabilityZone: "eu-central-1c"
+
   vpcIG:
     Type: AWS::EC2::InternetGateway
 
@@ -85,3 +93,49 @@ Resources:
         FromPort: 3306
         ToPort: 3306
         SourceSecurityGroupId: !GetAtt publicSG.GroupId
+
+  dynamoEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      RouteTableIds:
+        - !Ref routeTable
+      ServiceName: "com.amazonaws.eu-central-1.dynamodb"
+      VpcId: !Ref VPC
+
+  wofDbSubnetGroup:
+      Type: AWS::RDS::DBSubnetGroup
+      Properties:
+        DBSubnetGroupDescription: The DB subnet group for the WikiOnFire Amazon RDS
+        DBSubnetGroupName: wofDbSubnetGroup
+        SubnetIds:
+        - !Ref privateA
+        - !Ref privateB
+
+  wofRds:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AvailabilityZone: "eu-central-1b"
+      DBInstanceIdentifier: "wofMySql"
+      DBName: "db"
+      DBInstanceClass: "db.t2.micro"
+      DBSubnetGroupName: !Ref wofDbSubnetGroup
+      AllocatedStorage: 20
+      Engine: MySQL
+      EngineVersion: 8.0.16
+      MasterUsername: admin
+      MasterUserPassword: whoatemycookie
+      StorageType: "gp2"
+      VPCSecurityGroups:
+      - !Ref privateSG
+
+Outputs:
+  publicSubnetAId:
+    Description: The id of the public subnet A of the WoF VPC in the eu-central-1 region
+    Value: !Ref publicA
+    Export:
+      Name: "publicSubnetAId"
+  publicSGId:
+    Description: The id of the default security group for the EC2 instances on the public subnets of the WoF VPC in the eu-central-1 region.
+    Value: !Ref publicSG
+    Export:
+      Name: "publicSGId"
