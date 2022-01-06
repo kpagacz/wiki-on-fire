@@ -13,17 +13,21 @@
         @go="changePage"
       />
     </div>
+    <wof-info-box title="Error" type="warning" :isOpen="errorMessage ? true : false" @close="closePopup">
+      {{errorMessage}}
+    </wof-info-box>
   </div>
 </template>
 
 <script>
 import WofArticleList from "../components/WofArticleList.vue";
+import WofInfoBox from '../components/WofInfoBox.vue';
 import WofPageNav from "../components/WofPageNav.vue";
 import { getArticles } from "../httpLayers/articles.http.js";
 
 export default {
   name: "MainPage",
-  components: { WofArticleList, WofPageNav },
+  components: { WofArticleList, WofPageNav, WofInfoBox },
   props: {
     currentPage: {
       type: String,
@@ -34,6 +38,7 @@ export default {
     return {
       totalPages: 1,
       articles: [],
+      errorMessage: null
     };
   },
   methods: {
@@ -52,19 +57,27 @@ export default {
             this.$router.push({ path: `/${newPage}` });
         }
     },
+    getArticlesData(pageNumber) {
+      try {
+        const response = getArticles(pageNumber, 1);
+        this.articles = response.items;
+        this.totalPages = response.totalPages;
+      } catch(error) {
+        this.errorMessage = error.message;
+      }
+    },
+    closePopup() {
+      this.errorMessage = null;
+    }
   },
   watch: {
     currentPage(value) {
-      const response = getArticles(value, 1);
-      this.articles = response.items;
-      this.totalPages = response.totalPages;
+      this.getArticlesData(value);
     },
   },
   mounted() {
       if(this.checkPage(this.currentPage)) {
-          const response = getArticles(this.currentPage, 1);
-          this.articles = response.items;
-          this.totalPages = response.totalPages;
+          this.getArticlesData(this.currentPage);
       }
   }
 };
