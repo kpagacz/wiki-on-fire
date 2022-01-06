@@ -4,7 +4,9 @@
  * @module services/articleService
  */
 import db from "../models/index.cjs";
-import { NotFoundException } from "../src/errors.js";
+import moment from "moment";
+import { InvalidArgumentException, NotFoundException } from "../src/errors.js";
+import sequelize from "sequelize";
 
 /**
  * Returns information about an article.
@@ -96,4 +98,63 @@ async function updateArticle(title, updatedFields) {
   }
 }
 
-export { getArticle, postArticle, deleteArticle, updateArticle };
+/**
+ * Returns the information about the most viewed articles from the last week.
+ * This endpoint supports pagination.
+ *
+ * @param {Number} page The number of the page
+ * @param {Number} itemsPerPage The number of items per page
+ * @returns {Object} The information about the article:
+ *
+ *   - Current page
+ *   - Total number of pages
+ *   - Items: the array of articles.
+ *
+ *   Each element of the `items` array contains fields:
+ *
+ *   - Article title
+ *   - Date of the views recorded
+ *   - Rank amongst all the article this day
+ *   - Number of views this day.
+ *
+ * @throws {Error} When the database operations failed
+ */
+async function getMostViewed(page, itemsPerPage) {
+  if (page <= 0) throw new InvalidArgumentException("The page argument must be positive");
+  if (itemsPerPage <= 0) throw new InvalidArgumentException("the itemsPerPage argument must be positive");
+  try {
+    const weekAgo = moment().subtract(7, "days").toDate();
+    const offset = (page - 1) * itemsPerPage;
+    const foundArticles = await db.ArticleTopViews.findAndCountAll({
+      where: {
+        date: {
+          [sequelize.Op.gte]: weekAgo,
+        },
+      },
+      include: [db.Article],
+      offset: offset,
+      limit: itemsPerPage,
+    });
+    const res = {
+      page: page,
+      totalPages: Math.ceil(foundArticles.count / itemsPerPage),
+      items: [],
+    };
+
+    foundArticles.rows.forEach((mostViewedArticle) => {
+      const articleInfo = {
+        title: mostViewedArticle.Article.title,
+        date: mostViewedArticle.dataValues.date,
+        rank: mostViewedArticle.dataValues.rank_position,
+        views: mostViewedArticle.dataValues.number_of_views,
+      };
+      res.items.push(articleInfo);
+    });
+
+    return res;
+  } catch (e) {
+    throw new Error(e.message);
+  }
+}
+
+export { getArticle, postArticle, deleteArticle, updateArticle, getMostViewed };
