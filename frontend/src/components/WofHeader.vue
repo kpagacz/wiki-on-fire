@@ -19,6 +19,9 @@
 </template>
 
 <script>
+/**
+ * Component which contains logo, name of application and signing or logout button.
+ */
 export default {
   name: "WofHeader",
   computed: {
