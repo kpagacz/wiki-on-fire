@@ -81,6 +81,14 @@ export const handler = (event) => {
     password: process.env.DB_PASS,
     database: process.env.DB_SCHEMA,
   });
-  processRecords(event.Records, conn);
-  return JSON.stringify("Lambda succeded");
+  conn.connect((err) => {
+    if (err) console.log("Error connecting to the database");
+    console.log("Database connection established");
+    processRecords(event.Records, conn);
+    conn.end((err) => {
+      if (err) console.log("Error ending the database connection");
+      console.log("Database connection terminated")
+    })
+  })
+  return JSON.stringify("Success");
 };
