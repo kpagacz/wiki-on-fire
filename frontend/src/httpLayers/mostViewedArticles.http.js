@@ -12,6 +12,8 @@ import wofApi from "./wofApi.js";
  * * items `array` of `Object` the details about the requested articles
  *
  * Where each element of `items` contains fields:
+ * * id: the id of the article
+ * * link: link to the page on the `en.wikipedia.org`
  * * title `String` the title of the article
  * * date `String` the date the number of views was recorded
  * * rank `Number` position of the number of views if this article amongst all other articles recordered that day

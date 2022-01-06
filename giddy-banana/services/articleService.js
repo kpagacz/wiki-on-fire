@@ -112,6 +112,8 @@ async function updateArticle(title, updatedFields) {
  *
  *   Each element of the `items` array contains fields:
  *
+ *   - Id of the article
+ *   - The link to the article on `en.wikipedia.org`
  *   - Article title
  *   - Date of the views recorded
  *   - Rank amongst all the article this day
@@ -120,8 +122,12 @@ async function updateArticle(title, updatedFields) {
  * @throws {Error} When the database operations failed
  */
 async function getMostViewed(page, itemsPerPage) {
-  if (page <= 0) throw new InvalidArgumentException("The page argument must be positive");
-  if (itemsPerPage <= 0) throw new InvalidArgumentException("the itemsPerPage argument must be positive");
+  if (page <= 0)
+    throw new InvalidArgumentException("The page argument must be positive");
+  if (itemsPerPage <= 0)
+    throw new InvalidArgumentException(
+      "the itemsPerPage argument must be positive"
+    );
   try {
     const weekAgo = moment().subtract(7, "days").toDate();
     const offset = (page - 1) * itemsPerPage;
@@ -143,6 +149,8 @@ async function getMostViewed(page, itemsPerPage) {
 
     foundArticles.rows.forEach((mostViewedArticle) => {
       const articleInfo = {
+        id: mostViewedArticle.Article.id,
+        link: mostViewedArticle.Article.link_to_contents,
         title: mostViewedArticle.Article.title,
         date: mostViewedArticle.dataValues.date,
         rank: mostViewedArticle.dataValues.rank_position,
