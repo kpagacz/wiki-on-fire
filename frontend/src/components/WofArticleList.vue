@@ -3,8 +3,7 @@
     <table class="wof-article-list">
       <tr class="wof-article-list__row">
         <th class="wof-article-list__header">Article's name</th>
-        <th class="wof-article-list__header">Date added</th>
-        <th class="wof-article-list__header">Views</th>
+        <th class="wof-article-list__header">Views (last week)</th>
       </tr>
       <tr class="wof-article-list__row"
         v-for="article in articles"
@@ -13,9 +12,6 @@
           <a :href="article.link" class="wof-article-list__name">
             {{ article.title }}
           </a>
-        </td>
-        <td :class="cellClass">
-          {{ article.date }}
         </td>
         <td :class="cellClass">
           {{ article.views }}
@@ -45,7 +41,6 @@ export default {
             !list[i].id ||
             !list[i].link ||
             !list[i].title ||
-            !list[i].date ||
             !list[i].views
           ) {
             return false;
