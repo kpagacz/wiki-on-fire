@@ -90,5 +90,5 @@ export const handler = (event) => {
       console.log("Database connection terminated")
     })
   })
-  return JSON.stringify("Success");
+  return JSON.stringify({ status: 200, msg:"Success"});
 };
