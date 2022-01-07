@@ -1,4 +1,5 @@
 # frontend
+This is the `Vue.js`-powered frontend application. To get to know Vue better, visit: https://vuejs.org.
 
 ## Installation
 ### Requirements
@@ -6,7 +7,7 @@
 * Node version: v16.13.1
 * Node Package Manager version: 8.1.2
 
-We highly recommend using the excellent Node Version Manager to install Node and Node Package Manager. `nvm` has an excellent documentation and is available at: https://github.com/nvm-sh/nvm.
+We highly recommend using the excellent Node Version Manager to install Node and Node Package Manager. `nvm` has a reliable documentation and is available at: https://github.com/nvm-sh/nvm. It greatly streamlines installing and managing Node and Node Package Manager versions.
 
 ### Installing dependencies
 Navigate to the `frontend` directory and run in the terminal:
@@ -14,21 +15,26 @@ Navigate to the `frontend` directory and run in the terminal:
 npm install
 ```
 
-### Run
+### Run in the development environment
 ### Compiles and hot-reloads for development
 ```
 npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
 ```
 
 ### Lints and fixes files
 ```
 npm run lint
 ```
+
+## Build for production
+Our frontend application is a Vue.js application. The usual development server is not enough for the production requriements of any web application, therefore the frontend application requires building to a number of static HTML files and associated resources. The built static content is later hosted to clients by the Nginx server in the production environemnt (Amazon AWS).
+### Compiles and minifies for production
+Navigate to the frontend directory and run in the shell:
+```
+npm install
+npm run build
+```
+`npm` outputs the static content to a directory `/public` which can be later hosted by a production-grade HTTP server.
 
 ## File structure
 * `public` - Directory for html file which will use all of frontend javascript code and Vue app
@@ -43,8 +49,10 @@ npm run lint
   - `src/pages` - Directory containing Vue components used as components for routes
 
 ## Contribution
+The overall contribution guide can be found on [WoF wiki](https://github.com/kpagacz/wiki-on-fire/wiki/Contribution-guide). Alas, there are some frontend-specific contribution guidelines and style choices.
+
 ### CSS class naming convention
 We use the `BEM` convention (http://getbem.com/).
 
-### Customize configuration
+### How to customize the Vue configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
