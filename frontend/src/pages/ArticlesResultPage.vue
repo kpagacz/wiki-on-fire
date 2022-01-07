@@ -31,6 +31,9 @@ export default {
   name: "MainPage",
   components: { WofArticleList, WofPageNav, WofInfoBox },
   props: {
+    /**
+     * This prop comes from route param
+     */
     currentPage: {
       type: String,
       default: "1",
@@ -45,6 +48,9 @@ export default {
     };
   },
   methods: {
+    /**
+     * It will check if number of page is between 1 and number of last page (totalPages).
+     */
     checkPage(value) {
       if (value > this.totalPages) {
         this.$router.replace({ path: `/${this.totalPages}` });
@@ -55,11 +61,20 @@ export default {
       }
       return true;
     },
+    /**
+     * Method to changing page with router, if page number is valid
+     */
     changePage(newPage) {
         if(this.checkPage(newPage)) {
             this.$router.push({ path: `/${newPage}` });
         }
     },
+    /**
+     * It will call function which will download certain number of most viewed articles (articlesPerPage)
+     * from certain page (pageNumber). If it is successful, we will save them in articles data property and
+     * pass them to WofArticleList. We also get totalPages number, which will be passed to WofPageNav.
+     * If we catch error, we will display it in the middle of the window with WofInfoBox.
+     */
     async getArticlesData(pageNumber) {
       try {
         const response = await getMostViewedArticles(pageNumber, this.articlesPerPage);
@@ -74,10 +89,17 @@ export default {
     }
   },
   watch: {
+    /**
+     * It watches currentPage value to ensure that it's always valid.
+     * If it is valid, then we will update list of articles
+     */
     async currentPage(value) {
       await this.getArticlesData(value);
     },
   },
+  /**
+   * We are checking page number from route param and if it's valid - we run getArticlesData
+   */
   async mounted() {
       if(this.checkPage(this.currentPage)) {
           this.getArticlesData(this.currentPage);
