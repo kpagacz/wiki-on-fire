@@ -105,5 +105,10 @@ export default {
         }
     }
   }
+
+  .articles {
+    display: flex;
+    width: 100%;
+  }
 }
 </style>

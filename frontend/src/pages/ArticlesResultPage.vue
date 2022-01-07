@@ -1,5 +1,7 @@
 <template>
   <div class="articles-result">
+    <h1 class="articles-result__title">Most viewed articles</h1>
+    <div class="horizontal-line"></div>
     <div class="articles-result__list">
       <wof-article-list
         :isButtonVisible="this.$store.getters.isAuth"
@@ -90,6 +92,17 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+
+  .articles-result__title {
+    display: flex;
+    align-self: flex-start;
+    margin: 0.3em 0em;
+  }
+
+  .articles-result__list {
+    margin-top: 1em;
+  }
 
   .articles-result__nav {
     padding: 1em 0em;
