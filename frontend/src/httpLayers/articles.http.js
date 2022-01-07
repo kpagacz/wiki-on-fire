@@ -9,7 +9,6 @@ const getArticles = (page, articlesPerPage) => {
                         id: 1,
                         title: 'This should be on page 1',
                         link: 'https://en.wikipedia.org/wiki/Potato',
-                        date: '24.12.2021',
                         views: 3401,
                     }
                 ],
@@ -22,7 +21,6 @@ const getArticles = (page, articlesPerPage) => {
                         id: 2,
                         title: 'This should be on page 2',
                         link: 'https://en.wikipedia.org/wiki/Potato',
-                        date: '24.12.2021',
                         views: 101,
                     }
                 ],
@@ -35,7 +33,6 @@ const getArticles = (page, articlesPerPage) => {
                         id: 3,
                         title: 'This should be on page 3',
                         link: 'https://en.wikipedia.org/wiki/Potato',
-                        date: '04.01.2022',
                         views: 3488,
                     }
                 ],
@@ -43,7 +40,7 @@ const getArticles = (page, articlesPerPage) => {
             };
         }
     } catch (error) {
-        throw new Error('Sorry, coś się solidnie zjebało. Nie ma artykułów. Proszę wypierdalać i przyjść później');
+        throw new Error('Sorry, something wron with articles');
     }
 
 }
