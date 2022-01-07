@@ -5,6 +5,9 @@
 </template>
 
 <script>
+/**
+ * Simple div with css, which can be filled with content
+ */
 export default {
     name: 'WofCard'
 }

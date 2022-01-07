@@ -14,14 +14,23 @@
 </template>
 
 <script>
+/**
+ * Component used to display errors.
+ */
 export default {
   name: "WofSmallError",
 
   props: {
+      /** 
+       * Size of text and close button icon.
+       */
       size: {
           type: Number,
           default: 1
       },
+      /**
+       * Text to show.
+       */
       text:{
           type: String,
           default: ''

@@ -14,15 +14,24 @@
 </template>
 
 <script>
+/**
+ * Component where you can enter and send data.
+ */
 import WofSmallError from './WofSmallError.vue'
 
 export default {
   components: { WofSmallError },
   name: 'WofInput',
   props: {
+    /**
+     * Title of box.
+     */
     name: {
       type: String
     },
+    /**
+     * Type of data.
+     */
     type: {
       type: String,
       default: 'text'
@@ -30,10 +39,16 @@ export default {
     initValue: {
       type: String
     },
+    /**
+     * Message displayed in case of error.
+     */
     error: {
       type: String,
       default: ''
     },
+    /**
+     * Max length of input data.
+     */
     maxLength: {
       type: Number,
     }
@@ -52,6 +67,9 @@ export default {
   },
   watch: {
     value() {
+      /**
+       * Change event.
+       */
       this.$emit('change', this.value);
     }
   }

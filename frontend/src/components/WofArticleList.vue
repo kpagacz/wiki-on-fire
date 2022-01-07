@@ -3,34 +3,18 @@
     <table class="wof-article-list">
       <tr class="wof-article-list__row">
         <th class="wof-article-list__header">Article's name</th>
-        <th class="wof-article-list__header">Date added</th>
-        <th class="wof-article-list__header">Last Edition</th>
-        <th class="wof-article-list__header wof-article-list__header--small">
-          Views (last week)
-        </th>
-        <th class="wof-article-list__header wof-article-list__header--small">
-          Edits (last month)
-        </th>
+        <th class="wof-article-list__header">Views (last week)</th>
       </tr>
       <tr class="wof-article-list__row"
         v-for="article in articles"
         :key="article.id">
         <td :class="cellClass">
-          <a :href="article.linkToContents" class="wof-article-list__name">
+          <a :href="article.link" class="wof-article-list__name">
             {{ article.title }}
           </a>
         </td>
         <td :class="cellClass">
-          {{ article.dateAdded }}
-        </td>
-        <td :class="cellClass">
-          {{ article.lastModification }}
-        </td>
-        <td :class="cellClass">
-          {{ article.numberOfViews }}
-        </td>
-        <td :class="cellClass">
-          {{ article.numberOfEditions }}
+          {{ article.views }}
         </td>
         <td class="wof-article-list__cell wof-article-list__cell--button" v-if="isButtonVisible">
           <wof-button
@@ -54,12 +38,10 @@ export default {
       validator: (list) => {
         for (let i = 0; i < list.length; i++) {
           if (
+            !list[i].id ||
+            !list[i].link ||
             !list[i].title ||
-            !list[i].linkToContents ||
-            !list[i].dateAdded ||
-            !list[i].lastModification ||
-            !list[i].numberOfViews ||
-            !list[i].numberOfEditions
+            !list[i].views
           ) {
             return false;
           }

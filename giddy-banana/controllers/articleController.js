@@ -10,6 +10,7 @@ import {
   postArticle,
   deleteArticle,
   updateArticle,
+  getMostViewed,
 } from "../services/articleService.js";
 import { NotFoundException } from "../src/errors.js";
 
@@ -87,4 +88,40 @@ async function updateArticles(req, res) {
   }
 }
 
-export { getArticles, postArticles, deleteArticles, updateArticles };
+/**
+ * The controller for the `POST` endpoint of `articles/mostViewed`.
+ *
+ * Returns a `400` HTML response if either:
+ *
+ * - `page` was not provided in the body
+ * - `itemsPerPage` was not provided in the body
+ * - The process of getting the page failed.
+ *
+ * @param {Object} req The Axios HTML request object
+ * @param {Object} res The Axios HTML response object
+ */
+async function getMostViewedArticles(req, res) {
+  if (req.body.page === undefined)
+    res.status(400).send({ message: "Page number must be defined" });
+  if (req.body.itemsPerPage === undefined)
+    res
+      .status(400)
+      .send({ message: "Number of items per page must be defined" });
+  try {
+    const mostViewedArticlesPage = await getMostViewed(
+      req.body.page,
+      req.body.itemsPerPage
+    );
+    res.status(200).json(mostViewedArticlesPage);
+  } catch (e) {
+    return res.status(400).json({ message: e.message });
+  }
+}
+
+export {
+  getArticles,
+  postArticles,
+  deleteArticles,
+  updateArticles,
+  getMostViewedArticles,
+};

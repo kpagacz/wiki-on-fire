@@ -2,7 +2,7 @@
   <main>
     <wof-header/>
     <div class="main-wrapper">
-      <router-view msg="This is a basic frontend"></router-view>
+      <router-view></router-view>
     </div>
     <wof-footer/>
   </main>
