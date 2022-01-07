@@ -19,8 +19,6 @@ WikiOnFire is a web application for keeping up to date with the hottest Wikipedi
 
 
 ## Team members
-Kacper Fryczak @KacperFryczak
-
 Karol Kozłowski @karolkozlo
 
 Konrad Pagacz @kpagacz
