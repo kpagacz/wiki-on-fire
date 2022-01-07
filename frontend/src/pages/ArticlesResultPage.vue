@@ -25,7 +25,7 @@
 import WofArticleList from "../components/WofArticleList.vue";
 import WofInfoBox from '../components/WofInfoBox.vue';
 import WofPageNav from "../components/WofPageNav.vue";
-import { getArticles } from "../httpLayers/articles.http.js";
+import { getMostViewedArticles } from '../httpLayers/mostViewedArticles.http.js';
 
 export default {
   name: "MainPage",
@@ -40,7 +40,8 @@ export default {
     return {
       totalPages: 1,
       articles: [],
-      errorMessage: null
+      errorMessage: null,
+      articlesPerPage: 5
     };
   },
   methods: {
@@ -59,9 +60,9 @@ export default {
             this.$router.push({ path: `/${newPage}` });
         }
     },
-    getArticlesData(pageNumber) {
+    async getArticlesData(pageNumber) {
       try {
-        const response = getArticles(pageNumber, 1);
+        const response = await getMostViewedArticles(pageNumber, this.articlesPerPage);
         this.articles = response.items;
         this.totalPages = response.totalPages;
       } catch(error) {
@@ -73,11 +74,11 @@ export default {
     }
   },
   watch: {
-    currentPage(value) {
-      this.getArticlesData(value);
+    async currentPage(value) {
+      await this.getArticlesData(value);
     },
   },
-  mounted() {
+  async mounted() {
       if(this.checkPage(this.currentPage)) {
           this.getArticlesData(this.currentPage);
       }
