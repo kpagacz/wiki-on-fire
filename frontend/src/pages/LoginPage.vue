@@ -122,6 +122,7 @@ export default {
           }
         }
       }
+      this.loading = false;
     },
     /**
       * This will call logIn method when user hit enter
