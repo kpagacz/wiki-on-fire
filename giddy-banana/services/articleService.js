@@ -130,7 +130,6 @@ async function getMostViewed(page, itemsPerPage) {
     );
   try {
     const weekAgo = moment().subtract(7, "days").toDate();
-    const offset = (page - 1) * itemsPerPage;
     const foundArticles = await db.ArticleTopViews.findAndCountAll({
       where: {
         date: {
@@ -138,15 +137,9 @@ async function getMostViewed(page, itemsPerPage) {
         },
       },
       include: [db.Article],
-      offset: offset,
-      limit: itemsPerPage,
     });
-    const res = {
-      page: page,
-      totalPages: Math.ceil(foundArticles.count / itemsPerPage),
-      items: [],
-    };
 
+    const entries = [];
     foundArticles.rows.forEach((mostViewedArticle) => {
       const articleInfo = {
         id: mostViewedArticle.Article.id,
@@ -156,9 +149,35 @@ async function getMostViewed(page, itemsPerPage) {
         rank: mostViewedArticle.dataValues.rank_position,
         views: mostViewedArticle.dataValues.number_of_views,
       };
-      res.items.push(articleInfo);
+      entries.push(articleInfo);
     });
 
+    var articlesDictionary = {};
+    entries.forEach((entry) => {
+      if (!(entry.id in articlesDictionary)) {
+        articlesDictionary[entry.id] = entry;
+      } else {
+        articlesDictionary[entry.id].views += entry.views;
+      }
+    });
+
+    const items = [];
+    Object.keys(articlesDictionary).map((key) => {
+      items.push(articlesDictionary[key]);
+    });
+
+    items.sort((first, second) => {
+      if (first.views > second.views) return -1;
+      if (first.views == second.views) return 0;
+      return 1;
+    });
+
+    const offset = (page - 1) * itemsPerPage;
+    const res = {
+      page: page,
+      totalPages: Math.ceil(items.length / itemsPerPage),
+      items: items.slice(offset, Math.min(offset + itemsPerPage, items.length)),
+    };
     return res;
   } catch (e) {
     throw new Error(e.message);
