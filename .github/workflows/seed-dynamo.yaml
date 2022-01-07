@@ -10,7 +10,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: wikimedia-requests
+        working-directory: amazon-architecture/lambdas/download-wikimedia-data/
     steps:
       - name: Use Node.js
         uses: actions/setup-node@v2
