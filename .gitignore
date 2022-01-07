@@ -111,3 +111,7 @@ dist
 
 # JSDoc output
 giddy-banana/out/
+
+# zip files
+*.zip
+*.7z
