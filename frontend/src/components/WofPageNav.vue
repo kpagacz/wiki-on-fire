@@ -79,6 +79,11 @@ export default {
                 this.submitPageNumber();
             }
         }
+    },
+    watch: {
+        currentPage(value) {
+            this.pageNumber = value;
+        }
     }
 };
 </script>
