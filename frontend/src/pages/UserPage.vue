@@ -33,7 +33,8 @@
         :currentValue="userEmail"
         :currentValueName="edittedValueName"
         :loading="editLoading"
-        @edit="changeEmail"></wof-edit-popup>
+        @edit="changeEmail"
+        @close="closeEditEmail"></wof-edit-popup>
         <wof-info-box :isOpen="errorOpen" title="Error" type="error" @close="closeErrorPopup">{{ errorMessage }}</wof-info-box>
         <div v-if="loading" class="loading">
             <wof-spinner-dots :size="4" :loading="loading"></wof-spinner-dots>
@@ -142,6 +143,9 @@ export default {
         },
         closeErrorPopup() {
             this.errorMessage = '';
+        },
+        closeEditEmail() {
+            this.isEditOpen = false;
         }
     }
 };
