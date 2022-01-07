@@ -8,11 +8,9 @@ const getArticles = (page, articlesPerPage) => {
                     {
                         id: 1,
                         title: 'This should be on page 1',
-                        linkToContents: 'https://en.wikipedia.org/wiki/Potato',
-                        dateAdded: '24.12.2021',
-                        lastModification: '27.12.2021',
-                        numberOfViews: 3401,
-                        numberOfEditions: 7
+                        link: 'https://en.wikipedia.org/wiki/Potato',
+                        date: '24.12.2021',
+                        views: 3401,
                     }
                 ],
                 totalPages: 3
@@ -23,11 +21,9 @@ const getArticles = (page, articlesPerPage) => {
                     {
                         id: 2,
                         title: 'This should be on page 2',
-                        linkToContents: 'https://en.wikipedia.org/wiki/Potato',
-                        dateAdded: '23.12.2021',
-                        lastModification: '27.12.2021',
-                        numberOfViews: 3601,
-                        numberOfEditions: 5
+                        link: 'https://en.wikipedia.org/wiki/Potato',
+                        date: '24.12.2021',
+                        views: 101,
                     }
                 ],
                 totalPages: 3
@@ -38,11 +34,9 @@ const getArticles = (page, articlesPerPage) => {
                     {
                         id: 3,
                         title: 'This should be on page 3',
-                        linkToContents: 'https://en.wikipedia.org/wiki/Potato',
-                        dateAdded: '20.12.2021',
-                        lastModification: '21.12.2021',
-                        numberOfViews: 65701,
-                        numberOfEditions: 8768
+                        link: 'https://en.wikipedia.org/wiki/Potato',
+                        date: '04.01.2022',
+                        views: 3488,
                     }
                 ],
                 totalPages: 3
