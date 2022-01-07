@@ -23,6 +23,9 @@
 </template>
 
 <script>
+/**
+ * Component where data can be edited.
+ */
 import WofInfoBox from '../components/WofInfoBox.vue';
 import WofInput from '..//components/WofInput.vue';
 import WofSpinnerDots from "../components/WofSpinnerDots.vue";
@@ -30,30 +33,51 @@ export default {
     name: 'WofEditPopup',
     components: { WofInfoBox, WofInput, WofSpinnerDots },
     props:{
+        /**
+         * Title of popup.
+         */
         title:{
             type: String,
             default: ""
         },
+        /**
+         * Determines whether the window will be displayed.
+         */
         isOpen: {
             type: Boolean,
             default: false
         },
+        /** 
+         * Current value name of the edited data.
+         */
         currentValueName: {
             type: String,
             default: "Something"
         },
+        /** 
+         * Current value of the edited data.
+         */
         currentValue: {
             type: String,
             default: ''
         },
+        /**
+         * The content that will be displayed in the event of an error in the entered data.
+         */
         inputErrorMsg: {
             type: String,
             default: ''
         },
+        /**
+         * Determines whether the loading animation will be displayed.
+         */
         loading: {
             type: Boolean,
             default: false
         },
+        /**
+         * The content that will be displayed in the event of an error.
+         */
         serviceErrorMsg: {
             type: String,
             default: ''
@@ -67,12 +91,20 @@ export default {
     },
     methods: {
         close(){
+            /**
+             * Close event.
+             */
             this.$emit('close');
         },
         editValue(newValue){
             this.value=newValue;
         },
         submitForm(){
+            /**
+             * Edit event.
+             * @property {String} currentValueName current value name
+             * @property {String} value new value
+             */
             this.$emit("edit", this.currentValueName, this.value);
         },
         changeVisibility(newValue){

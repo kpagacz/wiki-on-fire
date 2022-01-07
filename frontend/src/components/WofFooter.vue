@@ -13,6 +13,9 @@
 </template>
 
 <script>
+/**
+ * Component which contains footer.
+ */
 export default {
     name: 'WofFooter',
 }

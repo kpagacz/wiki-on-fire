@@ -1,27 +1,42 @@
 <template>
   <button :class="`button button--${variant}`" :style="`font-size: ${this.size}rem;`">
     <wof-icon v-if="this.icon" :icon="this.icon" :size="this.size" :class="this.getIconCss" />
+      <!-- @slot content of the button -->
     <slot/>
   </button>
 </template>
 
 <script>
+/**
+ * Button component, which can be clicked.
+ */
 export default {
   name: "WofButton",
 
   props: {
     variant: {
+      /**
+       * Type of button. Determines style of button like color, etc.
+       * @values default, positive, warning, error, disabled, outline
+       */
       type: String,
       default: "default",
       validator(value) {
         return ["default", "positive", "warning", "error", "disabled", "outline"].includes(value)
       }
     },
+    /**
+     * Size of font and icon.
+     */
     size: {
       type: Number,
       required: false,
       default: null
     },
+    /**
+     * Name of icon.
+     * @example wof-ok-circle:before
+     */
     icon: {
       type: String,
       required: false
