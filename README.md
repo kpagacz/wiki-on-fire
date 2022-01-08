@@ -16,7 +16,7 @@ WikiOnFire is a web application for keeping up to date with the hottest Wikipedi
 | nginx-config | The nginx configuration |
 | frontend     | The Vue.js frontend |
 | docker-compose-environments | The collection of docker-compose environments for development |
-| amazon-architecture | The Amazon AWS "Architecture as code" |
+| amazon-architecture | The Amazon AWS "Infrastructure as code" |
 | .github/workflows | The CI/CD automation pipelines |
 
 
