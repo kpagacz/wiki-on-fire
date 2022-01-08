@@ -34,12 +34,10 @@ jobs:
           aws-secret-access-key: ${{secrets.AWS_SECRET_KEY}}
           aws-region: eu-central-1
 
-      - name: Zip the directory contents and update the lambda
+      - name: Zip the directory contents and update the lambda including the environmental variables
         run: |
           zip -r function.zip .
-          aws lambda update-function-code --function-name processDynamoViewsLambda --zip-file fileb://function.zip
-
-      - name: Update the Lambda environment variables
-        run: |
-          aws lambda update-function-configuration --function-name processDynamoViewsLambda \
+          aws lambda update-function-code --function-name processDynamoViewsLambda 
+            --zip-file fileb://function.zip 
             --environment "Variables={DB_HOST=${{secrets.DB_HOST}},DB_USER=${{secrets.DB_USER}},DB_PASS=${{secrets.DB_PASS}},DB_SCHEMA=${{secrets.DB_SCHEMA}}}"
+
