@@ -34,7 +34,7 @@ Navigate to the frontend directory and run in the shell:
 npm install
 npm run build
 ```
-`npm` outputs the static content to a directory `/public` which can be later hosted by a production-grade HTTP server.
+`npm` outputs the static content to a directory `/dist` which can be later hosted by a production-grade HTTP server.
 
 ## File structure
 * `public` - Directory for html file which will use all of frontend javascript code and Vue app
@@ -56,3 +56,6 @@ We use the `BEM` convention (http://getbem.com/).
 
 ### How to customize the Vue configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Environmental variables
+In this project we use env `NODE_ENV` variable. It will decide target of http calls - localhost on development and amazon on production
