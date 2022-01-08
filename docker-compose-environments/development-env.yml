@@ -12,7 +12,7 @@ services:
     expose:
       - '3306'
   nginx:
-    image: "ghcr.io/kpagacz/wof-nginx-devel:latest"
+    image: "ghcr.io/kpagacz/wiki-on-fire/wof-nginx-devel:latest"
     restart: always
     ports:
       - '80:80'
