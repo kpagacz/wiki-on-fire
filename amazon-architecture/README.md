@@ -42,3 +42,15 @@ For simplicity sake, we didn't do everything with YAML files. Some of the work i
 * updating the Lambda functions with appropriate runtime environemnt (this includes setting environmental variables from Github Secrets).
 
 Have a look at our [Workflow README](https://github.com/kpagacz/wiki-on-fire/tree/main/.github/workflows) for more information about our workflows.
+
+## Amazon Secrets Manager
+We use Amazon Secrets Manager to store the credentials to the production Amazon RDS instance. This way we don't have to include raw credential values in the Cloudformation YAML files, instead we reference the values stored in the Amazon Secret Manager.
+
+## What is **NOT** covered by the Cloudformation YAML files
+There is a (constantly decreasing) number of resources and configuration not covered by the YAML files in this directory. This means if you are interested in replicating the Wiki On Fire on your own AWS account, you will need to set the below **manually**. The rest is covered by the YAML files.
+
+These include:
+* an AWS Secrets Manager secret named `mysqlCredentials` which contains the username and password to the Amazon RDS instance
+* an EC2 Key Pair named `wikionfire` - a key used to authenticate to the EC2 instance
+* some AWS Lambda configuration of the environmental variables (we use Github workflows for those)
+* building the frontend application, launching an Nginx server and launching a daemon with the backend application. However, we left a detailed guide on how to perform those actions on the the respective README pages.

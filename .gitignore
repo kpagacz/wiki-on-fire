@@ -119,3 +119,6 @@ giddy-banana/out/
 # ACT configuration
 .secrets
 .actrc
+
+# Keys
+*.pem
