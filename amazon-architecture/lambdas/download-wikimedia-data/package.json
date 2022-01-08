@@ -1,5 +1,5 @@
 {
-  "name": "@wof/wiki-requests",
+  "name": "wiki-requests",
   "version": "0.0.1",
   "description": "List of utilities supporting contacts with the WikiMedia API, processing the data and passing it to the AWS architecture.",
   "main": "requests.js",
