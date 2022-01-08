@@ -7,10 +7,16 @@
 </template>
 
 <script>
+/**
+ * Component used to dim the background.
+ */
 export default{
     name: "WofPopper",
 
     props: {
+        /**
+         * Determines whether the component will be displayed.
+         */
         isOpen:{
             type: Boolean,
             default: false

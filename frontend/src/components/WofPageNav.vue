@@ -22,13 +22,22 @@
 </template>
 
 <script>
+/**
+ * Component used to pagination.
+ */
 export default {
     name: 'WofPageLinks',
     props: {
+        /**
+         * Current page.
+         */
         currentPage: {
             type: Number,
             default: 1
         },
+        /**
+         * Total amount of pages.
+         */
         totalPages: {
             type: Number,
             required: true
@@ -69,6 +78,11 @@ export default {
                 event.preventDefault();
                 this.submitPageNumber();
             }
+        }
+    },
+    watch: {
+        currentPage(value) {
+            this.pageNumber = value;
         }
     }
 };

@@ -10,17 +10,22 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: wikimedia-requests
+        working-directory: amazon-architecture/lambdas/download-wikimedia-data
     steps:
+      - uses: actions/checkout@v2
+
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
-          cache: 'npm'
+
       - name: Set up the package dependencies
-        run: npm ci
+        run: |
+          npm install
+
       - name: Seed the DynamoDB table
-        run: node seedMostViewedArticlesTable.js
+        run: |
+          node seedMostViewedArticlesTable.js
         env:
           AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
           AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_KEY }}

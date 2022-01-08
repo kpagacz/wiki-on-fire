@@ -9,6 +9,7 @@ import {
   postArticles,
   deleteArticles,
   updateArticles,
+  getMostViewedArticles,
 } from "../controllers/articleController.js";
 
 const articlesRouter = new express.Router();
@@ -19,5 +20,6 @@ articlesRouter
   .delete(deleteArticles)
   .patch(updateArticles);
 articlesRouter.route("/articles").post(postArticles);
+articlesRouter.route("/articles/mostViewed").post(getMostViewedArticles);
 
 export default articlesRouter;

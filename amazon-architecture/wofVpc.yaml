@@ -25,12 +25,12 @@ Resources:
       AvailabilityZone: "eu-central-1b"
 
   privateB:
-     Type: AWS::EC2::Subnet
-     Properties:
-       VpcId:
-         Ref: VPC
-       CidrBlock: 10.0.2.0/24
-       AvailabilityZone: "eu-central-1c"
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.2.0/24
+      AvailabilityZone: "eu-central-1c"
 
   vpcIG:
     Type: AWS::EC2::InternetGateway

@@ -1,0 +1,257 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Resources:
+  VPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+
+  publicA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone: "eu-central-1a"
+      MapPublicIpOnLaunch: true
+
+  privateA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId:
+        Ref: VPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone: "eu-central-1b"
+
+  privateB:
+     Type: AWS::EC2::Subnet
+     Properties:
+       VpcId:
+         Ref: VPC
+       CidrBlock: 10.0.2.0/24
+       AvailabilityZone: "eu-central-1c"
+
+  vpcIG:
+    Type: AWS::EC2::InternetGateway
+
+  attachGatewayToVPC:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId:
+        Ref: VPC
+      InternetGatewayId:
+        Ref: vpcIG
+
+  routeTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId:
+        Ref: VPC
+
+  internetGatewayRoute:
+    Type: AWS::EC2::Route
+    Properties:
+       RouteTableId:
+         Ref: routeTable
+       DestinationCidrBlock: 0.0.0.0/0
+       GatewayId:
+         Ref: vpcIG
+
+  publicSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+        GroupDescription: Allow http(s) and SSH to client host
+        VpcId:
+          Ref: VPC
+        SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  privateSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+        GroupDescription: Security Group for private WoF subnets
+        VpcId:
+          Ref: VPC
+
+  allowMySQLOnPrivateSG:
+    Type: 'AWS::EC2::SecurityGroupIngress'
+    Properties:
+        GroupId: !Ref privateSG
+        IpProtocol: tcp
+        FromPort: 3306
+        ToPort: 3306
+        SourceSecurityGroupId: !GetAtt publicSG.GroupId
+
+  dynamoEndpoint:
+    Type: AWS::EC2::VPCEndpoint
+    Properties:
+      RouteTableIds:
+        - !Ref routeTable
+      ServiceName: "com.amazonaws.eu-central-1.dynamodb"
+      VpcId: !Ref VPC
+
+  wofDbSubnetGroup:
+      Type: AWS::RDS::DBSubnetGroup
+      Properties:
+        DBSubnetGroupDescription: The DB subnet group for the WikiOnFire Amazon RDS
+        DBSubnetGroupName: wofDbSubnetGroup
+        SubnetIds:
+        - !Ref privateA
+        - !Ref privateB
+
+  wofRds:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AvailabilityZone: "eu-central-1b"
+      DBInstanceIdentifier: "wofMySql"
+      DBName: "db"
+      DBInstanceClass: "db.t2.micro"
+      DBSubnetGroupName: !Ref wofDbSubnetGroup
+      AllocatedStorage: 20
+      Engine: MySQL
+      EngineVersion: 8.0.16
+      MasterUsername: admin
+      MasterUserPassword: whoatemycookie
+      StorageType: "gp2"
+      VPCSecurityGroups:
+      - !Ref privateSG
+
+  wikimediaLambdaRole:
+    Type: "AWS::IAM::Role"
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - "lambda.amazonaws.com"
+            Action:
+              - "sts:AssumeRole"
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+        - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+
+  wikimediaDownloadLambda:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: "wikimediaLambda"
+      Runtime: nodejs14.x
+      Handler: index.handler
+      Role: !GetAtt wikimediaLambdaRole.Arn
+      Timeout: 30
+      Code:
+        ZipFile: |
+          exports.handler = async (event) => {
+            const response = {
+                statusCode: 200,
+                body: JSON.stringify('Hello from Lambda!'),
+            };
+            return response;
+          };
+      Description: The foundation for the Lambda downloading data from WikiMediaAPI
+      TracingConfig:
+        Mode: Active
+
+  wikimediaDownloadRule:
+    Type: "AWS::Events::Rule"
+    Properties:
+      Description: Triggers the wikimediaLambda every day
+      Name: wikimediaDownloadRule
+      ScheduleExpression: "rate(1 day)"
+      State: "ENABLED"
+      Targets:
+        - Arn: !GetAtt wikimediaDownloadLambda.Arn
+          Id: wikimediaLambdaTarget
+          RetryPolicy:
+            MaximumRetryAttempts: 4
+            MaximumEventAgeInSeconds: 400
+
+  permissionForEventToInvokeLambda:
+    Type: AWS::Lambda::Permission
+    Properties:
+      Action: "lambda:InvokeFunction"
+      FunctionName: !Ref wikimediaDownloadLambda
+      Principal: "events.amazonaws.com"
+      SourceArn: !GetAtt wikimediaDownloadRule.Arn
+
+  testLambda:
+      Type: AWS::Lambda::Function
+      Properties:
+        FunctionName: processDynamoViewsLambda
+        Description: The AWS Lambda function to process new items in the MostViewedArticles DynamoDB table.
+        Runtime: nodejs14.x
+        Handler: index.handler
+        Role: !Ref lambdasRole
+        VpcConfig:
+          SecurityGroupIds:
+            - !Ref publicSG
+          SubnetIds:
+            - !Ref publicA
+        Code:
+          ZipFile: |
+            exports.handler = async (event) => {
+              console.dir(event);
+              console.log(JSON.stringify(event, null, 2));
+              return JSON.stringify("Hello");
+            }
+
+  mostViewedItemsMapping:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      EventSourceArn: !GetAtt mostViewedTable.StreamArn
+      FunctionName: !Ref testLambda
+      StartingPosition: "LATEST"
+
+  lambdasRole:
+      Type: "AWS::IAM::Role"
+      Properties:
+        AssumeRolePolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service:
+                  - "lambda.amazonaws.com"
+              Action:
+                - "sts:AssumeRole"
+        ManagedPolicyArns:
+          - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+          - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
+          - "arn:aws:iam::aws:policy/service-role/AWSLambdaVPCAccessExecutionRole"
+
+  mostViewedTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        -
+          AttributeName: "date"
+          AttributeType: "S"
+        -
+          AttributeName: "rank"
+          AttributeType: "N"
+      KeySchema:
+        -
+          AttributeName: "date"
+          KeyType: "HASH"
+        -
+          AttributeName: "rank"
+          KeyType: "RANGE"
+      ProvisionedThroughput:
+        ReadCapacityUnits: 1
+        WriteCapacityUnits: 1
+      TableName: MostViewedArticles
+      StreamSpecification:
+        StreamViewType: "NEW_IMAGE"

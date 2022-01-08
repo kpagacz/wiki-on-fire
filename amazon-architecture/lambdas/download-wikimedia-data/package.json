@@ -1,24 +1,16 @@
 {
-  "name": "@wof/wiki-requests",
+  "name": "wiki-requests",
   "version": "0.0.1",
   "description": "List of utilities supporting contacts with the WikiMedia API, processing the data and passing it to the AWS architecture.",
   "main": "requests.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kpagacz/wiki-on-fire.git"
-  },
   "keywords": [
     "wiki-on-fire"
   ],
   "author": "WikiOnFire",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kpagacz/wiki-on-fire/issues"
-  },
-  "homepage": "https://github.com/kpagacz/wiki-on-fire#readme",
   "dependencies": {
     "aws-sdk": "^2.1048.0",
     "axios": "^0.24.0"
