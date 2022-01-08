@@ -53,4 +53,5 @@ These include:
 * an AWS Secrets Manager secret named `mysqlCredentials` which contains the username and password to the Amazon RDS instance
 * an EC2 Key Pair named `wikionfire` - a key used to authenticate to the EC2 instance
 * some AWS Lambda configuration of the environmental variables (we use Github workflows for those)
+* setting up additional AWS IAM accounts needed for the Github workflows
 * building the frontend application, launching an Nginx server and launching a daemon with the backend application. However, we left a detailed guide on how to perform those actions on the the respective README pages.
