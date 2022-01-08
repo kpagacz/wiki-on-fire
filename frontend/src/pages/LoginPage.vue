@@ -16,7 +16,7 @@
         <router-link to="/register" class="login-page__link">
           Don't have an account? Sign Up
         </router-link>
-        <wof-button class="login-page__submit-button" @click="logIn">
+        <wof-button class="login-page__submit-button" @click="logIn" :variant="isButtonEnabled">
           Login
         </wof-button>
       </div>
@@ -64,6 +64,14 @@ export default {
         return 'visibility: hidden;';
       }
       return 'visibility: visible;';
+    },
+    isButtonEnabled() {
+      if(this.username.errorMsg == '' && this.password.errorMsg == '') {
+        if(this.username.value.length > 0 && this.password.value.length > 0) {
+          return 'default';
+        }
+      }
+      return 'disabled';
     }
   },
   methods: {
@@ -122,6 +130,7 @@ export default {
           }
         }
       }
+      this.loading = false;
     },
     /**
       * This will call logIn method when user hit enter
