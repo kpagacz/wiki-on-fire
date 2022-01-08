@@ -34,6 +34,21 @@ Run in the terminal:
 npm run start
 ```
 
+## Production setup
+We use a short bash script to launch the backend application in the production environment. We wanted to make sure that our application runs always, as long as the EC2 instance is alive, therefore we looked for a Node.js application daemon framework and we found one in [PM2](https://pm2.keymetrics.io). We use a bash script run in the `/giddy-banana` directory to launch the backend and the script looks roughly like this (the sensitive information was redacted):
+```bash
+#!/bin/bash
+export NODE_ENV=production
+export DB_HOST=<redacted>
+export DB_USER=<redacted>
+export DB_PASS=<redacted>
+export DB_SCHEMA=<redacted>
+
+npm install -g pm2
+pm2 start app.js
+```
+We can then later investigate the logs and the current status of the application via `pm2 ls`. `PM2` ensure the application is run in a daemon mode, which means `PM2` watches the node process and ensures it's relaunched when failed. The whole setup tries to minimize the downtime of the backend application.
+
 ## Contribution
 The Wiki On Fire runs on an AWS architecture and this guide outlines how to simulate the production environment locally effectively creating a virtually identical development environment.
 
