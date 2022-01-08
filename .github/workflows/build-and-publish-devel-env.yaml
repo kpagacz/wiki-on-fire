@@ -20,5 +20,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           image-name: kpagacz/wof-nginx-devel
           image-tag: latest
-          dockerfile: ./devel-nginx.Dockerfile
+          dockerfile: ./docker-compose-environments/devel-nginx.Dockerfile
           build-context: ./docker-compose-environments
