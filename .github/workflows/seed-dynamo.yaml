@@ -17,7 +17,8 @@ jobs:
         with:
           node-version: '16.x'
       - name: Set up the package dependencies
-        run: npm install
+        run: |
+          npm install
       - name: Seed the DynamoDB table
         run: node seedMostViewedArticlesTable.js
         env:
