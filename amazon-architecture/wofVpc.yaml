@@ -1,5 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Resources:
+  ### Networking
   VPC:
     Type: AWS::EC2::VPC
     Properties:
@@ -43,7 +44,7 @@ Resources:
       InternetGatewayId:
         Ref: vpcIG
 
-  routeTable:
+  publicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
       VpcId:
@@ -51,12 +52,19 @@ Resources:
 
   internetGatewayRoute:
     Type: AWS::EC2::Route
+    DependsOn: attachGatewayToVPC
     Properties:
        RouteTableId:
-         Ref: routeTable
+         Ref: publicRouteTable
        DestinationCidrBlock: 0.0.0.0/0
        GatewayId:
          Ref: vpcIG
+
+  publicRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref publicRouteTable
+      SubnetId: !Ref publicA
 
   publicSG:
     Type: AWS::EC2::SecurityGroup
@@ -77,6 +85,9 @@ Resources:
           FromPort: 22
           ToPort: 22
           CidrIp: 0.0.0.0/0
+        Tags:
+        - Key: Name
+          Value: publicResources
 
   privateSG:
     Type: AWS::EC2::SecurityGroup
@@ -84,9 +95,12 @@ Resources:
         GroupDescription: Security Group for private WoF subnets
         VpcId:
           Ref: VPC
+        Tags:
+        - Key: Name
+          Value: privateResources
 
   allowMySQLOnPrivateSG:
-    Type: 'AWS::EC2::SecurityGroupIngress'
+    Type: AWS::EC2::SecurityGroupIngress
     Properties:
         GroupId: !Ref privateSG
         IpProtocol: tcp
@@ -98,9 +112,63 @@ Resources:
     Type: AWS::EC2::VPCEndpoint
     Properties:
       RouteTableIds:
-        - !Ref routeTable
+        - !Ref publicRouteTable
       ServiceName: "com.amazonaws.eu-central-1.dynamodb"
       VpcId: !Ref VPC
+
+  ### RDS instance
+  wofDbSubnetGroup:
+      Type: AWS::RDS::DBSubnetGroup
+      Properties:
+        DBSubnetGroupDescription: The DB subnet group for the WikiOnFire Amazon RDS
+        DBSubnetGroupName: wofDbSubnetGroup
+        SubnetIds:
+        - !Ref privateA
+        - !Ref privateB
+
+  wofRds:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      AvailabilityZone: "eu-central-1b"
+      DBInstanceIdentifier: "wofMySql"
+      DBName: "db"
+      DBInstanceClass: "db.t2.micro"
+      DBSubnetGroupName: !Ref wofDbSubnetGroup
+      AllocatedStorage: 20
+      Engine: MySQL
+      EngineVersion: 8.0.16
+      MasterUsername: "{{resolve:secretsmanager:mysqlCredentials:SecretString:username}}"
+      MasterUserPassword: "{{resolve:secretsmanager:mysqlCredentials:SecretString:password}}"
+      StorageType: "gp2"
+      VPCSecurityGroups:
+      - !Ref privateSG
+
+  ### EC2 instance
+  ec2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      AvailabilityZone: eu-central-1a
+      ImageId: ami-0d527b8c289b4af7f
+      InstanceType: t2.micro
+      KeyName: wikionfire
+      SecurityGroupIds:
+        - !Ref publicSG
+      SubnetId: !Ref publicA
+      Tags:
+        - Key: app
+          Value: WoF
+        - Key: Name
+          Value: productionWofInstance
+
+  elasticIp:
+    Type: AWS::EC2::EIP
+    DependsOn: attachGatewayToVPC
+    Properties:
+      Domain: vpc
+      InstanceId: !Ref ec2Instance
+      Tags:
+        - Key: app
+          Value: WoF
 
 Outputs:
   publicSubnetAId:
