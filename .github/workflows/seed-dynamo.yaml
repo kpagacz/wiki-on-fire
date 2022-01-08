@@ -12,13 +12,17 @@ jobs:
         shell: bash
         working-directory: amazon-architecture/lambdas/download-wikimedia-data
     steps:
+      - uses: actions/checkout@v2
+
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
+
       - name: Set up the package dependencies
         run: |
           npm install
+
       - name: Seed the DynamoDB table
         run: |
           node seedMostViewedArticlesTable.js

@@ -115,3 +115,7 @@ giddy-banana/out/
 # zip files
 *.zip
 *.7z
+
+# ACT configuration
+.secrets
+.actrc
