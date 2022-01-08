@@ -1,4 +1,4 @@
-name: Update the `process-dynamo-views` AWS Lambda function
+name: Update the `processDynamoViewsLambda` AWS Lambda function
 
 on:
   push:
@@ -37,7 +37,8 @@ jobs:
       - name: Zip the directory contents and update the lambda including the environmental variables
         run: |
           zip -r function.zip .
-          aws lambda update-function-code --function-name processDynamoViewsLambda 
-            --zip-file fileb://function.zip 
+          aws lambda update-function-code \
+            --function-name processDynamoViewsLambda \
+            --zip-file fileb://function.zip \
             --environment "Variables={DB_HOST=${{secrets.DB_HOST}},DB_USER=${{secrets.DB_USER}},DB_PASS=${{secrets.DB_PASS}},DB_SCHEMA=${{secrets.DB_SCHEMA}}}"
 
