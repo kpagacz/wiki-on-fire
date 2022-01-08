@@ -69,11 +69,6 @@ giddy-banana accepts and responds in JSON.
 ### Adding tables to the database
 WikiOnFire uses `sequelize` to interact with a MySQL database. In order to add or modify a table, you need to create or modify a model file and add a respective migration file. For the quickstart guide follow [this](https://sequelize.org/master/manual/migrations.html).
 
-## Runtime environmental variables
-This application uses a number of environmental variables to modify the runtime behaviour. The main use for them is to obfuscate the sensitive information about the database, mainly the username and password. The production instance of the backend application uses the environment variables to authenticate to the database.
-* `NODE_ENV` - to detail the running environment. Default: "development". Possible values: "development", "production".
-* `DB_USER`, `DB_PASS`, `DB_SCHEMA`, `DB_HOST` to define the `mySQL` database configuration: the username, password, schema and the URL of the host recpectively.
-
 ### Creating a new endpoint
 We were developing the API following the philosophy of "design first, implementation second". The first step to implementing a new endpoint is to create a documentation for it in the Stoplight service. The documentation should include: the path of the endpoint, the path parameters, the type of the serviced HTTP request (e.g. GET, POST, etc), body parameters (if any), specification of the body parameters (type, example) and the specifications of at least two response (an OK response - code 200, and a Bad Request response - code 400). 
 
@@ -82,3 +77,8 @@ Once reviewed, the documentation serves as the endpoint specification for the im
 The division of responsibilities between a service and controller is:
 * service is HTTP agnostic - all the information needed for the correct execution should be passed as parameters to the service function, but it shouldn't have any knowledge about anything HTTP related. The service is the only resource allowed to interact with the Sequelize models (essentially the database).
 * controller services the HTTP request. It unpacks the path parameters and body parameters of the request, it also formats HTTP responses from the endpoint.
+
+## Runtime environmental variables
+This application uses a number of environmental variables to modify the runtime behaviour. The main use for them is to obfuscate the sensitive information about the database, mainly the username and password. The production instance of the backend application uses the environment variables to authenticate to the database.
+* `NODE_ENV` - to detail the running environment. Default: "development". Possible values: "development", "production".
+* `DB_USER`, `DB_PASS`, `DB_SCHEMA`, `DB_HOST` to define the `mySQL` database configuration: the username, password, schema and the URL of the host recpectively.
