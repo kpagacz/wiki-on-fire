@@ -8,7 +8,7 @@ import AWS from "aws-sdk";
 
 const handler = async () => {
   const DAYS_LIMIT = 3;
-  const ARTICLES_LIMIT = 100;
+  const ARTICLES_LIMIT = 20;
 
   const config = {
     region: "eu-central-1",

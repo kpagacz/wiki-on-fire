@@ -6,8 +6,8 @@
 import { getMostViewedArticles } from "./requests.js";
 import AWS from "aws-sdk";
 
-const DAYS_LIMIT = 100;
-const ARTICLES_LIMIT = 100;
+const DAYS_LIMIT = 7;
+const ARTICLES_LIMIT = 10;
 
 const config = {
   region: "eu-central-1",
