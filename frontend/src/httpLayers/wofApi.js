@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const env = {
-  production: "http://ec2-18-159-108-123.eu-central-1.compute.amazonaws.com/api",
+  production: "http://ec2-18-198-114-226.eu-central-1.compute.amazonaws.com/api",
   development: "http://localhost/api"
 }
 
