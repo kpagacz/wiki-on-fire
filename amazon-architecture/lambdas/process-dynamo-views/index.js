@@ -16,7 +16,12 @@ const insertArticle = async (article, conn) => {
     });
   });
 
-  const select_result = await find_promise;
+  var select_result;
+  try {
+    select_result = await find_promise;
+  } catch (err) {
+    console.log(err);
+  }
   if (select_result.length > 0) {
     return select_result[0].id;
   } else {
@@ -45,7 +50,12 @@ const insertArticle = async (article, conn) => {
       });
     });
 
-    const insert_res = await insert_promise;
+    var insert_res;
+    try {
+      insert_res = await insert_promise;
+    } catch (err) {
+      console.log(err);
+    }
     return insert_res.insertId;
   }
 };
@@ -97,7 +107,11 @@ const processRecord = async (record, conn) => {
 const processRecords = async (records, conn) => {
   await Promise.all(
     records.map(async (record) => {
-      await processRecord(record.dynamodb, conn);
+      try {
+        await processRecord(record.dynamodb, conn);
+      } catch (err) {
+        console.log(err);
+      }
     })
   );
 };
@@ -112,7 +126,11 @@ export const handler = async (event) => {
   conn.connect(async (err) => {
     if (err) console.log("Error connecting to the database");
     console.log("Database connection established");
-    await processRecords(event.Records, conn);
+    try {
+      await processRecords(event.Records, conn);
+    } catch (err) {
+      console.log(err);
+    }
     conn.end((err) => {
       if (err) console.log("Error ending the database connection");
       console.log("Database connection terminated");
