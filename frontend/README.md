@@ -28,6 +28,13 @@ npm run lint
 
 ## Build for production
 Our frontend application is a Vue.js application. The usual development server is not enough for the production requriements of any web application, therefore the frontend application requires building to a number of static HTML files and associated resources. The built static content is later hosted to clients by the Nginx server in the production environemnt (Amazon AWS).
+
+### Set up the backend endpoint and the environment variables
+The file `/src/httpsLayers/wofApi.js` contains the configuration for the production backend URL. This needs to be changed to the current backend URL. On top of that, the frontend application only uses the production endpoint when the evnironemnt variable flag `NODE_ENV` is set to `production`. We use a Bash shell to chagne the variable:
+```sh
+export NODE_ENV=production
+```
+
 ### Compiles and minifies for production
 Navigate to the frontend directory and run in the shell:
 ```
