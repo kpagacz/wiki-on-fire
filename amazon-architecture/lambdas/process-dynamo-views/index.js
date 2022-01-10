@@ -117,18 +117,25 @@ export const handler = async (event) => {
     password: process.env.DB_PASS,
     database: process.env.DB_SCHEMA,
   });
-  conn.connect(async (err) => {
-    if (err) console.log("Error connecting to the database");
-    console.log("Database connection established");
-    try {
-      await processRecords(event.Records, conn);
-    } catch (err) {
-      console.log(err);
-    }
-    conn.end((err) => {
-      if (err) console.log("Error ending the database connection");
-      console.log("Database connection terminated");
+  const connectionPromise = new Promise((resolve, reject) => {
+    conn.connect(async (err) => {
+      if (err) console.log("Error connecting to the database");
+      console.log("Database connection established");
+      try {
+        await processRecords(event.Records, conn);
+      } catch (err) {
+        console.log(err);
+      }
+      conn.end((err) => {
+        if (err) console.log("Error ending the database connection");
+        console.log("Database connection terminated");
+      });
     });
   });
+  try {
+    await connectionPromise;
+  } catch (err) {
+    console.log(err);
+  }
   return JSON.stringify({ status: 200, msg: "Success" });
 };
