@@ -16,47 +16,41 @@ const insertArticle = async (article, conn) => {
     });
   });
 
-  var select_result;
   try {
-    select_result = await find_promise;
+    const select_result = await find_promise;
+    if (select_result.length > 0) {
+      return select_result[0].id;
+    } else {
+      const sql =
+        "INSERT INTO Articles (title, link_to_contents, createdAt, updatedAt) VALUES ?";
+      const values = [
+        [
+          article,
+          "https://en.wikipedia.org/wiki/" + article,
+          new Date()
+            .toISOString()
+            .replace("-", "/")
+            .split("T")[0]
+            .replace("-", "/"),
+          new Date()
+            .toISOString()
+            .replace("-", "/")
+            .split("T")[0]
+            .replace("-", "/"),
+        ],
+      ];
+      const insert_promise = new Promise((resolve, reject) => {
+        conn.query(sql, [values], function (err, result) {
+          if (err) reject(err);
+          else resolve(result);
+        });
+      });
+
+      const insert_res = await insert_promise;
+      return insert_res.insertId;
+    }
   } catch (err) {
     console.log(err);
-  }
-  if (select_result.length > 0) {
-    return select_result[0].id;
-  } else {
-    const sql =
-      "INSERT INTO Articles (title, link_to_contents, createdAt, updatedAt) VALUES ?";
-    const values = [
-      [
-        article,
-        "https://en.wikipedia.org/wiki/" + article,
-        new Date()
-          .toISOString()
-          .replace("-", "/")
-          .split("T")[0]
-          .replace("-", "/"),
-        new Date()
-          .toISOString()
-          .replace("-", "/")
-          .split("T")[0]
-          .replace("-", "/"),
-      ],
-    ];
-    const insert_promise = new Promise((resolve, reject) => {
-      conn.query(sql, [values], function (err, result) {
-        if (err) reject(err);
-        else resolve(result);
-      });
-    });
-
-    var insert_res;
-    try {
-      insert_res = await insert_promise;
-    } catch (err) {
-      console.log(err);
-    }
-    return insert_res.insertId;
   }
 };
 
